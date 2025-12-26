@@ -20,12 +20,16 @@
 
 title: Xiao-daihua
 email: yuliu21012858@gmail.com
-description: >- # this means to ignore newlines until "baseurl:"
-  This is an Awsome Blog 
+description: This is my personal blog!!!
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 # twitter_username: 
 # github_username:  jekyll
+
+collections:
+  database:
+    output: true
+
 
 # Build settings
 theme: minima
