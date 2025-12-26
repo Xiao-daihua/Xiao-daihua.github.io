@@ -5,4 +5,10 @@
 layout: home
 ---
 
-I am Yu Liu, a current master's student majoring in physics in EPFL. I graduated from the department of physics in Tsinghua University. My research interest is in the field of quantum gravity, especially in the framework of AdS/CFT correspondence. 
+![](assets/hyperdisk.png)
+
+I’m Yu Liu, a master’s student in Physics at EPFL, and a graduate of Tsinghua University. My research focuses on quantum gravity, especially the AdS/CFT correspondence. 
+
+- Email: yuliu21012858@gmail.com
+
+I'm also a fan of broadway musicals and skiing! See my page on musicals and my skiing blog.
