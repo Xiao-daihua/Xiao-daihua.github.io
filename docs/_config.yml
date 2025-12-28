@@ -25,11 +25,16 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 # twitter_username: 
 # github_username:  jekyll
+header_pages:
+  - database.markdown
+  - note.markdown
+  - musical.markdown
+  - about.markdown
+
 
 collections:
   database:
     output: true
-
 
 # Build settings
 theme: minima

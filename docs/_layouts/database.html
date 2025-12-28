@@ -3,20 +3,16 @@ layout: default
 ---
 
 <h1>{{ page.title }}</h1>
+<div class="page-content">
+  {{ content }}
+</div>
 
 {% assign all_posts = site.database | sort: "title" %}
 
 {% comment %}
-将所有 tag 收集起来
+收集所有 tags 并去重
 {% endcomment %}
-{% assign tags = "" | split: "" %}
-{% for post in all_posts %}
-  {% for tag in post.tags %}
-    {% unless tags contains tag %}
-      {% assign tags = tags | push: tag %}
-    {% endunless %}
-  {% endfor %}
-{% endfor %}
+{% assign tags = all_posts | map: "tags" | join: "," | split: "," | uniq %}
 
 {% comment %}
 按 tag 输出文章列表
