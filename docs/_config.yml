@@ -35,6 +35,11 @@ header_pages:
 collections:
   database:
     output: true
+    permalink: /database/:slug/
+
+  papers:
+    output: true
+    permalink: /papers/:slug/
 
 # Build settings
 theme: minima

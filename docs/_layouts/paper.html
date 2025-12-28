@@ -1,0 +1,41 @@
+---
+layout: default
+---
+
+<article>
+  <h1>{{ page.title }}</h1>
+
+  {% if page.authors %}
+  <p><strong>Authors:</strong> {{ page.authors | join: ", " }}</p>
+  {% endif %}
+
+  {% if page.year %}
+  <p><strong>Year:</strong> {{ page.year }}</p>
+  {% endif %}
+
+  {% if page.arxiv %}
+  <p><strong>arXiv:</strong> 
+    <a href="https://arxiv.org/abs/{{ page.arxiv }}" target="_blank">{{ page.arxiv }}</a>
+  </p>
+  {% endif %}
+
+  {% if page.zotero %}
+  <p><strong>Zotero:</strong> 
+    <a href="{{ page.zotero }}" target="_blank">Open in Zotero</a>
+  </p>
+  {% endif %}
+
+  {% if page.abstract %}
+  <h2>Abstract</h2>
+  <p>{{ page.abstract }}</p>
+  {% endif %}
+
+  <hr>
+
+  <div>
+    {{ content }}
+  </div>
+
+  <p><a href="javascript:history.back()">⟵ Back to previous page</a></p>
+</article>
+

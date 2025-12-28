@@ -14,3 +14,5 @@ This is a note about 2-dimensional conformal field theory (CFT) and its connecti
 - Virasoro algebra and central charge
 - Applications to black hole entropy
 
+研究细节见 [Maldacena 2001](/papers/test).
+
