@@ -2,6 +2,25 @@
 layout: default
 ---
 
+<style>
+.back-btn {
+  display: inline-block;
+  margin-top: 30px;
+  padding: 6px 12px;
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-decoration: none;
+  color: #333;
+  transition: background 0.2s;
+}
+
+.back-btn:hover {
+  background-color: #ddd;
+}
+</style>
+
+
 <article>
   <h1>{{ page.title }}</h1>
 
@@ -36,6 +55,10 @@ layout: default
     {{ content }}
   </div>
 
-  <p><a href="javascript:history.back()">⟵ Back to previous page</a></p>
+  <!-- <p><a href="javascript:history.back()">⟵ Back to previous page</a></p> -->
+
+  <!-- 返回按钮 -->
+<a href="javascript:history.back()" class="back-btn">⟵ Back</a>
+
 </article>
 

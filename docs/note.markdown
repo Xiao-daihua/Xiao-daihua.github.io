@@ -28,6 +28,7 @@ I plan to post all notes in English in the future, although some earlier notes a
   * [3D Gravity](#3d-gravity)
 
 <!-- mtoc-end -->
+---
 
 # Lecture Notes
 
@@ -39,6 +40,7 @@ Here are the lecture notes I took during my master’s studies at EPFL.
 - [Quantum Mechanics 3](https://github.com/Xiao-daihua/EPFL_course/raw/main/QM_3_course/main.pdf)  (in Chinese)
 - [Quantum Information Theory](https://github.com/Xiao-daihua/EPFL_course/raw/main/QI_course/main.pdf) (in Chinese)
 
+---
 
 # Learning Notes
 
