@@ -37,7 +37,7 @@ Here are the lecture notes I took during my master’s studies at EPFL.
 - [Quantum Field Theory 1](https://github.com/Xiao-daihua/EPFL_course/raw/main/QFT_1_course/main.pdf) (in Chinese)
 - [General Relativity and Cosmology 1](https://github.com/Xiao-daihua/EPFL_course/raw/main/GR_1_course/main.pdf)    (in Chinese)
 - [Quantum Mechanics 3](https://github.com/Xiao-daihua/EPFL_course/raw/main/QM_3_course/main.pdf)  (in Chinese)
-- [Quantum Information Theory](https://github.com/Xiao-daihua/EPFL_course/blob/main/QI_course/main.pdf) (in Chinese)
+- [Quantum Information Theory](https://github.com/Xiao-daihua/EPFL_course/raw/main/QI_course/main.pdf) (in Chinese)
 
 
 # Learning Notes
