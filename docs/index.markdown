@@ -20,7 +20,7 @@ Hi! I’m **Yu Liu** — currently a master’s student in Physics at EPFL, and 
 ## Physics Pages
 Here are some of my physics-related pages:
 - [Notes](/note.markdown): A collection of my study notes on various physics topics as well as lecture notes from courses I've taken.
-- [Papers Database](/database.markdown): A database of research papers on various topics that I find interesting. 
+- [Papers Database](/data.markdown): A database of research papers on various topics that I find interesting. 
 
 
 ##  Beyond Physics

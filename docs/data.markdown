@@ -11,5 +11,3 @@ Welcome to my database of research papers on various topics in theoretical physi
 
 ## How to use this database?
 
-[data](/database/0001classical3d)
-

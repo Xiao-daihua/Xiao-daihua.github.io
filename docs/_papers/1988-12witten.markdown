@@ -1,6 +1,0 @@
----
-layout: paper
-title: "hihihi"
-date: 2025-12-29 13:52:59
-tags: [Thisi is good]
----
