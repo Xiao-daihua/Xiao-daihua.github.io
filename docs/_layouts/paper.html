@@ -55,10 +55,21 @@ layout: default
     {{ content }}
   </div>
 
-  <!-- <p><a href="javascript:history.back()">⟵ Back to previous page</a></p> -->
+
 
   <!-- 返回按钮 -->
 <a href="javascript:history.back()" class="back-btn">⟵ Back</a>
+
+  <!-- 引用该 paper 的页面 -->
+  {% assign citing_pages = site.pages | where_exp:"p","p.references contains page.url" %}
+  {% if citing_pages.size > 0 %}
+    <h2>Referenced by:</h2>
+    <ul>
+      {% for p in citing_pages %}
+        <li><a href="{{ p.url }}">{{ p.title }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
 
 </article>
 

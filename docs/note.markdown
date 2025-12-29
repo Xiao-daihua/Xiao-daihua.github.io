@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Note
+title: Notes
 ---
 
 
@@ -51,7 +51,6 @@ These are the learning notes I compiled while exploring a range of topics in the
 
 
 ## Basic QFT
-
 
 
 
