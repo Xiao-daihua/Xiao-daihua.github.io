@@ -4,7 +4,6 @@ title: Notes
 ---
 
 
-# Welcome to my note page!
 Hi there! Welcome to my notes page!
 
 Here I will share most of my course notes from my master’s studies at EPFL. I also plan to post notes on a variety of topics in Theoretical Physics and Mathematics. 
@@ -28,7 +27,6 @@ I plan to post all notes in English in the future, although some earlier notes a
   * [3D Gravity](#3d-gravity)
 
 <!-- mtoc-end -->
----
 
 # Lecture Notes
 
@@ -40,7 +38,6 @@ Here are the lecture notes I took during my master’s studies at EPFL.
 - [Quantum Mechanics 3](https://github.com/Xiao-daihua/EPFL_course/raw/main/QM_3_course/main.pdf)  (in Chinese)
 - [Quantum Information Theory](https://github.com/Xiao-daihua/EPFL_course/raw/main/QI_course/main.pdf) (in Chinese)
 
----
 
 # Learning Notes
 
