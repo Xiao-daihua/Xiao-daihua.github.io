@@ -9,6 +9,7 @@ It has beenm a long time since people starts to work on quantizing gravitational
 In particular, 2+1 dimensional gravity has been studied extensively since it is much simpler than the physical 3+1 dimensional case, yet still shares many important features.
 
 
+## Classical Gravity
 
 ### Chern-Simons Formulation
 
@@ -30,3 +31,8 @@ $$
 
 Several papers give detailed discussions on this topic:
 - [2007-6mess](/papers/2007-6mess/)
+- 
+
+## Early Quantization Attempts
+
+
