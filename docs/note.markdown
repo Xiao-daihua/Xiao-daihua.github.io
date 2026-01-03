@@ -60,7 +60,7 @@ These are the learning notes I compiled while exploring a range of topics in the
 
 ## 3D Gravity
 
-
+- [Initial Notes on 3D Gravity](https://github.com/Xiao-daihua/Phys_Learning/raw/main/init_3d_grav_TQFT/main.pdf) This is a poorly written note on 3D gravity and Virasoro TQFT. Though it includes some useful results in complex geometry.
 
 
 
