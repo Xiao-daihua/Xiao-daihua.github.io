@@ -19,19 +19,13 @@ I plan to post all notes in English in the future, although some earlier notes a
 <!-- mtoc-start -->
 
 * [Lecture Notes](#lecture-notes)
-  * [2025 Fall Semester](#2025-fall-semester)
 * [Learning Notes](#learning-notes)
-  * [Mathematics](#mathematics)
-  * [Basic QFT](#basic-qft)
-  * [CFT](#cft)
-  * [3D Gravity](#3d-gravity)
 
 <!-- mtoc-end -->
 
 # Lecture Notes
 
 Here are the lecture notes I took during my master’s studies at EPFL.
-### 2025 Fall Semester
 
 - [Quantum Field Theory 1](https://github.com/Xiao-daihua/EPFL_course/raw/main/QFT_1_course/main.pdf) (in Chinese)
 - [General Relativity and Cosmology 1](https://github.com/Xiao-daihua/EPFL_course/raw/main/GR_1_course/main.pdf)    (in Chinese)
@@ -43,24 +37,15 @@ Here are the lecture notes I took during my master’s studies at EPFL.
 
 These are the learning notes I compiled while exploring a range of topics in theoretical physics and mathematics. They reflect my ongoing study, insights, and attempts to understand complex concepts across these fields.
 
-## Mathematics
-
-
-
-## Basic QFT
-
-
-
-
-## CFT
-
+Here are my notes on 2-Dimensional Conformal Field Theory (2D CFT):
 - [Initial Notes on 2D CFT](https://github.com/Xiao-daihua/Phys_Learning/raw/main/CFT_note_1/CFT.pdf) (in Chinese) This is an initial learning note which is poorly organized, it mainly follows the idea of Polchinski's book and Ribault's lecture notes. I will rewrite a better organized note in the future.
-- [Fundamentals of 2D CFT](https://github.com/Xiao-daihua/Phys_Learning/raw/main/Minimal_CFT/main.pdf) This is a better organized note on 2D CFT, mainly following the idea of Di Francesco's book. It provides a minimal introduction to 2D CFT.
-- [Initial Notes on BCFT](https://github.com/Xiao-daihua/Phys_Learning/raw/main/Primary_BCFT/main.pdf) This is my initial study note on Boundary Conformal Field Theory (BCFT).
+- [Fundamentals 2D CFT](https://github.com/Xiao-daihua/Phys_Learning/raw/main/Minimal_CFT/main.pdf) This is a better organized note on 2D CFT, mainly following the idea of Di Francesco's book. It provides a minimal introduction to 2D CFT.
+- [Notes on BCFT](https://github.com/Xiao-daihua/Phys_Learning/raw/main/Primary_BCFT/main.pdf) This is my initial study note on Boundary Conformal Field Theory (BCFT).
 
-## 3D Gravity
 
-- [Initial Notes on 3D Gravity](https://github.com/Xiao-daihua/Phys_Learning/raw/main/init_3d_grav_TQFT/main.pdf) This is a poorly written note on 3D gravity and Virasoro TQFT. Though it includes some useful results in complex geometry.
+Here are my notes on 2+1 dimensional gravity:
+- [2+1 Dimensional Gravity and Chern-Simons Theory](https://github.com/Xiao-daihua/Phys_Learning/raw/main/2%2B1grav_CS/main.pdf) This is a note on 2+1 dimensional gravity and its relation to Chern-Simons theory.
+
 
 
 

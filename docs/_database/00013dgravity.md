@@ -14,7 +14,8 @@ In particular, 2+1 dimensional gravity has been studied extensively since it is 
 ### Chern-Simons Formulation
 
 It has been revealed that the 2+1 dimensional gravity can be reformulated as a Chern-Simons gauge theory:
-- [1988-12witten](/papers/1988-12witten/) One of the first attempts to reformulate 2+1 dimensional gravity as a Chern-Simons theory and quantize it.
+- [1988-12witten](/papers/1988-12witten/) One of the first attempts to reformulate 2+1 dimensional gravity as a Chern-Simons theory and quantize it. 
+
 
 ### Classical Phase Space
 
