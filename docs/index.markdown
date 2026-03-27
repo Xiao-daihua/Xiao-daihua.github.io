@@ -24,7 +24,7 @@ Here are some of my physics-related pages:
 
 ##  Beyond Physics
 Outside the lab, I’m a **Broadway musical** enthusiast and I love **skiing**. Feel free to explore:
--  [Musicals](/musical.markdown) blog: This is a blog where I share my understandings and reviews of various Broadway musicals (while mostly broadway ones). Unfortunately, it's currently only available in Chinese.
+-  [Musicals](/musical.markdown) blog: This is a blog where I share my reviews of various Musicals (while mostly broadway ones). Unfortunately, it's currently only available in Chinese.
 
 
 ##  Contact Me
