@@ -8,7 +8,7 @@ title: Welcome to Xiao-daihua's Blog
 
 <!-- ![](assets/hyperdisk.png) -->
 
-<p style="text-align: left; margin: 80px 0; padding-left: 250px;">
+<p style="text-align: center; margin: 80px 0;">
   <img src="assets/hyperdisk.png" width="200">
 </p>
 
