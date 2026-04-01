@@ -44,8 +44,8 @@ Here are my notes on *Quantum Field Theory (QFT)*:
 
 
 Here are my notes on *2-Dimensional Conformal Field Theory (2D CFT)*:
-- [Minimal 2D CFT](https://mozilla.github.io/pdf.js/web/viewer.html?file=https://cdn.jsdelivr.net/gh/Xiao-daihua/Phys_Learning@main/Minimal_CFT/main.pdf) This is a concise note on 2D Conformal Field Theory (CFT), covering the basics and some key results. The idea flow is originally from the yellow book, yet I think I have put back some of my own understanding and insights into it (beware).
-- [Fundamental BCFT](https://mozilla.github.io/pdf.js/web/viewer.html?file=https://cdn.jsdelivr.net/gh/Xiao-daihua/Phys_Learning@main/Primary_BCFT/main.pdf) This is my study note on Boundary Conformal Field Theory (BCFT). It mainly focus on the boundary state formalism. If I have time its also possible to include some topics on gluing conditions and calculation of boundary and bulk OPEs.
+- [Basic 2D CFT](https://mozilla.github.io/pdf.js/web/viewer.html?file=https://cdn.jsdelivr.net/gh/Xiao-daihua/Phys_Learning@main/Minimal_CFT/main.pdf) This is a concise note on 2D Conformal Field Theory (CFT), covering the basics and some key results. The idea flow is originally from the yellow book. In fact personally I don't think this is a very good way of understanding 2D CFT, but it is a good starting point for beginners. Once one have a basic feeling for CFT, I'd prefer turn to the Boostrapping construction of CFT, which is more systematic.
+- [Basic BCFT](https://mozilla.github.io/pdf.js/web/viewer.html?file=https://cdn.jsdelivr.net/gh/Xiao-daihua/Phys_Learning@main/Primary_BCFT/main.pdf) This is my study note on Boundary Conformal Field Theory (BCFT). It mainly focus on the boundary state formalism. If I have time its also possible to include some topics on gluing conditions and calculation of boundary and bulk OPEs.
 - [Conformal Blocks Crossing](https://mozilla.github.io/pdf.js/web/viewer.html?file=https://cdn.jsdelivr.net/gh/Xiao-daihua/Phys_Learning@main/RCFT_MS/main.pdf) Thi is a note on one of the most important feature of 2D CFT, the crossing symmetry of conformal blocks. 
 
 
