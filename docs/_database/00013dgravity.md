@@ -14,8 +14,6 @@ It has been revealed that the 2+1 dimensional gravity can be reformulated as a C
 
 - [1988-12witten](/papers/1988-12witten/) One of the first attempts to reformulate 2+1 dimensional gravity as a Chern-Simons theory and quantize it.
 
-test [test](/docs/_papers/test.md)
-
 ## Classical Phase Space
 
 It is commonly used to study the 2+1 dimensional gravity using a constriant first quantization. Thus, it is important to understand the classical phase space of the theory.
