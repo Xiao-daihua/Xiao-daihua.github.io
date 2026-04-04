@@ -74,11 +74,17 @@ layout: default
   margin: 0;
 }
 #search-results li {
-  margin: 4px 0;
+  margin: 8px 0;
 }
 .search-highlight {
   background: #ff0;
   font-weight: bold;
+}
+.search-snippet {
+  font-size: 0.85em;
+  color: #555;
+  margin-top: 3px;
+  line-height: 1.4;
 }
 #search-no-result {
   display: none;
@@ -116,7 +122,7 @@ layout: default
     <h1>{{ page.title }}</h1>
     {{ content }}
 
-    <input type="text" id="search-box" placeholder="搜索标题或 tag…" oninput="doSearch(this.value)" />
+    <input type="text" id="search-box" placeholder="搜索标题、tag 或正文…" />
 
     <div id="search-results">
       <strong>搜索结果：</strong>
@@ -138,23 +144,24 @@ layout: default
       </ul>
       {% endfor %}
     </div>
-
-    <!-- 用逐条 Liquid 输出拼装 JS 数组，避免 jsonify 对 tags 数组的兼容问题 -->
-    <script>
-    var ALL_POSTS = [];
-    {% assign all_posts = site.database | sort: "title" %}
-    {% for post in all_posts %}
-    ALL_POSTS.push({
-      title: {{ post.title | jsonify }},
-      url: {{ post.url | relative_url | jsonify }},
-      tags: [{% for tag in post.tags %}{{ tag | jsonify }}{% unless forloop.last %},{% endunless %}{% endfor %}]
-    });
-    {% endfor %}
-    </script>
   </div>
 </div>
 
+<!-- 所有脚本统一放在最底部，保证 DOM 已存在 -->
 <script>
+/* ── 数据注入 ── */
+var ALL_POSTS = [];
+{% assign all_posts = site.database | sort: "title" %}
+{% for post in all_posts %}
+ALL_POSTS.push({
+  title: {{ post.title | jsonify }},
+  url: {{ post.url | relative_url | jsonify }},
+  tags: [{% for tag in post.tags %}{{ tag | jsonify }}{% unless forloop.last %},{% endunless %}{% endfor %}],
+  content: {{ post.content | strip_html | normalize_whitespace | truncate: 8000 | jsonify }}
+});
+{% endfor %}
+
+/* ── sidebar / group 折叠 ── */
 function toggleSidebar() {
   document.getElementById('sidebar').classList.toggle('collapsed');
 }
@@ -162,6 +169,18 @@ function toggleGroup(letter) {
   document.getElementById('group-' + letter).classList.toggle('collapsed');
 }
 
+/* ── 工具函数 ── */
+function escapeHtml(str) {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+function escapeRegex(str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+/* 模糊匹配（字符顺序，用于标题和 tag） */
 function fuzzyMatch(str, query) {
   str = str.toLowerCase();
   query = query.toLowerCase();
@@ -174,31 +193,49 @@ function fuzzyMatch(str, query) {
 }
 
 function fuzzyHighlight(str, query) {
-  query = query.toLowerCase();
   var result = '';
   var qi = 0;
+  var ql = query.toLowerCase();
   for (var si = 0; si < str.length; si++) {
-    if (qi < query.length && str[si].toLowerCase() === query[qi]) {
-      result += '<span class="search-highlight">' + str[si] + '</span>';
+    if (qi < ql.length && str[si].toLowerCase() === ql[qi]) {
+      result += '<span class="search-highlight">' + escapeHtml(str[si]) + '</span>';
       qi++;
     } else {
-      result += str[si];
+      result += escapeHtml(str[si]);
     }
   }
   return result;
 }
 
+/* 正文精确子串匹配，返回高亮片段 */
+function contentSearch(text, query) {
+  if (!text || !query) return null;
+  var idx = text.toLowerCase().indexOf(query.toLowerCase());
+  if (idx === -1) return null;
+  var start = Math.max(0, idx - 60);
+  var end = Math.min(text.length, idx + query.length + 100);
+  var snippet = (start > 0 ? '…' : '') +
+    escapeHtml(text.slice(start, end)) +
+    (end < text.length ? '…' : '');
+  snippet = snippet.replace(
+    new RegExp('(' + escapeRegex(escapeHtml(query)) + ')', 'gi'),
+    '<span class="search-highlight">$1</span>'
+  );
+  return snippet;
+}
+
+/* ── 主搜索逻辑 ── */
 function doSearch(query) {
-  var resultsDiv = document.getElementById('search-results');
-  var noResult = document.getElementById('search-no-result');
-  var list = document.getElementById('search-list');
+  var resultsDiv  = document.getElementById('search-results');
+  var noResult    = document.getElementById('search-no-result');
+  var list        = document.getElementById('search-list');
   var mainContent = document.getElementById('main-content');
 
   query = query.trim();
 
   if (!query) {
-    resultsDiv.style.display = 'none';
-    noResult.style.display = 'none';
+    resultsDiv.style.display  = 'none';
+    noResult.style.display    = 'none';
     mainContent.style.display = '';
     return;
   }
@@ -207,12 +244,15 @@ function doSearch(query) {
   list.innerHTML = '';
 
   var matched = [];
+
   for (var i = 0; i < ALL_POSTS.length; i++) {
     var post = ALL_POSTS[i];
+
     var titleMatch = fuzzyMatch(post.title, query);
+
     var tagMatch = false;
     var matchedTags = [];
-    if (post.tags && post.tags.length > 0) {
+    if (post.tags) {
       for (var j = 0; j < post.tags.length; j++) {
         if (post.tags[j] && fuzzyMatch(post.tags[j], query)) {
           tagMatch = true;
@@ -220,32 +260,62 @@ function doSearch(query) {
         }
       }
     }
-    if (titleMatch || tagMatch) {
-      matched.push({ post: post, titleMatch: titleMatch, tagMatch: tagMatch, matchedTags: matchedTags });
+
+    var snippet = contentSearch(post.content, query);
+    var contentMatch = snippet !== null;
+
+    if (titleMatch || tagMatch || contentMatch) {
+      matched.push({
+        post: post,
+        titleMatch: titleMatch,
+        tagMatch: tagMatch,
+        matchedTags: matchedTags,
+        contentMatch: contentMatch,
+        snippet: snippet
+      });
     }
   }
 
   if (matched.length === 0) {
     resultsDiv.style.display = 'none';
-    noResult.style.display = '';
+    noResult.style.display   = '';
     return;
   }
 
   noResult.style.display = 'none';
+
   for (var k = 0; k < matched.length; k++) {
-    var m = matched[k];
+    var m  = matched[k];
     var li = document.createElement('li');
-    var titleHtml = m.titleMatch ? fuzzyHighlight(m.post.title, query) : m.post.title;
+
+    var titleHtml = m.titleMatch
+      ? fuzzyHighlight(m.post.title, query)
+      : escapeHtml(m.post.title);
+
     var tagHtml = '';
     if (m.tagMatch) {
-      var tagParts = m.matchedTags.map(function(t) {
-        return fuzzyHighlight(t, query);
-      });
-      tagHtml = ' <small>tag: ' + tagParts.join(', ') + '</small>';
+      tagHtml = ' <small>tag: ' +
+        m.matchedTags.map(function(t) { return fuzzyHighlight(t, query); }).join(', ') +
+        '</small>';
     }
-    li.innerHTML = '<a href="' + m.post.url + '">' + titleHtml + '</a>' + tagHtml;
+
+    var snippetHtml = '';
+    if (m.contentMatch && m.snippet) {
+      snippetHtml = '<div class="search-snippet">' + m.snippet + '</div>';
+    }
+
+    li.innerHTML =
+      '<a href="' + m.post.url + '">' + titleHtml + '</a>' +
+      tagHtml + snippetHtml;
+
     list.appendChild(li);
   }
+
   resultsDiv.style.display = '';
 }
+
+/* ── 绑定搜索框事件（DOM 已存在，直接绑定）── */
+document.getElementById('search-box').addEventListener('input', function() {
+  doSearch(this.value);
+});
 </script>
