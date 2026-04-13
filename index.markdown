@@ -9,7 +9,7 @@ title: Welcome to Xiao-daihua's Blog
 <!-- ![](assets/hyperdisk.png) -->
 
 <p style="text-align: center; margin: 80px 0;">
-  <img src="assets/hyperdisk.png" width="200">
+  <img src="assets/hyperdisk.png" width="200" alt="hyperdisk">
 </p>
 
 Hi! I’m **Yu Liu** — currently a master’s student in Physics at EPFL, and a graduate of Tsinghua University. I'm interested in quantum gravity, especially the AdS/CFT correspondence. More recently, I'm also interested in CFTs and their applications in condensed matter physics.
