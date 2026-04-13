@@ -1,0 +1,318 @@
+---
+layout: default
+---
+<style>
+.page-wrapper {
+  display: flex;
+}
+.sidebar {
+  width: 240px;
+  min-width: 0;
+  max-height: calc(100vh - 60px);
+  overflow-y: auto;
+  border-right: 1px solid var(--border, #ccc);
+  padding: 14px 10px;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  position: sticky;
+  top: 60px;
+  align-self: flex-start;
+}
+.sidebar.collapsed {
+  width: 0;
+  padding: 0;
+  border: none;
+  overflow: hidden;
+}
+.db-page-content {
+  flex: 1;
+  padding: 0 28px 24px;
+  min-width: 0;
+}
+.sidebar h3 {
+  margin: 10px 0 5px;
+  cursor: pointer;
+}
+.sidebar ul {
+  list-style: none;
+  padding-left: 12px;
+  display: block;
+  margin: 0 0 8px 0;
+}
+.sidebar ul.collapsed {
+  display: none;
+}
+.sidebar ul li {
+  margin: 3px 0;
+}
+.toggle-btn {
+  position: fixed;
+  left: 0;
+  top: 70px;
+  background: var(--surface, #fff);
+  color: var(--text-muted, #666);
+  border: 1px solid var(--border, #ccc);
+  padding: 5px 10px;
+  cursor: pointer;
+  z-index: 1000;
+  border-radius: 0 6px 6px 0;
+  font-size: 0.78rem;
+}
+#search-box {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 16px;
+  padding: 9px 16px;
+  font-size: 0.95em;
+  border: 1px solid var(--border, #ccc);
+  border-radius: 24px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background: var(--surface, #fff);
+  color: var(--text, #111);
+}
+#search-box:focus {
+  border-color: var(--accent, #5b4fcf);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent, #5b4fcf) 15%, transparent);
+}
+#search-results {
+  display: none;
+  margin-bottom: 20px;
+}
+#search-results > .search-header {
+  font-size: 0.82em;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+  font-family: var(--font-mono, monospace);
+}
+#search-results ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+#search-results li {
+  margin: 0;
+  padding: 10px 14px;
+  border: 1px solid var(--border, #ddd);
+  border-radius: 8px;
+  margin-bottom: 8px;
+  background: var(--surface, #fff);
+  transition: border-color 0.15s;
+}
+#search-results li:hover {
+  border-color: var(--accent, #5b4fcf);
+}
+.search-highlight {
+  background: color-mix(in srgb, var(--accent, #5b4fcf) 18%, transparent);
+  color: var(--accent, #5b4fcf);
+  font-weight: 600;
+  border-radius: 2px;
+  padding: 0 2px;
+}
+.search-snippet {
+  font-size: 0.83em;
+  color: var(--text-muted, #555);
+  margin-top: 4px;
+  line-height: 1.5;
+}
+.search-tag-badge {
+  display: inline-block;
+  font-size: 0.72em;
+  font-family: var(--font-mono, monospace);
+  background: color-mix(in srgb, var(--accent, #5b4fcf) 12%, transparent);
+  color: var(--accent, #5b4fcf);
+  border: 1px solid color-mix(in srgb, var(--accent, #5b4fcf) 30%, transparent);
+  border-radius: 10px;
+  padding: 1px 8px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+#search-no-result {
+  display: none;
+  color: var(--text-muted, #888);
+  margin-bottom: 20px;
+  font-size: 0.9em;
+}
+#topic-list h2 {
+  font-size: 1.5rem;
+  margin-top: 1.8rem;
+}
+#topic-list ul {
+  margin-top: 0.4rem;
+}
+</style>
+
+<div class="toggle-btn" onclick="toggleSidebar()">☰ Index</div>
+
+<div class="page-wrapper">
+  <aside class="sidebar collapsed" id="sidebar">
+    {% assign sorted_topics = site.database | sort: "title" %}
+    {% assign letters = "" | split: "" %}
+    {% for post in sorted_topics %}
+      {% assign first_letter = post.title | slice: 0, 1 | upcase %}
+      {% unless letters contains first_letter %}
+        {% assign letters = letters | push: first_letter %}
+      {% endunless %}
+    {% endfor %}
+    {% for letter in letters %}
+      <h3 onclick="toggleGroup('{{ letter }}')">{{ letter }}</h3>
+      <ul id="group-{{ letter }}">
+        {% for post in sorted_topics %}
+          {% assign first_letter = post.title | slice: 0,1 | upcase %}
+          {% if first_letter == letter %}
+            <li><a href="{{ post.url }}">{{ post.title }}</a></li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    {% endfor %}
+  </aside>
+
+  <div class="db-page-content" id="pageContent">
+    <article class="post">
+      <header class="post-header">
+        <h1 class="post-title">{{ page.title | escape }}</h1>
+      </header>
+      <div class="post-content">
+        {{ content }}
+
+    <input type="text" id="search-box" placeholder="Search topics, tags, or content…" autocomplete="off" />
+
+    <div id="search-results">
+      <div class="search-header" id="search-count"></div>
+      <ul id="search-list"></ul>
+    </div>
+    <div id="search-no-result">No results found.</div>
+
+    <div id="topic-list">
+      {% assign all_topics = site.database | sort: "title" %}
+      {% assign all_tags = all_topics | map: "tags" | join: "," | split: "," | uniq %}
+      {% for tag in all_tags %}
+        <h2 data-tag="{{ tag | strip }}">{{ tag | strip }}</h2>
+        <ul>
+          {% for topic in all_topics %}
+            {% if topic.tags contains tag %}
+              <li><a href="{{ topic.url | relative_url }}">{{ topic.title }}</a></li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      {% endfor %}
+    </div>
+      </div>
+    </article>
+  </div>
+</div>
+
+<script>
+/* ── Inject all topics with full content ── */
+var ALL_TOPICS = [];
+{% assign all_topics = site.database | sort: "title" %}
+{% for topic in all_topics %}
+ALL_TOPICS.push({
+  title: {{ topic.title | jsonify }},
+  url:   {{ topic.url | relative_url | jsonify }},
+  tags:  [{% for tag in topic.tags %}{{ tag | strip | jsonify }}{% unless forloop.last %},{% endunless %}{% endfor %}],
+  content: {{ topic.content | strip_html | normalize_whitespace | truncate: 12000 | jsonify }}
+});
+{% endfor %}
+
+/* ── Sidebar toggles ── */
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('collapsed');
+}
+function toggleGroup(letter) {
+  var el = document.getElementById('group-' + letter);
+  if (el) el.classList.toggle('collapsed');
+}
+
+/* ── Utils ── */
+function escapeHtml(s) {
+  return String(s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function escapeRe(s) { return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); }
+
+/* Fuzzy match: all query chars appear in order in str */
+function fuzzyMatch(str, q) {
+  str = str.toLowerCase(); q = q.toLowerCase();
+  var si = 0, qi = 0;
+  while (si < str.length && qi < q.length) { if (str[si]===q[qi]) qi++; si++; }
+  return qi === q.length;
+}
+
+/* Highlight matched chars for fuzzy */
+function fuzzyHL(str, q) {
+  var out='', qi=0, ql=q.toLowerCase();
+  for (var i=0;i<str.length;i++) {
+    if (qi<ql.length && str[i].toLowerCase()===ql[qi]) {
+      out += '<span class="search-highlight">'+escapeHtml(str[i])+'</span>'; qi++;
+    } else { out += escapeHtml(str[i]); }
+  }
+  return out;
+}
+
+/* Substring match in content, returns highlighted snippet */
+function contentHL(text, q) {
+  if (!text||!q) return null;
+  var idx = text.toLowerCase().indexOf(q.toLowerCase());
+  if (idx===-1) return null;
+  var s = Math.max(0,idx-60), e = Math.min(text.length, idx+q.length+120);
+  var raw = (s>0?'…':'')+text.slice(s,e)+(e<text.length?'…':'');
+  return escapeHtml(raw).replace(
+    new RegExp('('+escapeRe(escapeHtml(q))+')','gi'),
+    '<span class="search-highlight">$1</span>'
+  );
+}
+
+/* ── Main search ── */
+function doSearch(q) {
+  var resDiv   = document.getElementById('search-results');
+  var noRes    = document.getElementById('search-no-result');
+  var list     = document.getElementById('search-list');
+  var mainList = document.getElementById('topic-list');
+  var countEl  = document.getElementById('search-count');
+
+  q = q.trim();
+  if (!q) {
+    resDiv.style.display = noRes.style.display = 'none';
+    mainList.style.display = '';
+    return;
+  }
+  mainList.style.display = 'none';
+  list.innerHTML = '';
+
+  var matched = [];
+  for (var i=0;i<ALL_TOPICS.length;i++) {
+    var t = ALL_TOPICS[i];
+    var titleHit   = fuzzyMatch(t.title, q);
+    var tagHits    = (t.tags||[]).filter(function(tg){ return fuzzyMatch(tg,q); });
+    var snippet    = contentHL(t.content, q);
+    if (titleHit || tagHits.length || snippet) {
+      matched.push({ t:t, titleHit:titleHit, tagHits:tagHits, snippet:snippet });
+    }
+  }
+
+  if (!matched.length) {
+    resDiv.style.display = 'none';
+    noRes.style.display = '';
+    return;
+  }
+  noRes.style.display = 'none';
+  countEl.textContent = matched.length + ' result' + (matched.length!==1?'s':'') + ' for "' + q + '"';
+
+  for (var k=0;k<matched.length;k++) {
+    var m=matched[k], li=document.createElement('li');
+    var titleHTML = m.titleHit ? fuzzyHL(m.t.title,q) : escapeHtml(m.t.title);
+    var tagsHTML  = (m.t.tags||[]).map(function(tg){
+      return '<span class="search-tag-badge">'+(m.tagHits.indexOf(tg)>=0?fuzzyHL(tg,q):escapeHtml(tg))+'</span>';
+    }).join('');
+    var snipHTML  = m.snippet ? '<div class="search-snippet">'+m.snippet+'</div>' : '';
+    li.innerHTML = '<a href="'+m.t.url+'"><strong>'+titleHTML+'</strong></a>'+tagsHTML+snipHTML;
+    list.appendChild(li);
+  }
+  resDiv.style.display = '';
+}
+
+document.getElementById('search-box').addEventListener('input', function(){ doSearch(this.value); });
+</script>

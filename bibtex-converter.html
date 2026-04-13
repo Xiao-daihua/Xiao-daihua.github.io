@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BibTeX → Paper YAML</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink:        #0e0d0b;
+    --ink-2:      #1a1917;
+    --ink-3:      #252320;
+    --ink-4:      #302e2b;
+    --gold:       #c9a84c;
+    --gold-dim:   #8a6e2f;
+    --gold-glow:  rgba(201,168,76,0.08);
+    --cream:      #f0ead8;
+    --cream-dim:  #a89e88;
+    --cream-faint:#4a4538;
+    --green:      #5a8a5e;
+    --green-bg:   rgba(90,138,94,0.1);
+    --red:        #8a4a4a;
+    --red-bg:     rgba(138,74,74,0.1);
+    --blue:       #4a6a8a;
+    --blue-bg:    rgba(74,106,138,0.1);
+    --radius:     6px;
+    --radius-lg:  10px;
+    --mono:       'JetBrains Mono', monospace;
+    --serif:      'EB Garamond', Georgia, serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { font-size: 16px; }
+
+  body {
+    background: var(--ink);
+    color: var(--cream);
+    font-family: var(--serif);
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  /* ── subtle grid texture ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── header ── */
+  header {
+    position: relative;
+    z-index: 1;
+    border-bottom: 1px solid var(--ink-4);
+    padding: 0 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+
+  .logo-mark {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 300;
+    color: var(--gold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: 1px solid var(--gold-dim);
+    padding: 3px 8px;
+    border-radius: 3px;
+  }
+
+  .logo-title {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--cream);
+    letter-spacing: 0.01em;
+  }
+
+  .logo-arrow {
+    color: var(--gold);
+    font-family: var(--mono);
+    font-size: 13px;
+  }
+
+  .header-meta {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--cream-faint);
+    letter-spacing: 0.08em;
+  }
+
+  /* ── main layout ── */
+  main {
+    position: relative;
+    z-index: 1;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2.5rem 2.5rem 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  /* ── section title ── */
+  .section-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--ink-4);
+  }
+
+  /* ── panels ── */
+  .panel {
+    background: var(--ink-2);
+    border: 1px solid var(--ink-4);
+    border-radius: var(--radius-lg);
+    padding: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .panel:hover {
+    border-color: var(--ink-3);
+  }
+
+  /* ── top two-column ── */
+  .top-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  /* ── textarea ── */
+  textarea {
+    width: 100%;
+    height: 260px;
+    background: var(--ink-3);
+    border: 1px solid var(--ink-4);
+    border-radius: var(--radius);
+    padding: 1rem 1.1rem;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    font-weight: 300;
+    color: var(--cream);
+    line-height: 1.7;
+    resize: vertical;
+    transition: border-color 0.2s;
+    caret-color: var(--gold);
+  }
+  textarea::placeholder { color: var(--cream-faint); }
+  textarea:focus {
+    outline: none;
+    border-color: var(--gold-dim);
+    background: var(--ink-3);
+    box-shadow: 0 0 0 3px var(--gold-glow);
+  }
+
+  /* ── output box ── */
+  .output-box {
+    flex: 1;
+    min-height: 260px;
+    max-height: 500px;
+    overflow-y: auto;
+    background: var(--ink-3);
+    border: 1px solid var(--ink-4);
+    border-radius: var(--radius);
+    padding: 1rem 1.1rem;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    font-weight: 300;
+    color: var(--cream);
+    line-height: 1.7;
+    white-space: pre-wrap;
+    word-break: break-word;
+    transition: border-color 0.2s;
+  }
+  .output-box.has-content { border-color: var(--ink-4); }
+  .output-box .placeholder { color: var(--cream-faint); font-style: italic; }
+
+  /* syntax highlight */
+  .yaml-key   { color: var(--gold); }
+  .yaml-str   { color: #9fc; }
+  .yaml-num   { color: #f9c; }
+  .yaml-sep   { color: var(--gold-dim); }
+  .yaml-dash  { color: var(--cream-faint); }
+
+  /* ── buttons ── */
+  .btn-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+
+  button {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    padding: 8px 18px;
+    border-radius: var(--radius);
+    border: 1px solid var(--ink-4);
+    background: transparent;
+    color: var(--cream-dim);
+    cursor: pointer;
+    transition: all 0.18s;
+    white-space: nowrap;
+  }
+  button:hover:not(:disabled) {
+    border-color: var(--gold-dim);
+    color: var(--cream);
+    background: var(--gold-glow);
+  }
+  button:active:not(:disabled) { transform: scale(0.97); }
+  button:disabled { opacity: 0.35; cursor: not-allowed; }
+
+  button.primary {
+    border-color: var(--gold-dim);
+    color: var(--gold);
+    background: var(--gold-glow);
+  }
+  button.primary:hover:not(:disabled) {
+    background: rgba(201,168,76,0.15);
+    border-color: var(--gold);
+    color: var(--cream);
+  }
+
+  /* ── status text ── */
+  .status {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--cream-faint);
+    flex: 1;
+    letter-spacing: 0.03em;
+  }
+  .status.ok  { color: var(--green); }
+  .status.err { color: var(--red); }
+  .status.loading {
+    color: var(--gold-dim);
+    animation: pulse 1.2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  /* ── bottom three-column ── */
+  .bottom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  /* ── filename display ── */
+  .filename-box {
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--gold);
+    background: var(--ink-3);
+    border: 1px solid var(--ink-4);
+    border-radius: var(--radius);
+    padding: 12px 14px;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    word-break: break-all;
+    letter-spacing: 0.02em;
+  }
+  .filename-box.empty {
+    color: var(--cream-faint);
+    font-size: 12px;
+    font-weight: 300;
+    font-style: italic;
+  }
+
+  /* ── meta table ── */
+  .meta-table { display: flex; flex-direction: column; gap: 0; }
+  .meta-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+    padding: 5px 0;
+    border-bottom: 1px solid var(--ink-3);
+    font-size: 0.82rem;
+  }
+  .meta-row:last-child { border-bottom: none; }
+  .meta-k { color: var(--cream-faint); font-family: var(--mono); font-size: 11px; white-space: nowrap; }
+  .meta-v { color: var(--cream); text-align: right; word-break: break-all; font-family: var(--mono); font-size: 11px; }
+
+  .badge {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 3px;
+    margin-left: 4px;
+    vertical-align: middle;
+  }
+  .badge-arxiv { background: rgba(90,138,94,0.2); color: #7cb88e; border: 1px solid rgba(90,138,94,0.3); }
+  .badge-s2    { background: rgba(74,106,138,0.2); color: #7aaad4; border: 1px solid rgba(74,106,138,0.3); }
+  .badge-cr    { background: rgba(138,110,74,0.2); color: #d4b47a; border: 1px solid rgba(138,110,74,0.3); }
+  .badge-bib   { background: rgba(74,74,74,0.2);  color: var(--cream-faint); border: 1px solid var(--ink-4); }
+  .badge-warn  { background: var(--red-bg); color: #c47a7a; border: 1px solid rgba(138,74,74,0.3); }
+
+  /* ── link section ── */
+  .link-group { display: flex; flex-direction: column; gap: 10px; }
+  .link-item {}
+  .link-label-sm {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--cream-faint);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+  a.ext-link {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--gold-dim);
+    text-decoration: none;
+    word-break: break-all;
+    transition: color 0.15s;
+  }
+  a.ext-link:hover { color: var(--gold); text-decoration: underline; }
+  .empty-dim { font-family: var(--mono); font-size: 12px; color: var(--cream-faint); font-style: italic; }
+
+  /* ── divider ── */
+  hr { border: none; border-top: 1px solid var(--ink-4); }
+
+  /* ── loading spinner in button ── */
+  .spinner {
+    display: inline-block;
+    width: 10px; height: 10px;
+    border: 1.5px solid var(--gold-dim);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── fade in ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .panel { animation: fadeUp 0.4s ease both; }
+  .top-grid .panel:nth-child(2) { animation-delay: 0.07s; }
+  .bottom-grid .panel:nth-child(2) { animation-delay: 0.07s; }
+  .bottom-grid .panel:nth-child(3) { animation-delay: 0.14s; }
+
+  /* ── footer ── */
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--ink-4);
+    padding: 1rem 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    color: var(--cream-faint);
+    letter-spacing: 0.06em;
+  }
+
+  footer span { opacity: 0.6; }
+
+  /* ── scrollbar ── */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--ink-3); }
+  ::-webkit-scrollbar-thumb { background: var(--ink-4); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--cream-faint); }
+
+  /* ── responsive ── */
+  @media (max-width: 900px) {
+    .top-grid, .bottom-grid { grid-template-columns: 1fr; }
+    header { padding: 0 1.2rem; }
+    main { padding: 1.5rem 1.2rem 3rem; }
+    footer { padding: 1rem 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <span class="logo-mark">BibTeX</span>
+    <span class="logo-arrow">→</span>
+    <span class="logo-title">Paper YAML Converter</span>
+  </div>
+  <div class="header-meta">arXiv · Semantic Scholar · Crossref</div>
+</header>
+
+<main>
+
+  <!-- top: input + output -->
+  <div class="top-grid">
+    <div class="panel">
+      <div class="section-label">输入</div>
+      <textarea id="input" spellcheck="false" placeholder="粘贴 BibTeX 条目，例如：
+
+@article{Witten:1988hc,
+  author = &quot;Witten, Edward&quot;,
+  title = &quot;{(2+1)-Dimensional Gravity ...}&quot;,
+  eprint = &quot;hep-th/xxxxxx&quot;,
+  doi = &quot;10.1016/0550-3213(88)90143-5&quot;,
+  journal = &quot;Nucl. Phys. B&quot;,
+  volume = &quot;311&quot;,
+  pages = &quot;46&quot;,
+  year = &quot;1988&quot;
+}"></textarea>
+      <div class="btn-row">
+        <button class="primary" id="runBtn" onclick="run()">转换并获取完整元数据</button>
+        <span class="status" id="status">等待输入</span>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="section-label">YAML Frontmatter 输出</div>
+      <div class="output-box" id="output"><span class="placeholder">转换结果将显示在此处...</span></div>
+      <div class="btn-row">
+        <button id="copyYaml" onclick="copyEl('outputRaw','s1')" disabled>复制 YAML</button>
+        <span class="status" id="s1"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- bottom: filename + meta + links -->
+  <div class="bottom-grid">
+    <div class="panel">
+      <div class="section-label">生成文件名</div>
+      <div class="filename-box empty" id="filenameDisplay">等待生成…</div>
+      <div class="btn-row" style="margin-top:4px;">
+        <button id="copyFilename" onclick="copyText(currentFilename,'s2')" disabled>复制文件名</button>
+        <span class="status" id="s2"></span>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="section-label">元数据来源</div>
+      <div class="meta-table" id="metaDisplay">
+        <div class="empty-dim">等待生成…</div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="section-label">外部链接</div>
+      <div class="link-group" id="linkDisplay">
+        <div class="empty-dim">等待生成…</div>
+      </div>
+      <hr />
+      <div class="btn-row">
+        <button id="openDoi" onclick="openURL('https://doi.org/'+currentDoi)" disabled>DOI 页面 ↗</button>
+        <button id="openArxiv" onclick="openURL('https://arxiv.org/abs/'+currentArxiv)" disabled>arXiv ↗</button>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <span>数据来源：arXiv API · Semantic Scholar · Crossref · BibTeX 原始字段</span>
+  <span>仅在浏览器本地运行，不上传任何数据</span>
+</footer>
+
+<!-- hidden textarea for copy -->
+<textarea id="outputRaw" style="position:absolute;left:-9999px;top:-9999px;" readonly></textarea>
+
+<script>
+let currentDoi = '', currentArxiv = '', currentFilename = '';
+
+/* ── BibTeX parser ── */
+function parseBibtex(raw) {
+  const r = {};
+  const tm = raw.match(/@(\w+)\s*\{([^,]+),/);
+  if (tm) { r.type = tm[1].toLowerCase(); r.key = tm[2].trim(); }
+  const re = /(\w+)\s*=\s*(?:"((?:[^"\\]|\\.)*)"|'((?:[^'\\]|\\.)*)'|\{((?:[^{}]|\{(?:[^{}]|\{[^{}]*\})*\})*)\}|(\S[^,}\n]*))\s*[,}]/g;
+  let m;
+  while ((m = re.exec(raw)) !== null) {
+    const k = m[1].toLowerCase();
+    const v = (m[2]||m[3]||m[4]||m[5]||'').replace(/^\{|\}$/g,'').replace(/\{|\}/g,'').trim();
+    r[k] = v;
+  }
+  return r;
+}
+
+function formatAuthors(s) {
+  if (!s) return [];
+  return s.split(/\s+and\s+/i).map(a => {
+    a = a.trim();
+    if (a.includes(',')) {
+      const [last, first] = a.split(',').map(x => x.trim());
+      return `${last}, ${first ? first[0]+'.' : ''}`;
+    }
+    const p = a.split(' ');
+    return p.length > 1 ? `${p[p.length-1]}, ${p[0][0]}.` : a;
+  });
+}
+
+function getLastName(s) {
+  if (!s) return 'unknown';
+  const first = s.split(/\s+and\s+/i)[0].trim();
+  if (first.includes(',')) return first.split(',')[0].trim().toLowerCase().replace(/[^a-z]/g,'');
+  const p = first.split(' ');
+  return p[p.length-1].toLowerCase().replace(/[^a-z]/g,'');
+}
+
+function cleanTitle(t) {
+  return (t||'').replace(/^\{|\}$/g,'').replace(/\{|\}/g,'').trim();
+}
+
+function extractArxivId(bib) {
+  if (bib.eprint && /\d{4}\.\d{4,5}|[a-z\-]+\/\d+/.test(bib.eprint)) return bib.eprint.trim();
+  if (bib.arxivid) return bib.arxivid.trim();
+  return '';
+}
+
+/* ── API fetchers ── */
+async function fetchArxiv(id) {
+  const r = await fetch(`https://export.arxiv.org/api/query?id_list=${id}`);
+  if (!r.ok) throw new Error();
+  const text = await r.text();
+  const xml = new DOMParser().parseFromString(text, 'text/xml');
+  const entry = xml.querySelector('entry');
+  if (!entry) throw new Error();
+  return {
+    abstract:    entry.querySelector('summary')?.textContent?.replace(/\s+/g,' ').trim() || '',
+    title:       entry.querySelector('title')?.textContent?.replace(/\s+/g,' ').trim() || '',
+    primaryCat:  entry.querySelector('primary_category')?.getAttribute('term') || '',
+    year:        (entry.querySelector('published')?.textContent||'').slice(0,4),
+    source: 'arXiv'
+  };
+}
+
+async function fetchSemanticScholar(doi) {
+  const r = await fetch(`https://api.semanticscholar.org/graph/v1/paper/DOI:${doi}?fields=title,abstract,year`);
+  if (!r.ok) throw new Error();
+  return await r.json();
+}
+
+async function fetchCrossref(doi) {
+  const r = await fetch(`https://api.crossref.org/works/${encodeURIComponent(doi)}`);
+  if (!r.ok) throw new Error();
+  const d = await r.json();
+  return d.message;
+}
+
+/* ── YAML builder ── */
+function buildYaml(bib, extra) {
+  const authors = formatAuthors(bib.author);
+  const title   = cleanTitle(extra.title || bib.title || '');
+  const year    = bib.year || (extra.year ? String(extra.year) : '');
+  const journal = extra.journal || bib.journal || '';
+  const volume  = extra.volume  || bib.volume  || '';
+  const pages   = extra.pages   || bib.pages   || '';
+  const doi     = bib.doi || '';
+  const arxivId = extra.arxivId || extractArxivId(bib) || '';
+  const arxivCat= extra.arxivCat|| '';
+  const abstract= extra.abstract|| '';
+
+  const lines = ['---', 'layout: paper', `title: "${title}"`];
+  lines.push('authors:');
+  authors.forEach(a => lines.push(`  - ${a}`));
+  lines.push(`year: ${year}`);
+  lines.push(`status: published`);
+  if (journal)  lines.push(`journal: "${journal}"`);
+  if (volume)   lines.push(`volume: "${volume}"`);
+  if (pages)    lines.push(`pages: "${pages}"`);
+  if (arxivId)  lines.push(`arxiv: "${arxivId}"`);
+  if (arxivCat) lines.push(`arxiv_cat: "${arxivCat}"`);
+  if (doi)      lines.push(`doi: "${doi}"`);
+  if (abstract) lines.push(`abstract: "${abstract.replace(/"/g,'\\"')}"`);
+  lines.push('---');
+  return lines.join('\n');
+}
+
+/* ── syntax highlight ── */
+function highlightYaml(raw) {
+  return raw
+    .split('\n')
+    .map(line => {
+      if (line === '---') return `<span class="yaml-sep">---</span>`;
+      if (line.startsWith('  - ')) {
+        return `<span class="yaml-dash">  - </span><span class="yaml-str">${esc(line.slice(4))}</span>`;
+      }
+      const m = line.match(/^(\w+):\s*(.*)?$/);
+      if (m) {
+        const key = `<span class="yaml-key">${esc(m[1])}</span>`;
+        const val = m[2] || '';
+        const isNum = /^\d+$/.test(val.replace(/"/g,''));
+        const valSpan = val
+          ? isNum
+            ? `<span class="yaml-num">${esc(val)}</span>`
+            : `<span class="yaml-str">${esc(val)}</span>`
+          : '';
+        return `${key}: ${valSpan}`;
+      }
+      return esc(line);
+    })
+    .join('\n');
+}
+
+function esc(s) {
+  return String(s)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;');
+}
+
+/* ── meta renderer ── */
+function badge(label, cls) {
+  return `<span class="badge badge-${cls}">${label}</span>`;
+}
+
+function metaRow(k, v, b) {
+  return `<div class="meta-row"><span class="meta-k">${k}</span><span class="meta-v">${v}${b||''}</span></div>`;
+}
+
+/* ── main run ── */
+async function run() {
+  const raw = document.getElementById('input').value.trim();
+  if (!raw) { setStatus('请先粘贴 BibTeX 内容', 'err'); return; }
+
+  const btn = document.getElementById('runBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>查询中…';
+  ['copyYaml','copyFilename','openDoi','openArxiv'].forEach(id => document.getElementById(id).disabled = true);
+  document.getElementById('output').innerHTML = '<span class="placeholder">正在获取数据…</span>';
+  document.getElementById('metaDisplay').innerHTML = '<div class="empty-dim">查询中…</div>';
+  document.getElementById('linkDisplay').innerHTML = '<div class="empty-dim">查询中…</div>';
+
+  const bib = parseBibtex(raw);
+  const arxivId = extractArxivId(bib);
+  currentDoi = bib.doi || '';
+  currentArxiv = arxivId;
+
+  currentFilename = `${bib.year || '0000'}-${getLastName(bib.author)}.md`;
+  const fnEl = document.getElementById('filenameDisplay');
+  fnEl.textContent = currentFilename;
+  fnEl.classList.remove('empty');
+
+  let extra = {};
+  let metaRows = [];
+
+  /* arXiv */
+  if (arxivId) {
+    setStatus('查询 arXiv…', 'loading');
+    try {
+      const ax = await fetchArxiv(arxivId);
+      if (ax.abstract) { extra.abstract = ax.abstract; extra.abstractSource = 'arXiv'; }
+      if (ax.title)    extra.title = ax.title;
+      if (ax.year && !bib.year) extra.year = ax.year;
+      if (ax.primaryCat) extra.arxivCat = ax.primaryCat;
+      extra.arxivId = arxivId;
+      metaRows.push(metaRow('arXiv ID', arxivId, badge('arXiv','arxiv')));
+      if (ax.primaryCat) metaRows.push(metaRow('分类', ax.primaryCat, badge('arXiv','arxiv')));
+    } catch(e) {
+      metaRows.push(metaRow('arXiv', '查询失败', badge('error','warn')));
+    }
+  }
+
+  /* Semantic Scholar */
+  if (currentDoi && !extra.abstract) {
+    setStatus('查询 Semantic Scholar…', 'loading');
+    try {
+      const ss = await fetchSemanticScholar(currentDoi);
+      if (ss.abstract) { extra.abstract = ss.abstract; extra.abstractSource = 'Semantic Scholar'; }
+      if (!extra.title && ss.title) extra.title = ss.title;
+      metaRows.push(metaRow('摘要', 'Semantic Scholar', badge('S2','s2')));
+    } catch(e) {}
+  }
+
+  /* Crossref */
+  if (currentDoi && !extra.abstract) {
+    setStatus('查询 Crossref…', 'loading');
+    try {
+      const cr = await fetchCrossref(currentDoi);
+      if (cr.abstract) { extra.abstract = cr.abstract.replace(/<[^>]+>/g,'').trim(); extra.abstractSource = 'Crossref'; }
+      if (!extra.title && cr.title) extra.title = cr.title[0];
+      if (!extra.year && cr.published) extra.year = String(cr.published['date-parts'][0][0]);
+      const j = cr['container-title'];
+      if (j && j[0] && !bib.journal) extra.journal = j[0];
+      if (cr.volume && !bib.volume) extra.volume = cr.volume;
+      if (cr.page   && !bib.pages)  extra.pages  = cr.page;
+      metaRows.push(metaRow('摘要', 'Crossref', badge('CR','cr')));
+    } catch(e) {}
+  }
+
+  if (!extra.abstract) metaRows.push(metaRow('摘要', '未找到', badge('无','warn')));
+  metaRows.push(metaRow('引用键', bib.key || '—', badge('bib','bib')));
+  metaRows.push(metaRow('类型', bib.type || 'article', badge('bib','bib')));
+  metaRows.push(metaRow('作者数', formatAuthors(bib.author).length || '—', ''));
+
+  /* build output */
+  const yaml = buildYaml(bib, extra);
+  document.getElementById('outputRaw').value = yaml;
+  document.getElementById('output').innerHTML = highlightYaml(yaml);
+
+  document.getElementById('metaDisplay').innerHTML = metaRows.join('');
+
+  /* links */
+  let linkHtml = '';
+  if (currentDoi) {
+    linkHtml += `<div class="link-item"><div class="link-label-sm">DOI</div><a class="ext-link" href="https://doi.org/${currentDoi}" target="_blank">doi.org/${currentDoi}</a></div>`;
+    document.getElementById('openDoi').disabled = false;
+  }
+  if (currentArxiv) {
+    linkHtml += `<div class="link-item"><div class="link-label-sm">arXiv</div><a class="ext-link" href="https://arxiv.org/abs/${currentArxiv}" target="_blank">arxiv.org/abs/${currentArxiv}</a></div>`;
+    document.getElementById('openArxiv').disabled = false;
+  }
+  if (!linkHtml) linkHtml = '<div class="empty-dim">BibTeX 中无 DOI 或 arXiv 字段</div>';
+  document.getElementById('linkDisplay').innerHTML = linkHtml;
+
+  document.getElementById('copyYaml').disabled = false;
+  document.getElementById('copyFilename').disabled = false;
+
+  const ok = !!extra.abstract;
+  setStatus(ok ? `完成 — 摘要来自 ${extra.abstractSource}` : '完成（未找到摘要，其余字段已生成）', ok ? 'ok' : 'err');
+  btn.disabled = false;
+  btn.innerHTML = '转换并获取完整元数据';
+}
+
+/* ── helpers ── */
+function openURL(url) { if (url && url !== 'https://doi.org/' && url !== 'https://arxiv.org/abs/') window.open(url,'_blank'); }
+
+function copyEl(id, sid) {
+  const text = document.getElementById(id).value || document.getElementById(id).textContent;
+  copyText(text, sid);
+}
+
+function copyText(text, sid) {
+  navigator.clipboard.writeText(text).then(() => {
+    const s = document.getElementById(sid);
+    if (!s) return;
+    s.textContent = '已复制 ✓'; s.className = 'status ok';
+    setTimeout(() => { s.textContent = ''; s.className = 'status'; }, 2200);
+  });
+}
+
+function setStatus(msg, type) {
+  const el = document.getElementById('status');
+  el.textContent = msg; el.className = 'status ' + (type||'');
+}
+</script>
+</body>
+</html>
