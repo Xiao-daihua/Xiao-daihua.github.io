@@ -56,6 +56,8 @@ Notes on _2-Dimensional Conformal Field Theory (2D CFT)_:
 
 - [Crossing of RCFT Conformal Blocks](https://mozilla.github.io/pdf.js/web/viewer.html?file=https://cdn.jsdelivr.net/gh/Xiao-daihua/Phys_Learning@main/RCFT_MS/main.pdf) This is a note on one of the most important feature of 2D CFT, the crossing symmetry of conformal blocks.
 
+- [Majorana and Ising Duality](https://mozilla.github.io/pdf.js/web/viewer.html?file=https://cdn.jsdelivr.net/gh/Xiao-daihua/Phys_Learning@main/ising_majorana_notes/main.pdf) This is a very short note on the duality between the Majorana fermion and the Ising CFT. It is a very important example of bosonization and fermionization between fermionic and bosonic CFTs.
+
 Notes on _2+1 Dimensional Quantum Gravity_ :
 
 - [2+1 Dimensional Gravity and Chern-Simons Theory](https://mozilla.github.io/pdf.js/web/viewer.html?file=https://cdn.jsdelivr.net/gh/Xiao-daihua/Phys_Learning@main/2%2B1grav_CS/main.pdf) This is a note on 2+1 dimensional gravity and its relation to Chern-Simons theory. And a naive approach on real polarization quantization method in the zero cosmological constant case.
