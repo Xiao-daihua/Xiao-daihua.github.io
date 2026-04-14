@@ -1,87 +1,140 @@
 ---
 layout: default
 ---
+
 <style>
+/* ── Paper Layout (theme-compatible) ── */
+
 .paper-meta-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 10px;
   margin-bottom: 1.5rem;
 }
+
 .paper-meta-card {
-  background: #f5f5f5;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
   border-radius: 8px;
   padding: 0.75rem 1rem;
+  transition: all 0.15s ease;
 }
+
+.paper-meta-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--shadow);
+}
+
 .paper-meta-card .label {
   font-size: 12px;
-  color: #888;
+  color: var(--text-muted);
   margin-bottom: 4px;
 }
+
 .paper-meta-card .value {
   font-size: 15px;
   font-weight: 500;
+  color: var(--text);
 }
+
+/* ── IDs ── */
+
 .paper-ids-box {
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--border);
   border-radius: 10px;
   padding: 1rem 1.25rem;
   margin-bottom: 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  background: var(--surface);
 }
+
 .paper-ids-box .id-row {
   display: flex;
   align-items: center;
   gap: 12px;
   flex-wrap: wrap;
 }
+
 .paper-ids-box .id-label {
   font-size: 13px;
-  color: #888;
+  color: var(--text-muted);
   min-width: 50px;
 }
+
 .paper-ids-box a {
   font-size: 14px;
-  font-family: monospace;
-  color: #1a6cc4;
+  font-family: var(--font-mono);
+  color: var(--accent);
   text-decoration: none;
 }
-.paper-ids-box a:hover { text-decoration: underline; }
+
+.paper-ids-box a:hover {
+  text-decoration: underline;
+}
+
 .paper-ids-box .divider {
   height: 1px;
-  background: #e8e8e8;
+  background: var(--border);
 }
+
 .paper-ids-box .arxiv-cat {
   font-size: 12px;
-  background: #e8f0fb;
-  color: #1a5fa8;
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+  color: var(--accent);
   padding: 2px 8px;
   border-radius: 6px;
 }
+
+/* ── Status ── */
+
 .paper-status {
   font-size: 12px;
   padding: 4px 10px;
   border-radius: 6px;
-  flex-shrink: 0;
+  border: 1px solid var(--border);
 }
-.paper-status.published  { background: #e6f4ea; color: #256b3a; }
-.paper-status.preprint   { background: #fff3e0; color: #a05c00; }
-.paper-status.submitted  { background: #e8f0fb; color: #1a5fa8; }
+
+.paper-status.published {
+  background: color-mix(in srgb, #22c55e 20%, transparent);
+  color: #22c55e;
+}
+
+.paper-status.preprint {
+  background: color-mix(in srgb, #f59e0b 20%, transparent);
+  color: #f59e0b;
+}
+
+.paper-status.submitted {
+  background: color-mix(in srgb, var(--accent) 20%, transparent);
+  color: var(--accent);
+}
+
+/* ── Buttons ── */
+
 .paper-action-btn {
   display: inline-block;
   font-size: 13px;
   padding: 6px 14px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border);
   border-radius: 6px;
-  color: #333;
+  color: var(--text);
   text-decoration: none;
-  background: #fff;
-  transition: background 0.2s;
+  background: var(--surface);
+  transition: all 0.2s;
 }
-.paper-action-btn:hover { background: #f0f0f0; }
-.paper-action-btn.primary { color: #1a6cc4; border-color: #aac4e8; }
+
+.paper-action-btn:hover {
+  background: var(--bg-secondary);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.paper-action-btn.primary {
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+}
 </style>
 
 <article>
@@ -93,7 +146,9 @@ layout: default
   </div>
 
   {% if page.authors %}
-  <p style="color:#666; margin:0 0 1.5rem;">{{ page.authors | join: ", " }}</p>
+  <p style="color:var(--text-muted); margin:0 0 1.5rem;">
+    {{ page.authors | join: ", " }}
+  </p>
   {% endif %}
 
   <div class="paper-meta-grid">
@@ -112,7 +167,9 @@ layout: default
     {% if page.volume %}
     <div class="paper-meta-card">
       <div class="label">Volume / Pages</div>
-      <div class="value">{{ page.volume }}{% if page.pages %}, {{ page.pages }}{% endif %}</div>
+      <div class="value">
+        {{ page.volume }}{% if page.pages %}, {{ page.pages }}{% endif %}
+      </div>
     </div>
     {% endif %}
   </div>
@@ -122,42 +179,58 @@ layout: default
     {% if page.arxiv %}
     <div class="id-row">
       <span class="id-label">arXiv</span>
-      <a href="https://arxiv.org/abs/{{ page.arxiv }}" target="_blank">{{ page.arxiv }}</a>
+      <a href="https://arxiv.org/abs/{{ page.arxiv }}" target="_blank">
+        {{ page.arxiv }}
+      </a>
       {% if page.arxiv_cat %}
       <span class="arxiv-cat">{{ page.arxiv_cat }}</span>
       {% endif %}
     </div>
     {% endif %}
+
     {% if page.arxiv and page.doi %}
     <div class="divider"></div>
     {% endif %}
+
     {% if page.doi %}
     <div class="id-row">
       <span class="id-label">DOI</span>
-      <a href="https://doi.org/{{ page.doi }}" target="_blank">{{ page.doi }}</a>
+      <a href="https://doi.org/{{ page.doi }}" target="_blank">
+        {{ page.doi }}
+      </a>
     </div>
     {% endif %}
   </div>
   {% endif %}
 
   {% if page.abstract %}
-  <h2 style="font-size:16px; font-weight:500; margin:0 0 0.5rem;">Abstract</h2>
-  <p style="line-height:1.7; color:#444; margin:0 0 1.5rem;">{{ page.abstract }}</p>
+  <h2 style="font-size:16px; font-weight:500; margin:0 0 0.5rem;">
+    Abstract
+  </h2>
+  <p style="line-height:1.7; color:var(--text-muted); margin:0 0 1.5rem;">
+    {{ page.abstract }}
+  </p>
   {% endif %}
 
   {% if content != "" %}
-  <div style="border-top:1px solid #eee; padding-top:1rem; margin-top:0.5rem; line-height:1.7;">
+  <div style="border-top:1px solid var(--border); padding-top:1rem; margin-top:0.5rem; line-height:1.7;">
     {{ content }}
   </div>
   {% endif %}
 
   <div style="margin-top:1.5rem; display:flex; gap:8px; flex-wrap:wrap;">
     <a href="javascript:history.back()" class="paper-action-btn">⟵ Back</a>
+
     {% if page.arxiv %}
-    <a href="https://arxiv.org/pdf/{{ page.arxiv }}" target="_blank" class="paper-action-btn primary">arXiv PDF</a>
+    <a href="https://arxiv.org/pdf/{{ page.arxiv }}" target="_blank" class="paper-action-btn primary">
+      arXiv PDF
+    </a>
     {% endif %}
+
     {% if page.doi %}
-    <a href="https://doi.org/{{ page.doi }}" target="_blank" class="paper-action-btn primary">DOI link</a>
+    <a href="https://doi.org/{{ page.doi }}" target="_blank" class="paper-action-btn primary">
+      DOI link
+    </a>
     {% endif %}
   </div>
 
@@ -167,6 +240,7 @@ layout: default
       {% assign citing_pages = citing_pages | push: p %}
     {% endif %}
   {% endfor %}
+
   {% if citing_pages.size > 0 %}
   <h2 style="margin-top:2rem;">Referenced by</h2>
   <ul>

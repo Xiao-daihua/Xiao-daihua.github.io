@@ -8,20 +8,21 @@
 
 /* ── CSS Variables ── */
 :root {
-  --bg:           #faf9f7;
-  --bg-secondary: #f0ede8;
+  /* Claude Code Light — Anthropic warm paper palette */
+  --bg:           #f4f3ee;   /* Pampas — Anthropic brand cream */
+  --bg-secondary: #ece9e2;
   --surface:      #ffffff;
-  --border:       #e0dbd3;
-  --text:         #2a2a2a;
-  --text-muted:   #6e6e6e;
-  --text-light:   #a0a0a0;
+  --border:       #d9d5cc;
+  --text:         #1e1e1e;   /* near-black, same as CC dark bg (inverted) */
+  --text-muted:   #6b6860;
+  --text-light:   #a8a49c;
   --accent:       #7c3aed;
   --accent-alt:   #7c3aed;
   --accent-hover: #6d28d9;
-  --heading:      #1a1a1a;
-  --code-bg:      #f0ede8;
-  --nav-bg:       #faf9f7;
-  --shadow:       rgba(0,0,0,0.08);
+  --heading:      #111111;
+  --code-bg:      #ece9e2;
+  --nav-bg:       #f4f3ee;
+  --shadow:       rgba(0,0,0,0.07);
   --header-top:   #7c3aed;
 
   --font-body:    'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif;
@@ -30,20 +31,21 @@
 }
 
 [data-theme="dark"] {
-  --bg:           #1e1e1e;
-  --bg-secondary: #262626;
-  --surface:      #2d2d2d;
-  --border:       #3a3a3a;
-  --text:         #d4d4d4;
-  --text-muted:   #8a8a8a;
-  --text-light:   #555555;
+  /* Claude Code Dark — VS Code default dark, warm-tuned */
+  --bg:           #1e1e1e;   /* editor.background */
+  --bg-secondary: #252526;   /* sideBar.background */
+  --surface:      #2d2d2d;   /* editorWidget.background */
+  --border:       #3e3e42;   /* editorGroup.border */
+  --text:         #d4d4d4;   /* editor.foreground — soft warm grey, NOT white */
+  --text-muted:   #858585;   /* comments, descriptions */
+  --text-light:   #4e4e4e;
   --accent:       #c099ff;
   --accent-alt:   #c099ff;
   --accent-hover: #d4b8ff;
-  --heading:      #eeeeee;
-  --code-bg:      #262626;
+  --heading:      #cccccc;   /* slightly dimmer than pure white */
+  --code-bg:      #252526;
   --nav-bg:       #1e1e1e;
-  --shadow:       rgba(0,0,0,0.35);
+  --shadow:       rgba(0,0,0,0.4);
   --header-top:   #9b7fe8;
 }
 
@@ -311,4 +313,133 @@ hr { border: none; border-top: 1px solid var(--border); margin: 2em 0; }
 table, blockquote, pre, code, .sidebar,
 .toggle-btn, #search-box, .back-btn {
   transition: background-color 0.28s ease, border-color 0.28s ease, color 0.28s ease;
+}
+
+/* ── Paper Layout Components ── */
+
+.paper-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+
+.paper-meta-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+}
+
+.paper-meta-card .label {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.paper-meta-card .value {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+/* ── IDs Box ── */
+
+.paper-ids-box {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--surface);
+}
+
+.paper-ids-box .id-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.paper-ids-box .id-label {
+  font-size: 13px;
+  color: var(--text-muted);
+  min-width: 50px;
+}
+
+.paper-ids-box a {
+  font-size: 14px;
+  font-family: var(--font-mono);
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.paper-ids-box a:hover {
+  text-decoration: underline;
+}
+
+.paper-ids-box .divider {
+  height: 1px;
+  background: var(--border);
+}
+
+.paper-ids-box .arxiv-cat {
+  font-size: 12px;
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+  color: var(--accent);
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+/* ── Status ── */
+
+.paper-status {
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+}
+
+/* 用统一逻辑，而不是写死绿色橙色 */
+.paper-status.published {
+  background: color-mix(in srgb, #22c55e 20%, transparent);
+  color: #22c55e;
+}
+
+.paper-status.preprint {
+  background: color-mix(in srgb, #f59e0b 20%, transparent);
+  color: #f59e0b;
+}
+
+.paper-status.submitted {
+  background: color-mix(in srgb, var(--accent) 20%, transparent);
+  color: var(--accent);
+}
+
+/* ── Buttons ── */
+
+.paper-action-btn {
+  display: inline-block;
+  font-size: 13px;
+  padding: 6px 14px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  text-decoration: none;
+  background: var(--surface);
+  transition: all 0.2s;
+}
+
+.paper-action-btn:hover {
+  background: var(--bg-secondary);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.paper-action-btn.primary {
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
 }
