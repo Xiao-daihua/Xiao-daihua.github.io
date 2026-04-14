@@ -3,7 +3,7 @@
 # To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 
 layout: home
-title: Welcome to Xiao-daihua's Blog
+title: Willkommen, Bienvenue, Welcome!
 ---
 
 <!-- ![](assets/hyperdisk.png) -->
@@ -18,8 +18,8 @@ Hi! I’m **Yu Liu** — currently a master’s student in Physics at EPFL, and 
 
 Here are some of my physics-related pages:
 
-- [Notes](/note.markdown): A collection of my study notes on various physics topics as well as lecture notes from courses I've taken.
-- [Papers Database](/data.markdown): A database of research papers on various topics that I find interesting.
+- [Notes](/note.markdown): A collection of my notes on various physics topics as well as lecture notes from courses I've taken in courses.
+- [Database](/data.markdown): A database of research papers on various topics that I find interesting.
 
 ## Beyond Physics
 

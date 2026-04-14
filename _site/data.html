@@ -246,6 +246,21 @@
           
           
         
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
       </ul>
     
       <h3 onclick="toggleGroup('C')">C</h3>
@@ -256,7 +271,24 @@
         
           
           
+            <li><a href="/database/0005categorysymmetry/">Categorical Symmetry</a></li>
+          
+        
+          
+          
             <li><a href="/database/00013dgravity/">Classical 2+1 D Gravity</a></li>
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
           
         
           
@@ -281,6 +313,9 @@
         
           
           
+        
+          
+          
             <li><a href="/database/0004frs/">FRS Reconstruction</a></li>
           
         
@@ -292,10 +327,185 @@
           
           
         
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+      </ul>
+    
+      <h3 onclick="toggleGroup('H')">H</h3>
+      <ul id="group-H">
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+            <li><a href="/database/0008entropycone/">Holographic Entropy Cone</a></li>
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+      </ul>
+    
+      <h3 onclick="toggleGroup('M')">M</h3>
+      <ul id="group-M">
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+            <li><a href="/database/0006mooreseibergrcft/">Moore Seiberg Construction of RCFT</a></li>
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+      </ul>
+    
+      <h3 onclick="toggleGroup('R')">R</h3>
+      <ul id="group-R">
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+            <li><a href="/database/0007rtformula/">Ryu-Takayanagi Formula</a></li>
+          
+        
+          
+          
+        
+          
+          
+        
+      </ul>
+    
+      <h3 onclick="toggleGroup('T')">T</h3>
+      <ul id="group-T">
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+            <li><a href="/database/0009defectcft/">Topological Defects CFT</a></li>
+          
+        
+          
+          
+        
       </ul>
     
       <h3 onclick="toggleGroup('V')">V</h3>
       <ul id="group-V">
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
         
           
           
@@ -351,11 +561,13 @@
       
       
       
-        <h2 data-tag="CFT">CFT</h2>
+        <h2 data-tag="2D CFT">2D CFT</h2>
         <ul>
           
             
               <li><a href="/database/0004bcft/">Boundary CFT</a></li>
+            
+          
             
           
             
@@ -370,10 +582,51 @@
           
             
           
+            
+              <li><a href="/database/0006mooreseibergrcft/">Moore Seiberg Construction of RCFT</a></li>
+            
+          
+            
+          
+            
+              <li><a href="/database/0009defectcft/">Topological Defects CFT</a></li>
+            
+          
+            
+          
+        </ul>
+      
+        <h2 data-tag="Generalized Symmetry">Generalized Symmetry</h2>
+        <ul>
+          
+            
+          
+            
+              <li><a href="/database/0005categorysymmetry/">Categorical Symmetry</a></li>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
         </ul>
       
         <h2 data-tag="3D Gravity">3D Gravity</h2>
         <ul>
+          
+            
           
             
           
@@ -386,7 +639,44 @@
             
           
             
+          
+            
+          
+            
+          
+            
+          
+            
               <li><a href="/database/0002virasorotqft/">Virasoro TQFT</a></li>
+            
+          
+        </ul>
+      
+        <h2 data-tag="QIQG">QIQG</h2>
+        <ul>
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              <li><a href="/database/0008entropycone/">Holographic Entropy Cone</a></li>
+            
+          
+            
+          
+            
+              <li><a href="/database/0007rtformula/">Ryu-Takayanagi Formula</a></li>
+            
+          
+            
+          
             
           
         </ul>
@@ -405,7 +695,14 @@ var ALL_TOPICS = [];
 ALL_TOPICS.push({
   title: "Boundary CFT",
   url:   "/database/0004bcft/",
-  tags:  ["CFT"],
+  tags:  ["2D CFT"],
+  content: "Boundary Conformal Field Theory (BCFT) is a induced conformal field theory defined on a manifold with boundary. Though naively it is a theory with boundary, one impose boundary conditions and add boundary terms to the action. However, for general CFT without a lagrangian realization, we need a more general approach to define BCFT. General Reviews on the topic There are some general review on the topic of BCFT. BCF and the Worldsheet Approach to D-Branes A comprehensive review on the topic of BCFT, yet it approach this topic from a string theory perspective and didn’t quite focus on some of the more general aspects of BCFT. There are some good reviews but mainly just copied from this book. Boundary State To classify boundary conditions, Cardy uses the so-called boundary state, which is a state in the bulk Hilbert space, yet charaterizes the boundary condition. Boundary Conformal Field Theory A review on the topic of BCFT, which focuses on the boundary state. However, personally I find this inregorous and unclear. Boundary conditions, fusion rules and the Verlinde formula Cardy’s original paper on the boundary states. It focus on exactly classifying the boundary conditions of diagonal rational CFTs, and the boundary states are constructed using the modular S-matrix of the bulk CFT. Classifying algebra For non-diagonal CFTs, its harder to fully characterize and classify the boundary conditions. Fuchs and Schweigert introduce the classifying algebra, which is a finite-dimensional algebra that controls the possible boundary conditions of a conformal field theory. A classifying algebra for boundary conditions Fuchs and Schweigert’s original paper on the classifying algebra. Boundary Operators To have a complete BCFT one can introduce operators that live on the boundary."
+});
+
+ALL_TOPICS.push({
+  title: "Categorical Symmetry",
+  url:   "/database/0005categorysymmetry/",
+  tags:  ["Generalized Symmetry"],
   content: ""
 });
 
@@ -419,15 +716,43 @@ ALL_TOPICS.push({
 ALL_TOPICS.push({
   title: "FRS Reconstruction",
   url:   "/database/0004frs/",
-  tags:  ["CFT"],
+  tags:  ["2D CFT"],
   content: "FRS reconstruction 2002-fuch"
 });
 
 ALL_TOPICS.push({
   title: "Fermionic Minimal Model CFT",
   url:   "/database/0003fermioniccft/",
-  tags:  ["CFT"],
+  tags:  ["2D CFT"],
   content: "In the 20s, people generalize the minimal model CFT to a fermionic version. There exist two constructions: 2020-runkel"
+});
+
+ALL_TOPICS.push({
+  title: "Holographic Entropy Cone",
+  url:   "/database/0008entropycone/",
+  tags:  ["QIQG"],
+  content: ""
+});
+
+ALL_TOPICS.push({
+  title: "Moore Seiberg Construction of RCFT",
+  url:   "/database/0006mooreseibergrcft/",
+  tags:  ["2D CFT"],
+  content: ""
+});
+
+ALL_TOPICS.push({
+  title: "Ryu-Takayanagi Formula",
+  url:   "/database/0007rtformula/",
+  tags:  ["QIQG"],
+  content: ""
+});
+
+ALL_TOPICS.push({
+  title: "Topological Defects CFT",
+  url:   "/database/0009defectcft/",
+  tags:  ["2D CFT"],
+  content: ""
 });
 
 ALL_TOPICS.push({

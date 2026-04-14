@@ -35,27 +35,27 @@ Here are the lecture notes I took during my master’s studies at EPFL.
 
 These are the learning notes I compiled while exploring a range of topics in theoretical physics and mathematics.
 
-Here are my notes in _Mathematics_:
+Notes in _Mathematics_:
 
 
 
-Here are my notes in _Condensed Matter Physics (CMT)_:
+Notes in _Condensed Matter Physics (CMT)_:
 
 - [Quantum Hall Effect](https://mozilla.github.io/pdf.js/web/viewer.html?file=https://cdn.jsdelivr.net/gh/Xiao-daihua/Phys_Learning@main/QHE/main.pdf) This is a note on the quantum Hall effect, covering both the integer and fractional quantum Hall effects.
 
-Here are my notes on _Quantum Field Theory (QFT)_:
+Notes in _Quantum Field Theory (QFT)_:
 
 - [Core Concepts in QFT](https://mozilla.github.io/pdf.js/web/viewer.html?file=https://cdn.jsdelivr.net/gh/Xiao-daihua/Phys_Learning@main/QFT_core/main.pdf) This is a note on some important concepts in QFT. It is aimed to be fundamental and concise.
 
 
 
-Here are my notes on _2-Dimensional Conformal Field Theory (2D CFT)_:
+Notes on _2-Dimensional Conformal Field Theory (2D CFT)_:
 
 - [Basic CFT](https://mozilla.github.io/pdf.js/web/viewer.html?file=https://cdn.jsdelivr.net/gh/Xiao-daihua/Phys_Learning@main/Minimal_CFT/main.pdf) This is a concise note on 2D Conformal Field Theory (CFT), covering the basics and some key results. The idea flow is originally from the yellow book. In fact personally I don't think this is a very good way of understanding 2D CFT, but it is a good starting point for beginners. Once one have a basic feeling for CFT, I'd prefer turn to the Boostrapping construction of CFT, which is more systematic.
 - [Basic BCFT](https://mozilla.github.io/pdf.js/web/viewer.html?file=https://cdn.jsdelivr.net/gh/Xiao-daihua/Phys_Learning@main/Minimal_BCFT/main.pdf) This is my study note on Boundary Conformal Field Theory (BCFT). Just like the CFT note, its not a good way of thinking of BCFT, but a way to get a feeling for it with analogues to ordinary QFT. Once this is done, I think one should turn to a Bootstrapping construction of BCFT, which is more systematic.
 
 - [Crossing of RCFT Conformal Blocks](https://mozilla.github.io/pdf.js/web/viewer.html?file=https://cdn.jsdelivr.net/gh/Xiao-daihua/Phys_Learning@main/RCFT_MS/main.pdf) This is a note on one of the most important feature of 2D CFT, the crossing symmetry of conformal blocks.
 
-Here are my notes on _2+1 Dimensional Quantum Gravity_ :
+Notes on _2+1 Dimensional Quantum Gravity_ :
 
 - [2+1 Dimensional Gravity and Chern-Simons Theory](https://mozilla.github.io/pdf.js/web/viewer.html?file=https://cdn.jsdelivr.net/gh/Xiao-daihua/Phys_Learning@main/2%2B1grav_CS/main.pdf) This is a note on 2+1 dimensional gravity and its relation to Chern-Simons theory. And a naive approach on real polarization quantization method in the zero cosmological constant case.
