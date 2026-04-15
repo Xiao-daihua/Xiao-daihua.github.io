@@ -23,6 +23,8 @@ Moreover, the conformal blocks also give rise to a mathematical structure called
 
 - [Naturality in conformal field theory](/papers/1989-moore3/) by Moore and Seiberg, 1989.
 
+- Polynomial
+
 
 ## Lectures
 

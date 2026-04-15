@@ -550,11 +550,7 @@
 
 
     <input type="text" id="search-box" placeholder="Search topics, tags, or content…" autocomplete="off" />
-
-    <div id="search-results">
-      <div class="search-header" id="search-count"></div>
-      <ul id="search-list"></ul>
-    </div>
+    <div class="search-header" id="search-count" style="font-size:0.82em;color:var(--text-muted);margin-bottom:10px;font-family:var(--font-mono,monospace);"></div>
     <div id="search-no-result">No results found.</div>
 
     <div id="topic-list">
@@ -738,7 +734,7 @@ ALL_TOPICS.push({
   title: "Moore Seiberg Construction of RCFT",
   url:   "/database/0006mooreseibergrcft/",
   tags:  ["2D CFT"],
-  content: "Moore Seiberg Construction of RCFT A series of extremely important and inspiring papers by Moore and Seiberg reveals a deep mathematical structure underlying rational conformal field theories (RCFTs). The main idea is that the conformal blocks of a RCFT forms a vector space, and represent the so called Moore-Seiberg groupoid. These conformal blocks satisfy a set of duality relations and the duality matircies satisfy a set of consistency conditions. By solving the consistency conditions, one can determine the duality matrices, which characterize a lot of information in RCFT. Moreover, the conformal blocks also give rise to a mathematical structure called modular tensor category, which is a very important mathematical structure in the study of TQFT, topological order … Original Papers Classical and quantum conformal field theory by Moore and Seiberg, 1989. One of the most important papers in the field. Taming the conformal zoo by Moore and Seiberg, 1989. Naturality in conformal field theory by Moore and Seiberg, 1989. Lectures Lecture notes on RCFT by Moore A lecture note reviewing the main results in the above papers. It is a very good resource for learning about the Moore-Seiberg construction of RCFT. Mathematical Perspective"
+  content: "Moore Seiberg Construction of RCFT A series of extremely important and inspiring papers by Moore and Seiberg reveals a deep mathematical structure underlying rational conformal field theories (RCFTs). The main idea is that the conformal blocks of a RCFT forms a vector space, and represent the so called Moore-Seiberg groupoid. These conformal blocks satisfy a set of duality relations and the duality matircies satisfy a set of consistency conditions. By solving the consistency conditions, one can determine the duality matrices, which characterize a lot of information in RCFT. Moreover, the conformal blocks also give rise to a mathematical structure called modular tensor category, which is a very important mathematical structure in the study of TQFT, topological order … Original Papers Classical and quantum conformal field theory by Moore and Seiberg, 1989. One of the most important papers in the field. Taming the conformal zoo by Moore and Seiberg, 1989. Naturality in conformal field theory by Moore and Seiberg, 1989. Polynomial Lectures Lecture notes on RCFT by Moore A lecture note reviewing the main results in the above papers. It is a very good resource for learning about the Moore-Seiberg construction of RCFT. Mathematical Perspective"
 });
 
 ALL_TOPICS.push({
@@ -814,51 +810,89 @@ function contentHL(text, q) {
 
 /* ── Main search ── */
 function doSearch(q) {
-  var resDiv   = document.getElementById('search-results');
   var noRes    = document.getElementById('search-no-result');
-  var list     = document.getElementById('search-list');
   var mainList = document.getElementById('topic-list');
   var countEl  = document.getElementById('search-count');
 
   q = q.trim();
+
+  /* ── No query: restore everything ── */
   if (!q) {
-    resDiv.style.display = noRes.style.display = 'none';
-    mainList.style.display = '';
+    noRes.style.display = 'none';
+    countEl.textContent = '';
+    /* Show all section headings and list items */
+    mainList.querySelectorAll('h2').forEach(function(h){ h.style.display = ''; });
+    mainList.querySelectorAll('ul').forEach(function(u){ u.style.display = ''; });
+    mainList.querySelectorAll('li').forEach(function(li){
+      li.style.display = '';
+      /* remove any previous highlights */
+      var a = li.querySelector('a');
+      if (a && a.dataset.origText) { a.innerHTML = escapeHtml(a.dataset.origText); }
+    });
     return;
   }
-  mainList.style.display = 'none';
-  list.innerHTML = '';
 
-  var matched = [];
-  for (var i=0;i<ALL_TOPICS.length;i++) {
+  /* ── Build a set of matching topic URLs ── */
+  var matchedUrls = {};
+  for (var i = 0; i < ALL_TOPICS.length; i++) {
     var t = ALL_TOPICS[i];
-    var titleHit   = fuzzyMatch(t.title, q);
-    var tagHits    = (t.tags||[]).filter(function(tg){ return fuzzyMatch(tg,q); });
-    var snippet    = contentHL(t.content, q);
-    if (titleHit || tagHits.length || snippet) {
-      matched.push({ t:t, titleHit:titleHit, tagHits:tagHits, snippet:snippet });
+    var titleHit = fuzzyMatch(t.title, q);
+    var tagHit   = (t.tags||[]).some(function(tg){ return fuzzyMatch(tg, q); });
+    var contHit  = t.content && t.content.toLowerCase().indexOf(q.toLowerCase()) !== -1;
+    if (titleHit || tagHit || contHit) {
+      matchedUrls[t.url] = true;
     }
   }
 
-  if (!matched.length) {
-    resDiv.style.display = 'none';
-    noRes.style.display = '';
-    return;
-  }
-  noRes.style.display = 'none';
-  countEl.textContent = matched.length + ' result' + (matched.length!==1?'s':'') + ' for "' + q + '"';
+  var totalMatched = Object.keys(matchedUrls).length;
 
-  for (var k=0;k<matched.length;k++) {
-    var m=matched[k], li=document.createElement('li');
-    var titleHTML = m.titleHit ? fuzzyHL(m.t.title,q) : escapeHtml(m.t.title);
-    var tagsHTML  = (m.t.tags||[]).map(function(tg){
-      return '<span class="search-tag-badge">'+(m.tagHits.indexOf(tg)>=0?fuzzyHL(tg,q):escapeHtml(tg))+'</span>';
-    }).join('');
-    var snipHTML  = m.snippet ? '<div class="search-snippet">'+m.snippet+'</div>' : '';
-    li.innerHTML = '<a href="'+m.t.url+'"><strong>'+titleHTML+'</strong></a>'+tagsHTML+snipHTML;
-    list.appendChild(li);
+  /* ── Filter the rendered #topic-list in place ── */
+  var sections = mainList.querySelectorAll('h2');
+  sections.forEach(function(h2) {
+    var ul = h2.nextElementSibling;
+    if (!ul) return;
+    var visibleCount = 0;
+    ul.querySelectorAll('li').forEach(function(li) {
+      var a = li.querySelector('a');
+      if (!a) return;
+      /* Normalize the href to match t.url (strip trailing slash differences) */
+      var href = a.getAttribute('href').replace(/\/$/, '');
+      var found = false;
+      for (var url in matchedUrls) {
+        if (url.replace(/\/$/, '') === href) { found = true; break; }
+      }
+      if (found) {
+        li.style.display = '';
+        /* Highlight title if fuzzy match on title text */
+        if (!a.dataset.origText) a.dataset.origText = a.textContent;
+        a.innerHTML = fuzzyMatch(a.dataset.origText, q)
+          ? fuzzyHL(a.dataset.origText, q)
+          : escapeHtml(a.dataset.origText);
+        visibleCount++;
+      } else {
+        li.style.display = 'none';
+        /* restore text */
+        var orig = a.dataset.origText;
+        if (orig) a.innerHTML = escapeHtml(orig);
+      }
+    });
+    /* Hide the whole section if no matching items */
+    if (visibleCount === 0) {
+      h2.style.display = 'none';
+      ul.style.display = 'none';
+    } else {
+      h2.style.display = '';
+      ul.style.display = '';
+    }
+  });
+
+  if (totalMatched === 0) {
+    noRes.style.display = '';
+    countEl.textContent = '';
+  } else {
+    noRes.style.display = 'none';
+    countEl.textContent = totalMatched + ' result' + (totalMatched !== 1 ? 's' : '') + ' for "' + q + '"';
   }
-  resDiv.style.display = '';
 }
 
 document.getElementById('search-box').addEventListener('input', function(){ doSearch(this.value); });

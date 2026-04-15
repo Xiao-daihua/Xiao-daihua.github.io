@@ -31,21 +31,21 @@
 }
 
 [data-theme="dark"] {
-  /* Claude Code Dark — VS Code default dark, warm-tuned */
-  --bg:           #1e1e1e;   /* editor.background */
-  --bg-secondary: #252526;   /* sideBar.background */
-  --surface:      #2d2d2d;   /* editorWidget.background */
-  --border:       #3e3e42;   /* editorGroup.border */
-  --text:         #d4d4d4;   /* editor.foreground — soft warm grey, NOT white */
-  --text-muted:   #858585;   /* comments, descriptions */
-  --text-light:   #4e4e4e;
-  --accent:       #c099ff;
-  --accent-alt:   #c099ff;
-  --accent-hover: #d4b8ff;
-  --heading:      #cccccc;   /* slightly dimmer than pure white */
-  --code-bg:      #252526;
-  --nav-bg:       #1e1e1e;
-  --shadow:       rgba(0,0,0,0.4);
+  /* Warm dark — softer slate tones, easier on the eyes */
+  --bg:           #2a2935;   /* warm deep slate, not pure black */
+  --bg-secondary: #32303f;   /* slightly lighter surface */
+  --surface:      #3d3b4a;   /* card / widget background */
+  --border:       #4e4b5e;   /* visible but gentle */
+  --text:         #dbd8f0;   /* cool-warm lavender white */
+  --text-muted:   #8f8da8;   /* muted purple-grey */
+  --text-light:   #5a5870;
+  --accent:       #b99eff;   /* soft purple accent */
+  --accent-alt:   #b99eff;
+  --accent-hover: #cdb8ff;
+  --heading:      #e8e6f8;   /* near white with lavender tint */
+  --code-bg:      #32303f;
+  --nav-bg:       #2a2935;
+  --shadow:       rgba(0,0,0,0.35);
   --header-top:   #9b7fe8;
 }
 
