@@ -24,17 +24,19 @@
       var prefer = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
       document.documentElement.setAttribute('data-theme', saved || prefer);
     })();
-  </script>
-  <!-- KaTeX for math rendering -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/contrib/auto-render.min.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      renderMathInElement(document.body);
-    });
-  </script>
-</head>
+  </script><!-- KaTeX (single math engine — MathJax removed to avoid double rendering) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+          onload="renderMathInElement(document.body, {
+            delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '\\[', right: '\\]', display: true},
+              {left: '$',  right: '$',  display: false},
+              {left: '\\(', right: '\\)', display: false}
+            ],
+            throwOnError: false
+          });"></script></head>
 <body><header class="site-header" role="banner">
 
   <div class="wrapper"><a class="site-title" rel="author" href="/">Xiao-daihua</a><nav class="site-nav">
@@ -47,7 +49,7 @@
           </span>
         </label>
 
-        <div class="trigger"><a class="page-link" href="/data.html">Database</a><a class="page-link" href="/note.html">Notes</a><a class="page-link" href="/musical.html">Musicals</a><a class="page-link" href="/about/">About</a><button id="theme-toggle" aria-label="Toggle dark/light mode" title="Toggle theme">
+        <div class="trigger"><a class="page-link" href="/data.html">Database</a><a class="page-link" href="/note.html">Notes</a><a class="page-link" href="/musical.html">Musicals</a><a class="page-link" href="/about/">About</a><button id="theme-toggle" type="button" aria-label="Toggle dark/light mode" title="Toggle theme">
             <span id="theme-icon">☀︎</span> <span id="theme-label">Light</span>
           </button>
         </div>
@@ -58,8 +60,8 @@
             document.documentElement.setAttribute('data-theme', t);
             var icon  = document.getElementById('theme-icon');
             var label = document.getElementById('theme-label');
-            if (icon)  icon.textContent  = (t === 'dark') ? '' : '';
-            if (label) label.textContent = (t === 'dark') ? 'D/L' : 'D/L';
+            if (icon)  icon.textContent  = (t === 'dark') ? '☾'    : '☀︎';
+            if (label) label.textContent = (t === 'dark') ? 'Dark' : 'Light';
           }
           var btn = document.getElementById('theme-toggle');
           if (btn) {
@@ -76,459 +78,18 @@
 </header>
 <main class="page-content" aria-label="Content">
       <div class="wrapper">
-        <style>
-.page-wrapper {
-  display: flex;
-}
-.sidebar {
-  width: 240px;
-  min-width: 0;
-  max-height: calc(100vh - 60px);
-  overflow-y: auto;
-  border-right: 1px solid var(--border, #ccc);
-  padding: 14px 10px;
-  box-sizing: border-box;
-  transition: all 0.3s ease;
-  flex-shrink: 0;
-  position: sticky;
-  top: 60px;
-  align-self: flex-start;
-}
-.sidebar.collapsed {
-  width: 0;
-  padding: 0;
-  border: none;
-  overflow: hidden;
-}
-.db-page-content {
-  flex: 1;
-  padding: 0 28px 24px;
-  min-width: 0;
-}
-.sidebar h3 {
-  margin: 10px 0 5px;
-  cursor: pointer;
-}
-.sidebar ul {
-  list-style: none;
-  padding-left: 12px;
-  display: block;
-  margin: 0 0 8px 0;
-}
-.sidebar ul.collapsed {
-  display: none;
-}
-.sidebar ul li {
-  margin: 3px 0;
-}
-.toggle-btn {
-  position: fixed;
-  left: 0;
-  top: 70px;
-  background: var(--surface, #fff);
-  color: var(--text-muted, #666);
-  border: 1px solid var(--border, #ccc);
-  padding: 5px 10px;
-  cursor: pointer;
-  z-index: 1000;
-  border-radius: 0 6px 6px 0;
-  font-size: 0.78rem;
-}
-#search-box {
-  width: 100%;
-  box-sizing: border-box;
-  margin-bottom: 16px;
-  padding: 9px 16px;
-  font-size: 0.95em;
-  border: 1px solid var(--border, #ccc);
-  border-radius: 24px;
-  outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  background: var(--surface, #fff);
-  color: var(--text, #111);
-}
-#search-box:focus {
-  border-color: var(--accent, #5b4fcf);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent, #5b4fcf) 15%, transparent);
-}
-#search-results {
-  display: none;
-  margin-bottom: 20px;
-}
-#search-results > .search-header {
-  font-size: 0.82em;
-  color: var(--text-muted);
-  margin-bottom: 10px;
-  font-family: var(--font-mono, monospace);
-}
-#search-results ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-#search-results li {
-  margin: 0;
-  padding: 10px 14px;
-  border: 1px solid var(--border, #ddd);
-  border-radius: 8px;
-  margin-bottom: 8px;
-  background: var(--surface, #fff);
-  transition: border-color 0.15s;
-}
-#search-results li:hover {
-  border-color: var(--accent, #5b4fcf);
-}
-.search-highlight {
-  background: color-mix(in srgb, var(--accent, #5b4fcf) 18%, transparent);
-  color: var(--accent, #5b4fcf);
-  font-weight: 600;
-  border-radius: 2px;
-  padding: 0 2px;
-}
-.search-snippet {
-  font-size: 0.83em;
-  color: var(--text-muted, #555);
-  margin-top: 4px;
-  line-height: 1.5;
-}
-.search-tag-badge {
-  display: inline-block;
-  font-size: 0.72em;
-  font-family: var(--font-mono, monospace);
-  background: color-mix(in srgb, var(--accent, #5b4fcf) 12%, transparent);
-  color: var(--accent, #5b4fcf);
-  border: 1px solid color-mix(in srgb, var(--accent, #5b4fcf) 30%, transparent);
-  border-radius: 10px;
-  padding: 1px 8px;
-  margin-left: 6px;
-  vertical-align: middle;
-}
-#search-no-result {
-  display: none;
-  color: var(--text-muted, #888);
-  margin-bottom: 20px;
-  font-size: 0.9em;
-}
-#topic-list h2 {
-  font-size: 1.5rem;
-  margin-top: 1.8rem;
-}
-#topic-list ul {
-  margin-top: 0.4rem;
-}
-</style>
+        <div class="toggle-btn" onclick="toggleSidebar()">☰ Index</div>
 
-<div class="toggle-btn" onclick="toggleSidebar()">☰ Index</div>
-
-<div class="page-wrapper">
-  <aside class="sidebar collapsed" id="sidebar">
-    
-    
-    
-    
-      <h3 onclick="toggleGroup('B')">B</h3>
-      <ul id="group-B">
-        
-          
-          
-            <li><a href="/database/0004bcft/">Boundary CFT</a></li>
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-      </ul>
-    
-      <h3 onclick="toggleGroup('C')">C</h3>
-      <ul id="group-C">
-        
-          
-          
-        
-          
-          
-            <li><a href="/database/0005categorysymmetry/">Categorical Symmetry</a></li>
-          
-        
-          
-          
-            <li><a href="/database/00013dgravity/">Classical 2+1 D Gravity</a></li>
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-      </ul>
-    
-      <h3 onclick="toggleGroup('F')">F</h3>
-      <ul id="group-F">
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-            <li><a href="/database/0004frs/">FRS Reconstruction</a></li>
-          
-        
-          
-          
-            <li><a href="/database/0003fermioniccft/">Fermionic Minimal Model CFT</a></li>
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-      </ul>
-    
-      <h3 onclick="toggleGroup('H')">H</h3>
-      <ul id="group-H">
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-            <li><a href="/database/0008entropycone/">Holographic Entropy Cone</a></li>
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-      </ul>
-    
-      <h3 onclick="toggleGroup('M')">M</h3>
-      <ul id="group-M">
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-            <li><a href="/database/0006mooreseibergrcft/">Moore Seiberg Construction of RCFT</a></li>
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-      </ul>
-    
-      <h3 onclick="toggleGroup('R')">R</h3>
-      <ul id="group-R">
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-            <li><a href="/database/0007rtformula/">Ryu-Takayanagi Formula</a></li>
-          
-        
-          
-          
-        
-          
-          
-        
-      </ul>
-    
-      <h3 onclick="toggleGroup('T')">T</h3>
-      <ul id="group-T">
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-            <li><a href="/database/0009defectcft/">Topological Defects CFT</a></li>
-          
-        
-          
-          
-        
-      </ul>
-    
-      <h3 onclick="toggleGroup('V')">V</h3>
-      <ul id="group-V">
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-            <li><a href="/database/0002virasorotqft/">Virasoro TQFT</a></li>
-          
-        
-      </ul>
-    
-  </aside>
-
-  <div class="db-page-content" id="pageContent">
+<div class="page-wrapper"><aside class="sidebar collapsed" id="sidebar"><h3 onclick="toggleGroup('B')">B</h3>
+<ul id="group-B"><li><a href="/database/0004bcft/">Boundary CFT</a></li></ul><h3 onclick="toggleGroup('C')">C</h3>
+<ul id="group-C"><li><a href="/database/0005categorysymmetry/">Categorical Symmetry</a></li><li><a href="/database/00013dgravity/">Classical 2+1 D Gravity</a></li></ul><h3 onclick="toggleGroup('F')">F</h3>
+<ul id="group-F"><li><a href="/database/0004frs/">FRS Reconstruction</a></li><li><a href="/database/0003fermioniccft/">Fermionic Minimal Model</a></li></ul><h3 onclick="toggleGroup('H')">H</h3>
+<ul id="group-H"><li><a href="/database/0008entropycone/">Holographic Entropy Cone</a></li></ul><h3 onclick="toggleGroup('M')">M</h3>
+<ul id="group-M"><li><a href="/database/0010majoranacft/">Majorana CFT</a></li><li><a href="/database/0006mooreseibergrcft/">Moore Seiberg Construction of RCFT</a></li></ul><h3 onclick="toggleGroup('R')">R</h3>
+<ul id="group-R"><li><a href="/database/0007rtformula/">Ryu-Takayanagi Formula</a></li></ul><h3 onclick="toggleGroup('T')">T</h3>
+<ul id="group-T"><li><a href="/database/0009defectcft/">Topological Defects CFT</a></li></ul><h3 onclick="toggleGroup('V')">V</h3>
+<ul id="group-V"><li><a href="/database/0002virasorotqft/">Virasoro TQFT</a></li></ul></aside>
+<div class="db-page-content" id="pageContent">
     <article class="post">
       <header class="post-header">
         <h1 class="post-title">Database</h1>
@@ -549,354 +110,81 @@
 <h1 id="topics">Topics</h1>
 
 
-    <input type="text" id="search-box" placeholder="Search topics, tags, or content…" autocomplete="off" />
-    <div class="search-header" id="search-count" style="font-size:0.82em;color:var(--text-muted);margin-bottom:10px;font-family:var(--font-mono,monospace);"></div>
-    <div id="search-no-result">No results found.</div>
+        <input type="text" id="search-box" placeholder="Search topics, tags, or content…" autocomplete="off" />
+        <div class="search-header" id="search-count"></div>
+        <div id="search-no-result">No results found.</div>
 
-    <div id="topic-list">
-      
-      
-      
-        <h2 data-tag="2D CFT">2D CFT</h2>
-        <ul>
-          
-            
-              <li><a href="/database/0004bcft/">Boundary CFT</a></li>
-            
-          
-            
-          
-            
-          
-            
-              <li><a href="/database/0004frs/">FRS Reconstruction</a></li>
-            
-          
-            
-              <li><a href="/database/0003fermioniccft/">Fermionic Minimal Model CFT</a></li>
-            
-          
-            
-          
-            
-              <li><a href="/database/0006mooreseibergrcft/">Moore Seiberg Construction of RCFT</a></li>
-            
-          
-            
-          
-            
-              <li><a href="/database/0009defectcft/">Topological Defects CFT</a></li>
-            
-          
-            
-          
-        </ul>
-      
-        <h2 data-tag="Generalized Symmetry">Generalized Symmetry</h2>
-        <ul>
-          
-            
-          
-            
-              <li><a href="/database/0005categorysymmetry/">Categorical Symmetry</a></li>
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-        </ul>
-      
-        <h2 data-tag="3D Gravity">3D Gravity</h2>
-        <ul>
-          
-            
-          
-            
-          
-            
-              <li><a href="/database/00013dgravity/">Classical 2+1 D Gravity</a></li>
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-              <li><a href="/database/0002virasorotqft/">Virasoro TQFT</a></li>
-            
-          
-        </ul>
-      
-        <h2 data-tag="QIQG">QIQG</h2>
-        <ul>
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-              <li><a href="/database/0008entropycone/">Holographic Entropy Cone</a></li>
-            
-          
-            
-          
-            
-              <li><a href="/database/0007rtformula/">Ryu-Takayanagi Formula</a></li>
-            
-          
-            
-          
-            
-          
-        </ul>
-      
-    </div>
+        <div id="topic-list"><h2 data-tag="2D CFT">2D CFT</h2>
+            <ul><li><a href="/database/0004bcft/">Boundary CFT</a></li><li><a href="/database/0004frs/">FRS Reconstruction</a></li><li><a href="/database/0003fermioniccft/">Fermionic Minimal Model</a></li><li><a href="/database/0010majoranacft/">Majorana CFT</a></li><li><a href="/database/0006mooreseibergrcft/">Moore Seiberg Construction of RCFT</a></li><li><a href="/database/0009defectcft/">Topological Defects CFT</a></li></ul><h2 data-tag="Generalized Symmetry">Generalized Symmetry</h2>
+            <ul><li><a href="/database/0005categorysymmetry/">Categorical Symmetry</a></li></ul><h2 data-tag="3D Gravity">3D Gravity</h2>
+            <ul><li><a href="/database/00013dgravity/">Classical 2+1 D Gravity</a></li><li><a href="/database/0002virasorotqft/">Virasoro TQFT</a></li></ul><h2 data-tag="QIQG">QIQG</h2>
+            <ul><li><a href="/database/0008entropycone/">Holographic Entropy Cone</a></li><li><a href="/database/0007rtformula/">Ryu-Takayanagi Formula</a></li></ul></div>
       </div>
     </article>
   </div>
 </div>
 
 <script>
-/* ── Inject all topics with full content ── */
-var ALL_TOPICS = [];
-
-
-ALL_TOPICS.push({
-  title: "Boundary CFT",
-  url:   "/database/0004bcft/",
-  tags:  ["2D CFT"],
-  content: "Boundary Conformal Field Theory (BCFT) is a induced conformal field theory defined on a manifold with boundary. Though naively it is a theory with boundary, one impose boundary conditions and add boundary terms to the action. However, for general CFT without a lagrangian realization, we need a more general approach to define BCFT. General Reviews on the topic There are some general review on the topic of BCFT. BCF and the Worldsheet Approach to D-Branes A comprehensive review on the topic of BCFT, yet it approach this topic from a string theory perspective and didn’t quite focus on some of the more general aspects of BCFT. There are some good reviews but mainly just copied from this book. Boundary State To classify boundary conditions, Cardy uses the so-called boundary state, which is a state in the bulk Hilbert space, yet charaterizes the boundary condition. Boundary Conformal Field Theory A review on the topic of BCFT, which focuses on the boundary state. However, personally I find this inregorous and unclear. Boundary conditions, fusion rules and the Verlinde formula Cardy’s original paper on the boundary states. It focus on exactly classifying the boundary conditions of diagonal rational CFTs, and the boundary states are constructed using the modular S-matrix of the bulk CFT. Classifying algebra For non-diagonal CFTs, its harder to fully characterize and classify the boundary conditions. Fuchs and Schweigert introduce the classifying algebra, which is a finite-dimensional algebra that controls the possible boundary conditions of a conformal field theory. A classifying algebra for boundary conditions Fuchs and Schweigert’s original paper on the classifying algebra. Boundary Operators To have a complete BCFT one can introduce operators that live on the boundary."
-});
-
-ALL_TOPICS.push({
-  title: "Categorical Symmetry",
-  url:   "/database/0005categorysymmetry/",
-  tags:  ["Generalized Symmetry"],
-  content: ""
-});
-
-ALL_TOPICS.push({
-  title: "Classical 2+1 D Gravity",
-  url:   "/database/00013dgravity/",
-  tags:  ["3D Gravity"],
-  content: "It has beenm a long time since people starts to work on quantizing gravitational field. And lower dimensional gravity provides us a good playground to test various ideas and methods. In particular, 2+1 dimensional gravity has been studied extensively since it is much simpler than the physical 3+1 dimensional case, yet still shares many important features. Chern-Simons Formulation It has been revealed that the 2+1 dimensional gravity can be reformulated as a Chern-Simons gauge theory: 1988-12witten One of the first attempts to reformulate 2+1 dimensional gravity as a Chern-Simons theory and quantize it. Classical Phase Space It is commonly used to study the 2+1 dimensional gravity using a constriant first quantization. Thus, it is important to understand the classical phase space of the theory. Several papers give detailed discussions on this topic: 2007-6mess hihi"
-});
-
-ALL_TOPICS.push({
-  title: "FRS Reconstruction",
-  url:   "/database/0004frs/",
-  tags:  ["2D CFT"],
-  content: "FRS reconstruction 2002-fuch"
-});
-
-ALL_TOPICS.push({
-  title: "Fermionic Minimal Model CFT",
-  url:   "/database/0003fermioniccft/",
-  tags:  ["2D CFT"],
-  content: "In the 20s, people generalize the minimal model CFT to a fermionic version. There exist two constructions: 2020-runkel"
-});
-
-ALL_TOPICS.push({
-  title: "Holographic Entropy Cone",
-  url:   "/database/0008entropycone/",
-  tags:  ["QIQG"],
-  content: ""
-});
-
-ALL_TOPICS.push({
-  title: "Moore Seiberg Construction of RCFT",
-  url:   "/database/0006mooreseibergrcft/",
-  tags:  ["2D CFT"],
-  content: "Moore Seiberg Construction of RCFT A series of extremely important and inspiring papers by Moore and Seiberg reveals a deep mathematical structure underlying rational conformal field theories (RCFTs). The main idea is that the conformal blocks of a RCFT forms a vector space, and represent the so called Moore-Seiberg groupoid. These conformal blocks satisfy a set of duality relations and the duality matircies satisfy a set of consistency conditions. By solving the consistency conditions, one can determine the duality matrices, which characterize a lot of information in RCFT. Moreover, the conformal blocks also give rise to a mathematical structure called modular tensor category, which is a very important mathematical structure in the study of TQFT, topological order … Original Papers Classical and quantum conformal field theory by Moore and Seiberg, 1989. One of the most important papers in the field. Taming the conformal zoo by Moore and Seiberg, 1989. Naturality in conformal field theory by Moore and Seiberg, 1989. Polynomial Lectures Lecture notes on RCFT by Moore A lecture note reviewing the main results in the above papers. It is a very good resource for learning about the Moore-Seiberg construction of RCFT. Mathematical Perspective"
-});
-
-ALL_TOPICS.push({
-  title: "Ryu-Takayanagi Formula",
-  url:   "/database/0007rtformula/",
-  tags:  ["QIQG"],
-  content: ""
-});
-
-ALL_TOPICS.push({
-  title: "Topological Defects CFT",
-  url:   "/database/0009defectcft/",
-  tags:  ["2D CFT"],
-  content: ""
-});
-
-ALL_TOPICS.push({
-  title: "Virasoro TQFT",
-  url:   "/database/0002virasorotqft/",
-  tags:  ["3D Gravity"],
-  content: "Virasoro TQFT is a non-conventional topological quantum field theory that helps to calculate (in fact sort of defines) the gravitational path integral of 2+1 dimensional gravity on a topology fixed manifold with negative cosmological constant. 2023-10Eberhardt The original paper that proposed the Virasoro TQFT and explained how to use it to compute the gravitational path integral."
-});
-
-
-/* ── Sidebar toggles ── */
-function toggleSidebar() {
-  document.getElementById('sidebar').classList.toggle('collapsed');
-}
-function toggleGroup(letter) {
-  var el = document.getElementById('group-' + letter);
-  if (el) el.classList.toggle('collapsed');
-}
-
-/* ── Utils ── */
-function escapeHtml(s) {
-  return String(s)
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-function escapeRe(s) { return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); }
-
-/* Fuzzy match: all query chars appear in order in str */
-function fuzzyMatch(str, q) {
-  str = str.toLowerCase(); q = q.toLowerCase();
-  var si = 0, qi = 0;
-  while (si < str.length && qi < q.length) { if (str[si]===q[qi]) qi++; si++; }
-  return qi === q.length;
-}
-
-/* Highlight matched chars for fuzzy */
-function fuzzyHL(str, q) {
-  var out='', qi=0, ql=q.toLowerCase();
-  for (var i=0;i<str.length;i++) {
-    if (qi<ql.length && str[i].toLowerCase()===ql[qi]) {
-      out += '<span class="search-highlight">'+escapeHtml(str[i])+'</span>'; qi++;
-    } else { out += escapeHtml(str[i]); }
-  }
-  return out;
-}
-
-/* Substring match in content, returns highlighted snippet */
-function contentHL(text, q) {
-  if (!text||!q) return null;
-  var idx = text.toLowerCase().indexOf(q.toLowerCase());
-  if (idx===-1) return null;
-  var s = Math.max(0,idx-60), e = Math.min(text.length, idx+q.length+120);
-  var raw = (s>0?'…':'')+text.slice(s,e)+(e<text.length?'…':'');
-  return escapeHtml(raw).replace(
-    new RegExp('('+escapeRe(escapeHtml(q))+')','gi'),
-    '<span class="search-highlight">$1</span>'
-  );
-}
-
-/* ── Main search ── */
-function doSearch(q) {
-  var noRes    = document.getElementById('search-no-result');
-  var mainList = document.getElementById('topic-list');
-  var countEl  = document.getElementById('search-count');
-
-  q = q.trim();
-
-  /* ── No query: restore everything ── */
-  if (!q) {
-    noRes.style.display = 'none';
-    countEl.textContent = '';
-    /* Show all section headings and list items */
-    mainList.querySelectorAll('h2').forEach(function(h){ h.style.display = ''; });
-    mainList.querySelectorAll('ul').forEach(function(u){ u.style.display = ''; });
-    mainList.querySelectorAll('li').forEach(function(li){
-      li.style.display = '';
-      /* remove any previous highlights */
-      var a = li.querySelector('a');
-      if (a && a.dataset.origText) { a.innerHTML = escapeHtml(a.dataset.origText); }
-    });
-    return;
-  }
-
-  /* ── Build a set of matching topic URLs ── */
-  var matchedUrls = {};
-  for (var i = 0; i < ALL_TOPICS.length; i++) {
-    var t = ALL_TOPICS[i];
-    var titleHit = fuzzyMatch(t.title, q);
-    var tagHit   = (t.tags||[]).some(function(tg){ return fuzzyMatch(tg, q); });
-    var contHit  = t.content && t.content.toLowerCase().indexOf(q.toLowerCase()) !== -1;
-    if (titleHit || tagHit || contHit) {
-      matchedUrls[t.url] = true;
-    }
-  }
-
-  var totalMatched = Object.keys(matchedUrls).length;
-
-  /* ── Filter the rendered #topic-list in place ── */
-  var sections = mainList.querySelectorAll('h2');
-  sections.forEach(function(h2) {
-    var ul = h2.nextElementSibling;
-    if (!ul) return;
-    var visibleCount = 0;
-    ul.querySelectorAll('li').forEach(function(li) {
-      var a = li.querySelector('a');
-      if (!a) return;
-      /* Normalize the href to match t.url (strip trailing slash differences) */
-      var href = a.getAttribute('href').replace(/\/$/, '');
-      var found = false;
-      for (var url in matchedUrls) {
-        if (url.replace(/\/$/, '') === href) { found = true; break; }
-      }
-      if (found) {
-        li.style.display = '';
-        /* Highlight title if fuzzy match on title text */
-        if (!a.dataset.origText) a.dataset.origText = a.textContent;
-        a.innerHTML = fuzzyMatch(a.dataset.origText, q)
-          ? fuzzyHL(a.dataset.origText, q)
-          : escapeHtml(a.dataset.origText);
-        visibleCount++;
-      } else {
-        li.style.display = 'none';
-        /* restore text */
-        var orig = a.dataset.origText;
-        if (orig) a.innerHTML = escapeHtml(orig);
-      }
-    });
-    /* Hide the whole section if no matching items */
-    if (visibleCount === 0) {
-      h2.style.display = 'none';
-      ul.style.display = 'none';
-    } else {
-      h2.style.display = '';
-      ul.style.display = '';
-    }
-  });
-
-  if (totalMatched === 0) {
-    noRes.style.display = '';
-    countEl.textContent = '';
-  } else {
-    noRes.style.display = 'none';
-    countEl.textContent = totalMatched + ' result' + (totalMatched !== 1 ? 's' : '') + ' for "' + q + '"';
-  }
-}
-
-document.getElementById('search-box').addEventListener('input', function(){ doSearch(this.value); });
+/* Inject all topics with full content for client-side search */
+window.ALL_TOPICS = [{
+    title:   "Boundary CFT",
+    url:     "/database/0004bcft/",
+    tags:    ["2D CFT"],
+    content: "Boundary Conformal Field Theory (BCFT) is a induced conformal field theory defined on a manifold with boundary. Though naively it is a theory with boundary, one impose boundary conditions and add boundary terms to the action. However, for general CFT without a lagrangian realization, we need a more general approach to define BCFT. General Reviews on the topic There are some general review on the topic of BCFT. BCF and the Worldsheet Approach to D-Branes A comprehensive review on the topic of BCFT, yet it approach this topic from a string theory perspective and didn’t quite focus on some of the more general aspects of BCFT. There are some good reviews but mainly just copied from this book. Boundary State To classify boundary conditions, Cardy uses the so-called boundary state, which is a state in the bulk Hilbert space, yet charaterizes the boundary condition. Boundary Conformal Field Theory A review on the topic of BCFT, which focuses on the boundary state. However, personally I find this inregorous and unclear. Boundary conditions, fusion rules and the Verlinde formula Cardy’s original paper on the boundary states. It focus on exactly classifying the boundary conditions of diagonal rational CFTs, and the boundary states are constructed using the modular S-matrix of the bulk CFT. Classifying algebra For non-diagonal CFTs, its harder to fully characterize and classify the boundary conditions. Fuchs and Schweigert introduce the classifying algebra, which is a finite-dimensional algebra that controls the possible boundary conditions of a conformal field theory. A classifying algebra for boundary conditions Fuchs and Schweigert’s original paper on the classifying algebra. Boundary Operators To have a complete BCFT one can introduce operators that live on the boundary."
+  },{
+    title:   "Categorical Symmetry",
+    url:     "/database/0005categorysymmetry/",
+    tags:    ["Generalized Symmetry"],
+    content: ""
+  },{
+    title:   "Classical 2+1 D Gravity",
+    url:     "/database/00013dgravity/",
+    tags:    ["3D Gravity"],
+    content: "It has beenm a long time since people starts to work on quantizing gravitational field. And lower dimensional gravity provides us a good playground to test various ideas and methods. In particular, 2+1 dimensional gravity has been studied extensively since it is much simpler than the physical 3+1 dimensional case, yet still shares many important features. Chern-Simons Formulation It has been revealed that the 2+1 dimensional gravity can be reformulated as a Chern-Simons gauge theory: 1988-12witten One of the first attempts to reformulate 2+1 dimensional gravity as a Chern-Simons theory and quantize it. Classical Phase Space It is commonly used to study the 2+1 dimensional gravity using a constriant first quantization. Thus, it is important to understand the classical phase space of the theory. Several papers give detailed discussions on this topic: 2007-6mess hihi"
+  },{
+    title:   "FRS Reconstruction",
+    url:     "/database/0004frs/",
+    tags:    ["2D CFT"],
+    content: "FRS reconstruction 2002-fuch"
+  },{
+    title:   "Fermionic Minimal Model",
+    url:     "/database/0003fermioniccft/",
+    tags:    ["2D CFT"],
+    content: "In the 20s, people generalize the minimal model CFT to a fermionic version. There exist two constructions: Fermionic minimal model and classifying algebra"
+  },{
+    title:   "Holographic Entropy Cone",
+    url:     "/database/0008entropycone/",
+    tags:    ["QIQG"],
+    content: ""
+  },{
+    title:   "Majorana CFT",
+    url:     "/database/0010majoranacft/",
+    tags:    ["2D CFT"],
+    content: "Majorana CFT (aka. free fermion CFT) is one of the simplest CFT and one of the first examples in textbooks. Yet it not quite correctly understood till recently. Tranditional Understanding Most of the traditional understanding of Majorana CFT mixed with its bosonization counterpart, which is the Ising CFT. However, one should understand these two as distict theories. Most structure of Majorana CFT can be found in the standart textbook: Applied Conformal Field Theory"
+  },{
+    title:   "Moore Seiberg Construction of RCFT",
+    url:     "/database/0006mooreseibergrcft/",
+    tags:    ["2D CFT"],
+    content: "Moore Seiberg Construction of RCFT A series of extremely important and inspiring papers by Moore and Seiberg reveals a deep mathematical structure underlying rational conformal field theories (RCFTs). The main idea is that the conformal blocks of a RCFT forms a vector space, and represent the so called Moore-Seiberg groupoid. These conformal blocks satisfy a set of duality relations and the duality matircies satisfy a set of consistency conditions. By solving the consistency conditions, one can determine the duality matrices, which characterize a lot of information in RCFT. Moreover, the conformal blocks also give rise to a mathematical structure called modular tensor category, which is a very important mathematical structure in the study of TQFT, topological order … Original Papers Classical and quantum conformal field theory by Moore and Seiberg, 1989. One of the most important papers in the field. Taming the conformal zoo by Moore and Seiberg, 1989. Naturality in conformal field theory by Moore and Seiberg, 1989. Polynomial equations for rational conformal field theories by Moore and Seiberg, 1988. Lectures Lectures on RCFT A lecture note reviewing the main results in the above papers. It is a very good resource for learning about the Moore-Seiberg construction of RCFT. It also presents CS/WZW duality as explicit examples of the Moore-Seiberg construction. Mathematical Perspective Moore Seiberg construction has a deep underlying mathematical structure, which is modular functor and modular tensor category. It is also deeply related to the mathematical structure of TQFT. A mathematical review of these topics is given by: Lectures on Tensor Categories and Modular Functors"
+  },{
+    title:   "Ryu-Takayanagi Formula",
+    url:     "/database/0007rtformula/",
+    tags:    ["QIQG"],
+    content: ""
+  },{
+    title:   "Topological Defects CFT",
+    url:     "/database/0009defectcft/",
+    tags:    ["2D CFT"],
+    content: ""
+  },{
+    title:   "Virasoro TQFT",
+    url:     "/database/0002virasorotqft/",
+    tags:    ["3D Gravity"],
+    content: "Virasoro TQFT is a non-conventional topological quantum field theory that helps to calculate (in fact sort of defines) the gravitational path integral of 2+1 dimensional gravity on a topology fixed manifold with negative cosmological constant. 2023-10Eberhardt The original paper that proposed the Virasoro TQFT and explained how to use it to compute the gravitational path integral."
+  }];
 </script>
+<script src="/assets/js/sidebar.js"></script>
+<script src="/assets/js/database-search.js"></script>
 
       </div>
     </main><footer class="site-footer">
@@ -908,8 +196,3 @@ document.getElementById('search-box').addEventListener('input', function(){ doSe
 </footer>
 </body>
 </html>
-
-<script>
-MathJax = { tex: { inlineMath: [['$','$']] } };
-</script>
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>

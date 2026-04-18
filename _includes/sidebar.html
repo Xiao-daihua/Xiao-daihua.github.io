@@ -1,0 +1,30 @@
+<aside class="sidebar collapsed" id="sidebar">
+
+{%- assign sorted_topics = site.database | sort: "title" -%}
+
+{%- assign letters_str = "" -%}
+
+{%- for topic in sorted_topics -%}
+  {%- assign first_letter = topic.title | slice: 0, 1 | upcase -%}
+  {%- unless letters_str contains first_letter -%}
+    {%- assign letters_str = letters_str | append: first_letter | append: "," -%}
+  {%- endunless -%}
+{%- endfor -%}
+
+{%- assign letters = letters_str | split: "," -%}
+
+{%- for letter in letters -%}
+  {%- unless letter == "" -%}
+<h3 onclick="toggleGroup('{{ letter }}')">{{ letter }}</h3>
+<ul id="group-{{ letter }}">
+    {%- for topic in sorted_topics -%}
+      {%- assign first_letter = topic.title | slice: 0, 1 | upcase -%}
+      {%- if first_letter == letter -%}
+<li><a href="{{ topic.url | relative_url }}">{{ topic.title }}</a></li>
+      {%- endif -%}
+    {%- endfor -%}
+</ul>
+  {%- endunless -%}
+{%- endfor -%}
+
+</aside>

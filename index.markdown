@@ -9,7 +9,7 @@ title: Willkommen, Bienvenue, Welcome!
 <!-- ![](assets/hyperdisk.png) -->
 
 <p style="text-align: center; margin: 80px 0;">
-  <img src="assets/hyperdisk.png" width="200" alt="hyperdisk">
+  <img src="{{ '/assets/hyperdisk.png' | relative_url }}" width="200" alt="hyperdisk">
 </p>
 
 Hi! I’m **Yu Liu** — currently a master’s student in Physics at EPFL, and a graduate of Tsinghua University. I'm interested in quantum gravity, especially the AdS/CFT correspondence. More recently, I'm also interested in CFTs and their applications in condensed matter physics.
@@ -18,14 +18,14 @@ Hi! I’m **Yu Liu** — currently a master’s student in Physics at EPFL, and 
 
 Here are some of my physics-related pages:
 
-- [Notes](/note.markdown): A collection of my notes on various physics topics as well as lecture notes from courses I've taken in courses.
-- [Database](/data.markdown): A database of research papers on various topics that I find interesting.
+- [Notes]({{ "/note.html" | relative_url }}): A collection of my notes on various physics topics as well as lecture notes from courses I've taken in courses.
+- [Database]({{ "/data.html" | relative_url }}): A database of research papers on various topics that I find interesting.
 
 ## Beyond Physics
 
 Outside the lab, I’m a **Broadway musical** enthusiast and I love **skiing**. Feel free to explore:
 
-- [Musicals](/musical.markdown) blog: This is a blog where I share my reviews of various Musicals (while mostly broadway ones). Unfortunately, it's currently only available in Chinese.
+- [Musicals]({{ "/musical.html" | relative_url }}) blog: This is a blog where I share my reviews of various Musicals (while mostly broadway ones). Unfortunately, it's currently only available in Chinese.
 
 ## Contact Me
 

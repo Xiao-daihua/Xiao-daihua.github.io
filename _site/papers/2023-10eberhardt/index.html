@@ -12,11 +12,11 @@
 <meta property="og:url" content="http://localhost:4000/papers/2023-10eberhardt/" />
 <meta property="og:site_name" content="Xiao-daihua" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2026-04-15T12:10:58+02:00" />
+<meta property="article:published_time" content="2026-04-18T10:05:58+02:00" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Solving 3d Gravity with Virasoro TQFT" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Collier, S."},"dateModified":"2026-04-15T12:10:58+02:00","datePublished":"2026-04-15T12:10:58+02:00","headline":"Solving 3d Gravity with Virasoro TQFT","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/papers/2023-10eberhardt/"},"url":"http://localhost:4000/papers/2023-10eberhardt/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Collier, S."},"dateModified":"2026-04-18T10:05:58+02:00","datePublished":"2026-04-18T10:05:58+02:00","headline":"Solving 3d Gravity with Virasoro TQFT","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/papers/2023-10eberhardt/"},"url":"http://localhost:4000/papers/2023-10eberhardt/"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css">
   <link rel="stylesheet" href="/assets/custom.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Xiao-daihua" /><!-- Theme initialisation: read saved preference before page paint to avoid flash -->
@@ -26,17 +26,19 @@
       var prefer = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
       document.documentElement.setAttribute('data-theme', saved || prefer);
     })();
-  </script>
-  <!-- KaTeX for math rendering -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/contrib/auto-render.min.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      renderMathInElement(document.body);
-    });
-  </script>
-</head>
+  </script><!-- KaTeX (single math engine — MathJax removed to avoid double rendering) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+          onload="renderMathInElement(document.body, {
+            delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '\\[', right: '\\]', display: true},
+              {left: '$',  right: '$',  display: false},
+              {left: '\\(', right: '\\)', display: false}
+            ],
+            throwOnError: false
+          });"></script></head>
 <body><header class="site-header" role="banner">
 
   <div class="wrapper"><a class="site-title" rel="author" href="/">Xiao-daihua</a><nav class="site-nav">
@@ -49,7 +51,7 @@
           </span>
         </label>
 
-        <div class="trigger"><a class="page-link" href="/data.html">Database</a><a class="page-link" href="/note.html">Notes</a><a class="page-link" href="/musical.html">Musicals</a><a class="page-link" href="/about/">About</a><button id="theme-toggle" aria-label="Toggle dark/light mode" title="Toggle theme">
+        <div class="trigger"><a class="page-link" href="/data.html">Database</a><a class="page-link" href="/note.html">Notes</a><a class="page-link" href="/musical.html">Musicals</a><a class="page-link" href="/about/">About</a><button id="theme-toggle" type="button" aria-label="Toggle dark/light mode" title="Toggle theme">
             <span id="theme-icon">☀︎</span> <span id="theme-label">Light</span>
           </button>
         </div>
@@ -60,8 +62,8 @@
             document.documentElement.setAttribute('data-theme', t);
             var icon  = document.getElementById('theme-icon');
             var label = document.getElementById('theme-label');
-            if (icon)  icon.textContent  = (t === 'dark') ? '' : '';
-            if (label) label.textContent = (t === 'dark') ? 'D/L' : 'D/L';
+            if (icon)  icon.textContent  = (t === 'dark') ? '☾'    : '☀︎';
+            if (label) label.textContent = (t === 'dark') ? 'Dark' : 'Light';
           }
           var btn = document.getElementById('theme-toggle');
           if (btn) {
@@ -78,251 +80,44 @@
 </header>
 <main class="page-content" aria-label="Content">
       <div class="wrapper">
-        <style>
-/* ── Paper Layout (theme-compatible) ── */
+        <article class="paper-article">
 
-.paper-meta-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 10px;
-  margin-bottom: 1.5rem;
-}
-
-.paper-meta-card {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 0.75rem 1rem;
-  transition: all 0.15s ease;
-}
-
-.paper-meta-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px var(--shadow);
-}
-
-.paper-meta-card .label {
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-bottom: 4px;
-}
-
-.paper-meta-card .value {
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--text);
-}
-
-/* ── IDs ── */
-
-.paper-ids-box {
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 1rem 1.25rem;
-  margin-bottom: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  background: var(--surface);
-}
-
-.paper-ids-box .id-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.paper-ids-box .id-label {
-  font-size: 13px;
-  color: var(--text-muted);
-  min-width: 50px;
-}
-
-.paper-ids-box a {
-  font-size: 14px;
-  font-family: var(--font-mono);
-  color: var(--accent);
-  text-decoration: none;
-}
-
-.paper-ids-box a:hover {
-  text-decoration: underline;
-}
-
-.paper-ids-box .divider {
-  height: 1px;
-  background: var(--border);
-}
-
-.paper-ids-box .arxiv-cat {
-  font-size: 12px;
-  background: color-mix(in srgb, var(--accent) 15%, transparent);
-  color: var(--accent);
-  padding: 2px 8px;
-  border-radius: 6px;
-}
-
-/* ── Status ── */
-
-.paper-status {
-  font-size: 12px;
-  padding: 4px 10px;
-  border-radius: 6px;
-  border: 1px solid var(--border);
-}
-
-.paper-status.published {
-  background: color-mix(in srgb, #22c55e 20%, transparent);
-  color: #22c55e;
-}
-
-.paper-status.preprint {
-  background: color-mix(in srgb, #f59e0b 20%, transparent);
-  color: #f59e0b;
-}
-
-.paper-status.submitted {
-  background: color-mix(in srgb, var(--accent) 20%, transparent);
-  color: var(--accent);
-}
-
-/* ── Buttons ── */
-
-.paper-action-btn {
-  display: inline-block;
-  font-size: 13px;
-  padding: 6px 14px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  color: var(--text);
-  text-decoration: none;
-  background: var(--surface);
-  transition: all 0.2s;
-}
-
-.paper-action-btn:hover {
-  background: var(--bg-secondary);
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
-.paper-action-btn.primary {
-  color: var(--accent);
-  border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
-}
-</style>
-
-<article>
-  <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px; margin-bottom:0.75rem;">
-    <h1 style="margin:0; line-height:1.4;">Solving 3d Gravity with Virasoro TQFT</h1>
-    
-    <span class="paper-status published">Published</span>
-    
-  </div>
-
-  
-  <p style="color:var(--text-muted); margin:0 0 1.5rem;">
+  <div class="paper-title-row">
+    <h1 class="paper-title">Solving 3d Gravity with Virasoro TQFT</h1><span class="paper-status published">Published</span></div><p class="paper-authors">
     Collier, S., Eberhardt, L., Zhang, M.
-  </p>
-  
-
-  <div class="paper-meta-grid">
-    
-    <div class="paper-meta-card">
+  </p><div class="paper-meta-grid"><div class="paper-meta-card">
       <div class="label">Year</div>
       <div class="value">2023</div>
-    </div>
-    
-    
-    <div class="paper-meta-card">
+    </div><div class="paper-meta-card">
       <div class="label">Journal</div>
       <div class="value">SciPost Phys.</div>
-    </div>
-    
-    
-    <div class="paper-meta-card">
+    </div><div class="paper-meta-card">
       <div class="label">Volume / Pages</div>
       <div class="value">
         15, 151
       </div>
-    </div>
-    
-  </div>
-
-  
-  <div class="paper-ids-box">
-    
-    <div class="id-row">
+    </div></div><div class="paper-ids-box"><div class="id-row">
       <span class="id-label">arXiv</span>
-      <a href="https://arxiv.org/abs/2304.13650" target="_blank">
+      <a href="https://arxiv.org/abs/2304.13650" target="_blank" rel="noopener">
         2304.13650
-      </a>
-      
-      <span class="arxiv-cat">hep-th</span>
-      
-    </div>
-    
-
-    
-    <div class="divider"></div>
-    
-
-    
-    <div class="id-row">
+      </a><span class="arxiv-cat">hep-th</span></div><div class="divider"></div><div class="id-row">
       <span class="id-label">DOI</span>
-      <a href="https://doi.org/10.21468/SciPostPhys.15.4.151" target="_blank">
+      <a href="https://doi.org/10.21468/SciPostPhys.15.4.151" target="_blank" rel="noopener">
         10.21468/SciPostPhys.15.4.151
       </a>
-    </div>
-    
-  </div>
-  
-
-  
-  <h2 style="font-size:16px; font-weight:500; margin:0 0 0.5rem;">
-    Abstract
-  </h2>
-  <p style="line-height:1.7; color:var(--text-muted); margin:0 0 1.5rem;">
+    </div></div><h2 class="paper-abstract-heading">Abstract</h2>
+  <p class="paper-abstract">
     We propose a precise reformulation of 3d quantum gravity with negative cosmological constant in terms of a topological quantum field theory based on the quantization of the Teichmüller space of Riemann surfaces that we refer to as Virasoro TQFT. This TQFT is similar, but importantly not equivalent, to SL(2,R) Chern-Simons theory. This sharpens the folklore that 3d gravity is related to SL(2,R) Chern-Simons theory into a precise correspondence, and resolves some well-known issues with this lore at the quantum level. Our proposal is computationally very useful and provides a powerful tool for the further study of 3d gravity. In particular, we explain how together with standard TQFT surgery techniques this leads to a fully algorithmic procedure for the computation of the gravity partition function on a fixed topology exactly in the central charge.
-  </p>
-  
-
-  
-  <div style="border-top:1px solid var(--border); padding-top:1rem; margin-top:0.5rem; line-height:1.7;">
+  </p><div class="paper-content">
     
 
-  </div>
-  
-
-  <div style="margin-top:1.5rem; display:flex; gap:8px; flex-wrap:wrap;">
-    <a href="javascript:history.back()" class="paper-action-btn">⟵ Back</a>
-
-    
-    <a href="https://arxiv.org/pdf/2304.13650" target="_blank" class="paper-action-btn primary">
+  </div><div class="paper-actions">
+    <a href="javascript:history.back()" class="paper-action-btn">⟵ Back</a><a href="https://arxiv.org/pdf/2304.13650" target="_blank" rel="noopener" class="paper-action-btn primary">
       arXiv PDF
-    </a>
-    
-
-    
-    <a href="https://doi.org/10.21468/SciPostPhys.15.4.151" target="_blank" class="paper-action-btn primary">
+    </a><a href="https://doi.org/10.21468/SciPostPhys.15.4.151" target="_blank" rel="noopener" class="paper-action-btn primary">
       DOI link
-    </a>
-    
-  </div>
-
-  
-  
-
-  
-  <h2 style="margin-top:2rem;">Referenced by</h2>
-  <ul>
-    
-    <li><a href="/database/0002virasorotqft/">Virasoro TQFT</a></li>
-    
-  </ul>
-  
-</article>
+    </a></div><h2 class="paper-referenced-heading">Referenced by</h2>
+  <ul class="paper-referenced-list"><li><a href="/database/0002virasorotqft/">Virasoro TQFT</a></li></ul></article>
 
       </div>
     </main><footer class="site-footer">
@@ -334,8 +129,3 @@
 </footer>
 </body>
 </html>
-
-<script>
-MathJax = { tex: { inlineMath: [['$','$']] } };
-</script>
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>

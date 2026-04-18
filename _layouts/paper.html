@@ -2,251 +2,122 @@
 layout: default
 ---
 
-<style>
-/* ── Paper Layout (theme-compatible) ── */
+<article class="paper-article">
 
-.paper-meta-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 10px;
-  margin-bottom: 1.5rem;
-}
-
-.paper-meta-card {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 0.75rem 1rem;
-  transition: all 0.15s ease;
-}
-
-.paper-meta-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px var(--shadow);
-}
-
-.paper-meta-card .label {
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-bottom: 4px;
-}
-
-.paper-meta-card .value {
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--text);
-}
-
-/* ── IDs ── */
-
-.paper-ids-box {
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 1rem 1.25rem;
-  margin-bottom: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  background: var(--surface);
-}
-
-.paper-ids-box .id-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.paper-ids-box .id-label {
-  font-size: 13px;
-  color: var(--text-muted);
-  min-width: 50px;
-}
-
-.paper-ids-box a {
-  font-size: 14px;
-  font-family: var(--font-mono);
-  color: var(--accent);
-  text-decoration: none;
-}
-
-.paper-ids-box a:hover {
-  text-decoration: underline;
-}
-
-.paper-ids-box .divider {
-  height: 1px;
-  background: var(--border);
-}
-
-.paper-ids-box .arxiv-cat {
-  font-size: 12px;
-  background: color-mix(in srgb, var(--accent) 15%, transparent);
-  color: var(--accent);
-  padding: 2px 8px;
-  border-radius: 6px;
-}
-
-/* ── Status ── */
-
-.paper-status {
-  font-size: 12px;
-  padding: 4px 10px;
-  border-radius: 6px;
-  border: 1px solid var(--border);
-}
-
-.paper-status.published {
-  background: color-mix(in srgb, #22c55e 20%, transparent);
-  color: #22c55e;
-}
-
-.paper-status.preprint {
-  background: color-mix(in srgb, #f59e0b 20%, transparent);
-  color: #f59e0b;
-}
-
-.paper-status.submitted {
-  background: color-mix(in srgb, var(--accent) 20%, transparent);
-  color: var(--accent);
-}
-
-/* ── Buttons ── */
-
-.paper-action-btn {
-  display: inline-block;
-  font-size: 13px;
-  padding: 6px 14px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  color: var(--text);
-  text-decoration: none;
-  background: var(--surface);
-  transition: all 0.2s;
-}
-
-.paper-action-btn:hover {
-  background: var(--bg-secondary);
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
-.paper-action-btn.primary {
-  color: var(--accent);
-  border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
-}
-</style>
-
-<article>
-  <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px; margin-bottom:0.75rem;">
-    <h1 style="margin:0; line-height:1.4;">{{ page.title }}</h1>
-    {% if page.status %}
+  <div class="paper-title-row">
+    <h1 class="paper-title">{{ page.title }}</h1>
+    {%- if page.status -%}
     <span class="paper-status {{ page.status }}">{{ page.status | capitalize }}</span>
-    {% endif %}
+    {%- endif -%}
   </div>
 
-  {% if page.authors %}
-  <p style="color:var(--text-muted); margin:0 0 1.5rem;">
+  {%- if page.authors -%}
+  <p class="paper-authors">
     {{ page.authors | join: ", " }}
   </p>
-  {% endif %}
+  {%- endif -%}
 
   <div class="paper-meta-grid">
-    {% if page.year %}
+    {%- if page.year -%}
     <div class="paper-meta-card">
       <div class="label">Year</div>
       <div class="value">{{ page.year }}</div>
     </div>
-    {% endif %}
-    {% if page.journal %}
+    {%- endif -%}
+    {%- if page.journal -%}
     <div class="paper-meta-card">
       <div class="label">Journal</div>
       <div class="value">{{ page.journal }}</div>
     </div>
-    {% endif %}
-    {% if page.volume %}
+    {%- endif -%}
+    {%- if page.volume -%}
     <div class="paper-meta-card">
       <div class="label">Volume / Pages</div>
       <div class="value">
         {{ page.volume }}{% if page.pages %}, {{ page.pages }}{% endif %}
       </div>
     </div>
-    {% endif %}
+    {%- endif -%}
   </div>
 
-  {% if page.arxiv or page.doi %}
+  {%- if page.arxiv or page.doi -%}
   <div class="paper-ids-box">
-    {% if page.arxiv %}
+    {%- if page.arxiv -%}
     <div class="id-row">
       <span class="id-label">arXiv</span>
-      <a href="https://arxiv.org/abs/{{ page.arxiv }}" target="_blank">
+      <a href="https://arxiv.org/abs/{{ page.arxiv }}" target="_blank" rel="noopener">
         {{ page.arxiv }}
       </a>
-      {% if page.arxiv_cat %}
+      {%- if page.arxiv_cat -%}
       <span class="arxiv-cat">{{ page.arxiv_cat }}</span>
-      {% endif %}
+      {%- endif -%}
     </div>
-    {% endif %}
+    {%- endif -%}
 
-    {% if page.arxiv and page.doi %}
+    {%- if page.arxiv and page.doi -%}
     <div class="divider"></div>
-    {% endif %}
+    {%- endif -%}
 
-    {% if page.doi %}
+    {%- if page.doi -%}
     <div class="id-row">
       <span class="id-label">DOI</span>
-      <a href="https://doi.org/{{ page.doi }}" target="_blank">
+      <a href="https://doi.org/{{ page.doi }}" target="_blank" rel="noopener">
         {{ page.doi }}
       </a>
     </div>
-    {% endif %}
+    {%- endif -%}
   </div>
-  {% endif %}
+  {%- endif -%}
 
-  {% if page.abstract %}
-  <h2 style="font-size:16px; font-weight:500; margin:0 0 0.5rem;">
-    Abstract
-  </h2>
-  <p style="line-height:1.7; color:var(--text-muted); margin:0 0 1.5rem;">
+  {%- if page.abstract -%}
+  <h2 class="paper-abstract-heading">Abstract</h2>
+  <p class="paper-abstract">
     {{ page.abstract }}
   </p>
-  {% endif %}
+  {%- endif -%}
 
-  {% if content != "" %}
-  <div style="border-top:1px solid var(--border); padding-top:1rem; margin-top:0.5rem; line-height:1.7;">
+  {%- if content != "" -%}
+  <div class="paper-content">
     {{ content }}
   </div>
-  {% endif %}
+  {%- endif -%}
 
-  <div style="margin-top:1.5rem; display:flex; gap:8px; flex-wrap:wrap;">
+  <div class="paper-actions">
     <a href="javascript:history.back()" class="paper-action-btn">⟵ Back</a>
 
-    {% if page.arxiv %}
-    <a href="https://arxiv.org/pdf/{{ page.arxiv }}" target="_blank" class="paper-action-btn primary">
+    {%- if page.arxiv -%}
+    <a href="https://arxiv.org/pdf/{{ page.arxiv }}" target="_blank" rel="noopener" class="paper-action-btn primary">
       arXiv PDF
     </a>
-    {% endif %}
+    {%- endif -%}
 
-    {% if page.doi %}
-    <a href="https://doi.org/{{ page.doi }}" target="_blank" class="paper-action-btn primary">
+    {%- if page.doi -%}
+    <a href="https://doi.org/{{ page.doi }}" target="_blank" rel="noopener" class="paper-action-btn primary">
       DOI link
     </a>
-    {% endif %}
+    {%- endif -%}
   </div>
 
-  {% assign citing_pages = "" | split: "" %}
-  {% for p in site.database %}
-    {% if p.output contains page.url %}
-      {% assign citing_pages = citing_pages | push: p %}
-    {% endif %}
-  {% endfor %}
+  {%- comment -%}
+    Find database topics that cite this paper.
+    BUG FIX: original code used `p.output contains page.url`, but p.output is a
+    boolean (whether the doc is rendered) — we need to search the rendered
+    content. Matching on p.content catches raw Markdown links like
+    `(/papers/2023-10eberhardt/)`.
+  {%- endcomment -%}
+  {%- assign citing_pages = "" | split: "" -%}
+  {%- for p in site.database -%}
+    {%- if p.content contains page.url -%}
+      {%- assign citing_pages = citing_pages | push: p -%}
+    {%- endif -%}
+  {%- endfor -%}
 
-  {% if citing_pages.size > 0 %}
-  <h2 style="margin-top:2rem;">Referenced by</h2>
-  <ul>
-    {% for p in citing_pages %}
-    <li><a href="{{ p.url }}">{{ p.title }}</a></li>
-    {% endfor %}
+  {%- if citing_pages.size > 0 -%}
+  <h2 class="paper-referenced-heading">Referenced by</h2>
+  <ul class="paper-referenced-list">
+    {%- for p in citing_pages -%}
+    <li><a href="{{ p.url | relative_url }}">{{ p.title }}</a></li>
+    {%- endfor -%}
   </ul>
-  {% endif %}
+  {%- endif -%}
 </article>

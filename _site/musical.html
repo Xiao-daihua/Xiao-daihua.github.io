@@ -25,17 +25,19 @@
       var prefer = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
       document.documentElement.setAttribute('data-theme', saved || prefer);
     })();
-  </script>
-  <!-- KaTeX for math rendering -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/contrib/auto-render.min.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      renderMathInElement(document.body);
-    });
-  </script>
-</head>
+  </script><!-- KaTeX (single math engine — MathJax removed to avoid double rendering) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+          onload="renderMathInElement(document.body, {
+            delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '\\[', right: '\\]', display: true},
+              {left: '$',  right: '$',  display: false},
+              {left: '\\(', right: '\\)', display: false}
+            ],
+            throwOnError: false
+          });"></script></head>
 <body><header class="site-header" role="banner">
 
   <div class="wrapper"><a class="site-title" rel="author" href="/">Xiao-daihua</a><nav class="site-nav">
@@ -48,7 +50,7 @@
           </span>
         </label>
 
-        <div class="trigger"><a class="page-link" href="/data.html">Database</a><a class="page-link" href="/note.html">Notes</a><a class="page-link" href="/musical.html">Musicals</a><a class="page-link" href="/about/">About</a><button id="theme-toggle" aria-label="Toggle dark/light mode" title="Toggle theme">
+        <div class="trigger"><a class="page-link" href="/data.html">Database</a><a class="page-link" href="/note.html">Notes</a><a class="page-link" href="/musical.html">Musicals</a><a class="page-link" href="/about/">About</a><button id="theme-toggle" type="button" aria-label="Toggle dark/light mode" title="Toggle theme">
             <span id="theme-icon">☀︎</span> <span id="theme-label">Light</span>
           </button>
         </div>
@@ -59,8 +61,8 @@
             document.documentElement.setAttribute('data-theme', t);
             var icon  = document.getElementById('theme-icon');
             var label = document.getElementById('theme-label');
-            if (icon)  icon.textContent  = (t === 'dark') ? '' : '';
-            if (label) label.textContent = (t === 'dark') ? 'D/L' : 'D/L';
+            if (icon)  icon.textContent  = (t === 'dark') ? '☾'    : '☀︎';
+            if (label) label.textContent = (t === 'dark') ? 'Dark' : 'Light';
           }
           var btn = document.getElementById('theme-toggle');
           if (btn) {
@@ -103,8 +105,3 @@
 </footer>
 </body>
 </html>
-
-<script>
-MathJax = { tex: { inlineMath: [['$','$']] } };
-</script>
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>

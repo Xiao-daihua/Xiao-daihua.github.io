@@ -23,7 +23,7 @@
             <a class="page-link" href="{{ my_page.url | relative_url }}">{{ my_page.title | escape }}</a>
             {%- endif -%}
           {%- endfor -%}
-          <button id="theme-toggle" aria-label="Toggle dark/light mode" title="Toggle theme">
+          <button id="theme-toggle" type="button" aria-label="Toggle dark/light mode" title="Toggle theme">
             <span id="theme-icon">☀︎</span> <span id="theme-label">Light</span>
           </button>
         </div>
@@ -34,8 +34,8 @@
             document.documentElement.setAttribute('data-theme', t);
             var icon  = document.getElementById('theme-icon');
             var label = document.getElementById('theme-label');
-            if (icon)  icon.textContent  = (t === 'dark') ? '' : '';
-            if (label) label.textContent = (t === 'dark') ? 'D/L' : 'D/L';
+            if (icon)  icon.textContent  = (t === 'dark') ? '☾'    : '☀︎';
+            if (label) label.textContent = (t === 'dark') ? 'Dark' : 'Light';
           }
           var btn = document.getElementById('theme-toggle');
           if (btn) {

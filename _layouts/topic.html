@@ -1,102 +1,21 @@
 ---
 layout: default
 ---
-<style>
-.page-wrapper { display: flex; }
-.sidebar {
-  width: 240px;
-  min-width: 0;
-  max-height: calc(100vh - 60px);
-  overflow-y: auto;
-  border-right: 1px solid var(--border, #ccc);
-  padding: 14px 10px;
-  box-sizing: border-box;
-  transition: all 0.3s ease;
-  flex-shrink: 0;
-  position: sticky;
-  top: 60px;
-  align-self: flex-start;
-}
-.sidebar.collapsed { width: 0; padding: 0; border: none; overflow: hidden; }
-.topic-content { flex: 1; padding: 24px 28px; min-width: 0; }
-.sidebar h3 { margin: 10px 0 5px; cursor: pointer; }
-.sidebar ul { list-style: none; padding-left: 12px; display: block; margin: 0 0 8px 0; }
-.sidebar ul.collapsed { display: none; }
-.sidebar ul li { margin: 3px 0; }
-.toggle-btn {
-  position: fixed;
-  left: 0;
-  top: 70px;
-  background: var(--surface, #fff);
-  color: var(--text-muted, #666);
-  border: 1px solid var(--border, #ccc);
-  padding: 5px 10px;
-  cursor: pointer;
-  z-index: 1000;
-  border-radius: 0 6px 6px 0;
-  font-size: 0.78rem;
-}
-.back-btn {
-  display: inline-block;
-  margin-top: 32px;
-  padding: 6px 14px;
-  background: var(--bg-secondary, #eee);
-  border: 1px solid var(--border, #ccc);
-  border-radius: 6px;
-  text-decoration: none;
-  color: var(--text-muted, #555);
-  font-size: 0.85rem;
-  transition: all 0.15s;
-}
-.back-btn:hover { color: var(--accent, #5b4fcf); border-color: var(--accent, #5b4fcf); background: var(--surface, #fff); text-decoration: none; }
-.topic-tags { margin-bottom: 1rem; }
-.topic-tag {
-  display: inline-block;
-  font-size: 0.75em;
-  font-family: var(--font-mono, monospace);
-  background: color-mix(in srgb, var(--accent, #5b4fcf) 10%, transparent);
-  color: var(--accent, #5b4fcf);
-  border: 1px solid color-mix(in srgb, var(--accent, #5b4fcf) 25%, transparent);
-  border-radius: 10px;
-  padding: 2px 10px;
-  margin-right: 6px;
-}
-</style>
 
 <div class="toggle-btn" onclick="toggleSidebar()">☰ Index</div>
 
 <div class="page-wrapper">
-  <aside class="sidebar collapsed" id="sidebar">
-    {% assign sorted_topics = site.database | sort: "title" %}
-    {% assign letters = "" | split: "" %}
-    {% for topic in sorted_topics %}
-      {% assign first_letter = topic.title | slice: 0,1 | upcase %}
-      {% unless letters contains first_letter %}
-        {% assign letters = letters | push: first_letter %}
-      {% endunless %}
-    {% endfor %}
-    {% for letter in letters %}
-      <h3 onclick="toggleGroup('{{ letter }}')">{{ letter }}</h3>
-      <ul id="group-{{ letter }}">
-        {% for topic in sorted_topics %}
-          {% assign first_letter = topic.title | slice: 0,1 | upcase %}
-          {% if first_letter == letter %}
-            <li><a href="{{ topic.url }}">{{ topic.title }}</a></li>
-          {% endif %}
-        {% endfor %}
-      </ul>
-    {% endfor %}
-  </aside>
+  {%- include sidebar.html -%}
 
   <div class="topic-content" id="pageContent">
     <h1>{{ page.title }}</h1>
-    {% if page.tags %}
+    {%- if page.tags -%}
     <div class="topic-tags">
-      {% for tag in page.tags %}
+      {%- for tag in page.tags -%}
         <span class="topic-tag">{{ tag }}</span>
-      {% endfor %}
+      {%- endfor -%}
     </div>
-    {% endif %}
+    {%- endif -%}
 
     {{ content }}
 
@@ -104,12 +23,4 @@ layout: default
   </div>
 </div>
 
-<script>
-function toggleSidebar() {
-  document.getElementById('sidebar').classList.toggle('collapsed');
-}
-function toggleGroup(letter) {
-  var el = document.getElementById('group-'+letter);
-  if (el) el.classList.toggle('collapsed');
-}
-</script>
+<script src="{{ '/assets/js/sidebar.js' | relative_url }}"></script>
