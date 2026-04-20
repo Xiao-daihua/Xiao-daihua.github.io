@@ -5,7 +5,6 @@
 layout: home
 title: Willkommen, Bienvenue, Welcome!
 ---
-
 <!-- ![](assets/hyperdisk.png) -->
 
 <p style="text-align: center; margin: 80px 0;">
