@@ -58,6 +58,8 @@ Notes on _2-Dimensional Conformal Field Theory (2D CFT)_:
 
 - [Majorana and Ising Duality](https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/Xiao-daihua/Phys_Learning/main/ising_majorana_notes/main.pdf?v=TIMESTAMP) This is a very short note on the duality between the Majorana fermion and the Ising CFT. It is a very important example of bosonization and fermionization between fermionic and bosonic CFTs.
 
+- [Bulk and Boundary Sewing Constraints](https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/Xiao-daihua/Phys_Learning/main/SewingConstraint/main.pdf?v=TIMESTAMP)
+
 Notes on _2+1 Dimensional Quantum Gravity_ :
 
 - [2+1 Dimensional Gravity and Chern-Simons Theory](https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/Xiao-daihua/Phys_Learning/main/2%2B1grav_CS/main.pdf?v=TIMESTAMP) This is a note on 2+1 dimensional gravity and its relation to Chern-Simons theory. And a naive approach on real polarization quantization method in the zero cosmological constant case.

@@ -12,13 +12,11 @@ In particular, 2+1 dimensional gravity has been studied extensively since it is 
 
 It has been revealed that the 2+1 dimensional gravity can be reformulated as a Chern-Simons gauge theory:
 
-- [1988-12witten](/papers/1988-12witten/) One of the first attempts to reformulate 2+1 dimensional gravity as a Chern-Simons theory and quantize it.
+- [2 + 1 dimensional gravity as an exactly soluble system](/papers/1988-12witten/)  One of the first attempts to reformulate 2+1 dimensional gravity as a Chern-Simons theory and quantize it.
 
 ## Classical Phase Space
 
 It is commonly used to study the 2+1 dimensional gravity using a constriant first quantization. Thus, it is important to understand the classical phase space of the theory.
 Several papers give detailed discussions on this topic:
-
-- [2007-6mess](/papers/2007-6mess/) hihi
-
+- [Lorentz spacetimes of constant curvature](/papers/2007-mess/) 
 
