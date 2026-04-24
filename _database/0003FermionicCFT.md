@@ -15,5 +15,9 @@ Another approach is from the observation of Fermionization.
 
 - [Fermionic Minimal Models](/papers/2021-hsieh/) this paper constructs the fermionic minimal model by fermionization of the bosonic minimal model. 
 
+There are also two additional fermionic minimal model found beyond the above paper:
+
+- [Two more fermionic minimal models](/papers/2021-kulp/)  
+
 
 ## Boundary Conditions
