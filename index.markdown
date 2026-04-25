@@ -11,7 +11,9 @@ title: Willkommen, Bienvenue, Welcome!
   <img src="{{ '/assets/hyperdisk.png' | relative_url }}" width="200" alt="hyperdisk">
 </p>
 
-Hi! I’m **Yu Liu** — currently a master’s student in Physics at EPFL, and a graduate of Tsinghua University. I'm interested in quantum gravity, especially the AdS/CFT correspondence. More recently, I'm also interested in CFTs and their applications in condensed matter physics.
+Hi! I’m **Yu Liu** — currently a master’s student in Physics at EPFL, and a graduate of Tsinghua University.
+
+My current research interest mainly lies in Conformal Field Theory, and its application in Quantum Gravity, especially in the bottom up approach of AdS/CFT, as well as applications in condensed matter physics, especially in the context of topological phases of matter.
 
 ## Physics Pages
 
