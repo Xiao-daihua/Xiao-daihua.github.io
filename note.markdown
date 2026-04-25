@@ -37,7 +37,7 @@ These are the learning notes I compiled while exploring a range of topics in the
 
 Notes in _Mathematics_:
 
-
+- [Modular Tensor Category: with applications to CFT and TQFT](https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/Xiao-daihua/Phys_Learning/main/MTC/main.pdf?v=TIMESTAMP) This is a note on Modular Tensor Category (MTC) and its applications to Conformal Field Theory (CFT) and Topological Quantum Field Theory (TQFT). 
 
 Notes in _Condensed Matter Physics (CMT)_:
 
@@ -46,7 +46,6 @@ Notes in _Condensed Matter Physics (CMT)_:
 Notes in _Quantum Field Theory (QFT)_:
 
 - [Core Concepts in QFT](https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/Xiao-daihua/Phys_Learning/main/QFT_core/main.pdf?v=TIMESTAMP) This is a note on some important concepts in QFT. It is aimed to be fundamental and concise.
-
 
 
 Notes on _2-Dimensional Conformal Field Theory (2D CFT)_:
@@ -58,7 +57,7 @@ Notes on _2-Dimensional Conformal Field Theory (2D CFT)_:
 
 - [Majorana and Ising Duality](https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/Xiao-daihua/Phys_Learning/main/ising_majorana_notes/main.pdf?v=TIMESTAMP) This is a very short note on the duality between the Majorana fermion and the Ising CFT. It is a very important example of bosonization and fermionization between fermionic and bosonic CFTs.
 
-- [Bulk and Boundary Sewing Constraints](https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/Xiao-daihua/Phys_Learning/main/SewingConstraint/main.pdf?v=TIMESTAMP)
+- [Bulk and Boundary Sewing Constraints](https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/Xiao-daihua/Phys_Learning/main/SewingConstraint/main.pdf?v=TIMESTAMP) This is a note on Lewellen's sewing constraint in 2D CFT with boundary.
 
 Notes on _2+1 Dimensional Quantum Gravity_ :
 
