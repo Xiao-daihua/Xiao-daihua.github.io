@@ -39,6 +39,8 @@ Notes in _Mathematics_:
 
 - [Modular Tensor Category: with applications to CFT and TQFT](https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/Xiao-daihua/Phys_Learning/main/MTC/main.pdf?v=TIMESTAMP) This is a note on Modular Tensor Category (MTC) and its applications to Conformal Field Theory (CFT) and Topological Quantum Field Theory (TQFT). 
 
+- [Mathematical Aspects of Gauge Field Theory](https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/Xiao-daihua/Phys_Learning/main/Math_field/main.pdf?v=TIMESTAMP) This is a note on the mathematical foundations of gauge field theory, covering the basics of homology, cohomology, fiber bundles, connections, Index Theorem, and characteristic classes. 
+
 Notes in _Condensed Matter Physics (CMT)_:
 
 - [Quantum Hall Effect](https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/Xiao-daihua/Phys_Learning/main/QHE/main.pdf ) This is a note on the quantum Hall effect, covering both the integer and fractional quantum Hall effects.
