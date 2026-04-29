@@ -57,8 +57,6 @@ Notes on _2-Dimensional Conformal Field Theory (2D CFT)_:
 
 - [Crossing of RCFT Conformal Blocks](https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/Xiao-daihua/Phys_Learning/main/RCFT_MS/main.pdf?v=TIMESTAMP) This is a note on one of the most important feature of 2D CFT, the crossing symmetry of conformal blocks.
 
-- [Majorana and Ising Duality](https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/Xiao-daihua/Phys_Learning/main/ising_majorana_notes/main.pdf?v=TIMESTAMP) This is a very short note on the duality between the Majorana fermion and the Ising CFT. It is a very important example of bosonization and fermionization between fermionic and bosonic CFTs.
-
 - [Bulk and Boundary Sewing Constraints](https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/Xiao-daihua/Phys_Learning/main/SewingConstraint/main.pdf?v=TIMESTAMP) This is a note on Lewellen's sewing constraint in 2D CFT with boundary.
 
 Notes on _2+1 Dimensional Quantum Gravity_ :
