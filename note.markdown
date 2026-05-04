@@ -59,6 +59,8 @@ Notes on _2-Dimensional Conformal Field Theory (2D CFT)_:
 
 - [Bulk and Boundary Sewing Constraints](https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/Xiao-daihua/Phys_Learning/main/SewingConstraint/main.pdf?v=TIMESTAMP) This is a note on Lewellen's sewing constraint in 2D CFT with boundary.
 
+- [Fermionic Virasoro Minimal Models](https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/Xiao-daihua/Phys_Learning/main/Fermionminimal/main.pdf?v=TIMESTAMP) This is a note on fermionic Virasoro minimal models and its structure with boundary presented.
+
 Notes on _2+1 Dimensional Quantum Gravity_ :
 
 - [2+1 Dimensional Gravity and Chern-Simons Theory](https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/Xiao-daihua/Phys_Learning/main/2%2B1grav_CS/main.pdf?v=TIMESTAMP) This is a note on 2+1 dimensional gravity and its relation to Chern-Simons theory. And a naive approach on real polarization quantization method in the zero cosmological constant case.
