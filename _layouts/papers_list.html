@@ -1,0 +1,65 @@
+---
+layout: default
+---
+
+<article class="post papers-listing">
+
+  <header class="post-header">
+    <h1 class="post-title">{{ page.title | escape }}</h1>
+  </header>
+
+  <div class="post-content">
+    {{ content }}
+
+    <input type="text" id="papers-search-box" placeholder="Search papers — title, author, year, arXiv, journal…" autocomplete="off" />
+    <div class="search-header" id="papers-search-count"></div>
+    <div id="papers-no-result">No papers match your search.</div>
+
+    {%- comment -%}
+      Group all papers by year, then sort the resulting groups newest-first.
+      `group_by` returns an array of { name, items } objects where `name`
+      is the stringified year — perfect for our two-level rendering.
+      Papers without a year end up in a group named "" (empty string).
+    {%- endcomment -%}
+    {%- assign papers_grouped = site.papers | group_by: "year" | sort: "name" | reverse -%}
+
+    <div id="papers-list">
+      {%- for grp in papers_grouped -%}
+        {%- assign year_label = grp.name -%}
+        {%- if year_label == "" -%}{%- assign year_label = "Unknown year" -%}{%- endif -%}
+        <h2 class="papers-year-heading" data-year="{{ year_label }}">{{ year_label }}</h2>
+        <ul class="papers-year-list">
+          {%- assign group_items = grp.items | sort: "title" -%}
+          {%- for paper in group_items -%}
+            <li class="paper-row"
+                data-title="{{ paper.title | escape }}"
+                data-authors="{{ paper.authors | join: ', ' | escape }}"
+                data-year="{{ paper.year | default: '' }}"
+                data-journal="{{ paper.journal | default: '' | escape }}"
+                data-arxiv="{{ paper.arxiv | default: '' }}"
+                data-doi="{{ paper.doi | default: '' }}"
+                data-abstract="{{ paper.abstract | default: '' | strip_newlines | escape }}">
+              <a class="paper-row-title" href="{{ paper.url | relative_url }}">{{ paper.title }}</a>
+              {%- if paper.authors -%}
+              <div class="paper-row-authors">{{ paper.authors | join: ", " }}</div>
+              {%- endif -%}
+              <div class="paper-row-meta">
+                {%- if paper.journal -%}
+                  <span class="paper-row-journal">{{ paper.journal }}{% if paper.volume %} {{ paper.volume }}{% endif %}{% if paper.pages %} ({{ paper.pages }}){% endif %}</span>
+                {%- endif -%}
+                {%- if paper.arxiv -%}
+                  <span class="paper-row-arxiv">arXiv:{{ paper.arxiv }}</span>
+                {%- endif -%}
+                {%- if paper.status -%}
+                  <span class="paper-row-status {{ paper.status }}">{{ paper.status | capitalize }}</span>
+                {%- endif -%}
+              </div>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endfor -%}
+    </div>
+  </div>
+</article>
+
+<script src="{{ '/assets/js/papers-search.js' | relative_url }}"></script>

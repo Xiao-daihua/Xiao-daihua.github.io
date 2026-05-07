@@ -29,6 +29,7 @@ enable_math: true
 enable_darkmode: true    
 header_pages:
   - data.markdown
+  - papers.markdown
   - note.markdown
   - musical.markdown
   - about.markdown

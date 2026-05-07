@@ -237,29 +237,40 @@ hr { border: none; border-top: 1px solid var(--border); margin: 2em 0; }
    Database + Topic layouts — shared sidebar
    ============================================================ */
 
-.page-wrapper { display: flex; }
+.page-wrapper {
+  display: flex;
+  /* Allow the sidebar to slide out beyond the wrapper without showing scrollbars */
+  overflow-x: clip;
+}
 
 .sidebar {
   width: 240px;
-  min-width: 0;
+  min-width: 240px;     /* prevent shrinking inside the flex row */
   max-height: calc(100vh - 60px);
   overflow-y: auto;
   background: var(--bg-secondary);
   border-right: 1px solid var(--border);
   padding: 14px 10px;
   box-sizing: border-box;
-  transition: all 0.3s ease;
   flex-shrink: 0;
   position: sticky;
   top: 60px;
   align-self: flex-start;
+  /* Animate both the slide-out (transform) and the layout reclaim (margin) */
+  transition: transform 0.32s ease, margin-right 0.32s ease;
+  will-change: transform, margin-right;
 }
+
+/* Collapsed: slide the sidebar fully out to the left, AND remove its
+   layout footprint via a negative right-margin equal to its width.
+   Both transitions run together → smooth in/out animation.
+   Note: width / padding / border are NOT changed, otherwise the
+   inner content would jump-clip and ruin the slide effect. */
 .sidebar.collapsed {
-  width: 0;
-  padding: 0;
-  border: none;
-  overflow: hidden;
+  transform: translateX(-100%);
+  margin-right: -240px;
 }
+
 .sidebar h3 {
   margin: 10px 0 5px;
   cursor: pointer;
@@ -295,8 +306,28 @@ hr { border: none; border-top: 1px solid var(--border); margin: 2em 0; }
   font-size: 0.78rem;
 }
 
-.db-page-content { flex: 1; padding: 0 28px 24px; min-width: 0; }
-.topic-content   { flex: 1; padding: 24px 28px; min-width: 0; }
+/* Main column: no horizontal padding here — the outer .wrapper already
+   provides the 30px gutters, matching every other page (about, note, …).
+   Vertical padding only.
+   When the sidebar is open, give the column a little breathing room
+   from the sidebar via padding-left, animated together with the sidebar. */
+.db-page-content,
+.topic-content {
+  flex: 1;
+  min-width: 0;
+  padding-left: 28px;
+  transition: padding-left 0.32s ease;
+}
+.db-page-content { padding-top: 0;    padding-right: 0; padding-bottom: 24px; }
+.topic-content   { padding-top: 24px; padding-right: 0; padding-bottom: 24px; }
+
+/* When the sidebar is collapsed, drop the left padding too so the content
+   column lines up flush with the .wrapper edge — identical width/margins
+   to about/note pages. */
+.page-wrapper:has(.sidebar.collapsed) .db-page-content,
+.page-wrapper:has(.sidebar.collapsed) .topic-content {
+  padding-left: 0;
+}
 
 /* ── Search box (database layout) ── */
 #search-box {
@@ -426,9 +457,11 @@ hr { border: none; border-top: 1px solid var(--border); margin: 2em 0; }
   .site-nav .page-link { color: var(--text); }
 }
 
-/* ── Global transitions ── */
+/* ── Global transitions ──
+   Note: .sidebar is intentionally excluded from this rule — its own
+   `transition` declaration above handles the slide animation precisely. */
 .site-header, .site-footer, main, .wrapper,
-table, blockquote, pre, code, .sidebar,
+table, blockquote, pre, code,
 .toggle-btn, #search-box, .back-btn {
   transition: background-color 0.28s ease, border-color 0.28s ease, color 0.28s ease;
 }
@@ -614,3 +647,139 @@ table, blockquote, pre, code, .sidebar,
 /* ── Referenced-by section ── */
 .paper-referenced-heading { margin-top: 2rem; }
 .paper-referenced-list    { }
+
+/* ============================================================
+   Papers listing page (/papers/)
+   ============================================================ */
+
+.papers-listing #papers-search-box {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 1.2rem 0 0.6rem;
+  padding: 9px 16px;
+  font-family: var(--font-body);
+  font-size: 0.95em;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background: var(--surface);
+  color: var(--text);
+}
+.papers-listing #papers-search-box:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 15%, transparent);
+}
+.papers-listing #papers-search-box::placeholder { color: var(--text-light); }
+
+#papers-search-count {
+  font-size: 0.82em;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+  font-family: var(--font-mono);
+  min-height: 1em;
+}
+
+#papers-no-result {
+  display: none;
+  color: var(--text-muted);
+  margin: 0.6rem 0 1.2rem;
+  font-size: 0.9em;
+}
+
+.papers-year-heading {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  text-transform: none;
+  margin: 1.8rem 0 0.6rem;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--border);
+}
+
+.papers-year-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0.4rem;
+}
+
+.paper-row {
+  padding: 12px 14px;
+  margin: 0 0 8px 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+.paper-row:hover {
+  border-color: var(--accent);
+  box-shadow: 0 4px 14px var(--shadow);
+}
+
+.paper-row-title {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: var(--heading);
+  text-decoration: none;
+  line-height: 1.35;
+}
+.paper-row-title:hover { color: var(--accent); text-decoration: none; }
+.paper-row-title:visited { color: var(--heading); }
+.paper-row-title:visited:hover { color: var(--accent); }
+
+.paper-row-authors {
+  font-size: 0.86rem;
+  color: var(--text-muted);
+  margin-top: 3px;
+  text-align: left;
+  /* Override the global `p { text-align: justify }` since this is a div, but
+     also defend against future tweaks. */
+  hyphens: manual;
+}
+
+.paper-row-meta {
+  margin-top: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+
+.paper-row-arxiv {
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  color: var(--accent);
+  border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+  border-radius: 10px;
+  padding: 1px 8px;
+}
+
+.paper-row-journal { color: var(--text-muted); }
+
+.paper-row-status {
+  font-size: 0.72rem;
+  padding: 1px 8px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+.paper-row-status.published {
+  background: color-mix(in srgb, #22c55e 18%, transparent);
+  color: #22c55e;
+  border-color: color-mix(in srgb, #22c55e 35%, transparent);
+}
+.paper-row-status.preprint {
+  background: color-mix(in srgb, #f59e0b 18%, transparent);
+  color: #f59e0b;
+  border-color: color-mix(in srgb, #f59e0b 35%, transparent);
+}
+.paper-row-status.submitted {
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 35%, transparent);
+}
