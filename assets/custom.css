@@ -783,3 +783,292 @@ table, blockquote, pre, code,
   color: var(--accent);
   border-color: color-mix(in srgb, var(--accent) 35%, transparent);
 }
+
+/* ============================================================
+   Notes listing page (/note.html → "Notes")
+   - No dividing lines between rows; just whitespace.
+   - Lecture: flat single-column list.
+   - Learning: grouped by topic, each group with its own subtitle.
+   ============================================================ */
+
+/* ── Section structure ── */
+.notes-section { margin: 2.4rem 0 0; }
+.notes-section:first-of-type { margin-top: 1.6rem; }
+.notes-section + .notes-section {
+  margin-top: 2.8rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.notes-section-header { margin-bottom: 1rem; }
+.notes-section-title {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1.3rem;
+  margin: 0 0 0.2rem;
+  padding: 0;
+  border: none;
+}
+.notes-section-sub {
+  margin: 0;
+  font-size: 0.86rem;
+  color: var(--text-muted);
+  text-align: left;
+  hyphens: manual;
+}
+
+/* ============================================================
+   Row list — no dividing lines, spacing only
+   ============================================================ */
+.note-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.note-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: baseline;
+  column-gap: 16px;
+  row-gap: 4px;
+  padding: 8px 8px;
+  border-radius: 6px;
+  transition: background 0.12s ease;
+}
+.note-row:hover {
+  background: color-mix(in srgb, var(--accent) 5%, transparent);
+}
+
+/* Slightly more vertical breathing room for rich rows
+   (the ones with a description line). */
+.note-row--rich { padding: 9px 8px; }
+
+/* Column 1: tags */
+.note-row-tags {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  flex-shrink: 0;
+  position: relative;
+  top: 1px;
+}
+
+/* Column 2: body (title + optional description) */
+.note-row-body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.note-row-title {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--heading);
+  text-decoration: none;
+  line-height: 1.4;
+}
+.note-row-title:hover { color: var(--accent); text-decoration: none; }
+.note-row-title:visited { color: var(--heading); }
+.note-row-title:visited:hover { color: var(--accent); }
+
+.note-row-desc {
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+  text-align: left;
+  hyphens: manual;
+}
+
+/* Column 3: actions */
+.note-row-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+}
+.note-row-link {
+  color: var(--accent);
+  text-decoration: none;
+  padding: 1px 6px;
+  border-radius: 4px;
+  transition: background 0.12s ease;
+}
+.note-row-link:hover {
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  text-decoration: none;
+}
+.note-row-link--muted { color: var(--text-muted); }
+.note-row-link--muted:hover { color: var(--accent); }
+.note-row-sep { color: var(--text-light); user-select: none; }
+
+/* ── Badges ── */
+.note-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  padding: 1px 7px;
+  border-radius: 9px;
+  letter-spacing: 0.02em;
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+.note-badge--topic {
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 28%, transparent);
+  color: var(--accent);
+}
+.note-badge--lang {
+  background: var(--bg-secondary);
+  color: var(--text-muted);
+  border-color: var(--border);
+}
+
+/* Status dot (only for wip/draft) */
+.note-status {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.note-status--wip   { background: #f59e0b; }
+.note-status--draft { background: #94a3b8; }
+
+/* ============================================================
+   Topic groups (Learning section)
+   ============================================================ */
+.note-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.note-group-title {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0 0 0.4rem;
+  padding: 0 0 0.3rem 8px;
+  border: none;
+}
+
+/* ============================================================
+   Learning toolbar (search + filter chips)
+   ============================================================ */
+.notes-toolbar {
+  margin: 0 0 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#notes-search-box {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 9px 16px;
+  font-family: var(--font-body);
+  font-size: 0.95em;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  outline: none;
+  background: var(--surface);
+  color: var(--text);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+#notes-search-box:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 15%, transparent);
+}
+#notes-search-box::placeholder { color: var(--text-light); }
+
+.notes-filter-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.notes-filter-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  min-width: 60px;
+  flex-shrink: 0;
+}
+
+.notes-chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  align-items: center;
+}
+
+.notes-chip {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  padding: 2px 9px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.12s ease;
+  line-height: 1.5;
+}
+.notes-chip:hover { border-color: var(--accent); color: var(--accent); }
+.notes-chip.is-active {
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 38%, var(--border));
+  color: var(--accent);
+}
+.notes-chip--toggle { border-style: dashed; color: var(--text-light); }
+.notes-chip--toggle:hover { color: var(--accent); border-style: solid; }
+
+.notes-search-meta {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  margin: 4px 0 4px;
+  min-height: 1em;
+}
+#notes-no-result {
+  display: none;
+  color: var(--text-muted);
+  margin: 0.6rem 0 1.2rem;
+  font-size: 0.9em;
+}
+
+/* ── Mobile ── */
+@media screen and (max-width: 600px) {
+  .note-row {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "tags actions"
+      "body body";
+    column-gap: 10px;
+    row-gap: 6px;
+    padding: 10px 6px;
+  }
+  .note-row-tags    { grid-area: tags; }
+  .note-row-actions { grid-area: actions; }
+  .note-row-body    { grid-area: body; }
+  .notes-filter-label { min-width: 0; width: 100%; }
+  .notes-filter-row { gap: 6px; }
+  .notes-section + .notes-section {
+    margin-top: 2rem;
+    padding-top: 1.6rem;
+  }
+}

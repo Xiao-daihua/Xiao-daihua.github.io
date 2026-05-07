@@ -1,0 +1,152 @@
+---
+layout: default
+---
+
+<article class="post notes-listing">
+
+  <header class="post-header">
+    <h1 class="post-title">{{ page.title | escape }}</h1>
+  </header>
+
+  <div class="post-content">
+    {{ content }}
+
+    {%- assign lecture_notes  = site.data.notes | where: "category", "Lecture"  -%}
+    {%- assign learning_notes = site.data.notes | where: "category", "Learning" -%}
+
+    {%- assign learning_topics_unsorted = learning_notes | map: "topic" | uniq -%}
+    {%- assign learning_topics = learning_topics_unsorted | sort -%}
+    {%- assign learning_languages = learning_notes | map: "language" | uniq | compact | sort -%}
+
+    {%- assign featured_topics = "" | split: "" -%}
+    {%- assign normal_topics   = "" | split: "" -%}
+    {%- for t in learning_topics -%}
+      {%- assign first_with_t = learning_notes | where: "topic", t | where: "featured", true | first -%}
+      {%- if first_with_t -%}
+        {%- assign featured_topics = featured_topics | push: t -%}
+      {%- else -%}
+        {%- assign normal_topics = normal_topics | push: t -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    <section class="notes-section notes-section--lectures">
+      <div class="notes-section-header">
+        <h2 class="notes-section-title">EPFL Lecture Notes</h2>
+        <p class="notes-section-sub">Course notes from my master's at EPFL.</p>
+      </div>
+
+      <ul class="note-list">
+        {%- for note in lecture_notes -%}
+          {%- assign pdf_name = note.pdf_name | default: "main.pdf" -%}
+          {%- assign dir_enc = note.dir | replace: "+", "%2B" | replace: " ", "%20" -%}
+          {%- capture pdf_url -%}https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/Xiao-daihua/{{ note.repo }}/main/{{ dir_enc }}/{{ pdf_name }}{%- endcapture -%}
+          {%- capture src_url -%}https://github.com/Xiao-daihua/{{ note.repo }}/tree/main/{{ note.dir }}{%- endcapture -%}
+          {%- assign lang = note.language | default: "EN" -%}
+
+          <li class="note-row">
+            <span class="note-row-tags">
+              <span class="note-badge note-badge--topic">{{ note.topic }}</span>
+              <span class="note-badge note-badge--lang">{{ lang }}</span>
+            </span>
+            <span class="note-row-body">
+              <a class="note-row-title" href="{{ pdf_url }}" target="_blank" rel="noopener">{{ note.title }}</a>
+            </span>
+            <span class="note-row-actions">
+              <a href="{{ pdf_url }}" target="_blank" rel="noopener" class="note-row-link">PDF</a>
+              <span class="note-row-sep">·</span>
+              <a href="{{ src_url }}" target="_blank" rel="noopener" class="note-row-link note-row-link--muted">Source</a>
+            </span>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </section>
+
+    <section class="notes-section notes-section--learning">
+      <div class="notes-section-header">
+        <h2 class="notes-section-title">Learning Notes</h2>
+        <p class="notes-section-sub">Independent notes on topics in theoretical physics and mathematics.</p>
+      </div>
+
+      <div class="notes-toolbar">
+        <input type="text" id="notes-search-box" placeholder="Search learning notes — title, topic, description…" autocomplete="off" />
+
+        {%- if learning_languages.size > 1 -%}
+        <div class="notes-filter-row">
+          <span class="notes-filter-label">Language</span>
+          <div class="notes-chip-group" data-filter="language">
+            <button type="button" class="notes-chip is-active" data-value="">All</button>
+            {%- for lang in learning_languages -%}
+            <button type="button" class="notes-chip" data-value="{{ lang }}">{{ lang }}</button>
+            {%- endfor -%}
+          </div>
+        </div>
+        {%- endif -%}
+
+        <div class="notes-filter-row">
+          <span class="notes-filter-label">Topic</span>
+          <div class="notes-chip-group notes-chip-group--topics" data-filter="topic">
+            <button type="button" class="notes-chip is-active" data-value="">All</button>
+            {%- for t in featured_topics -%}
+            <button type="button" class="notes-chip" data-value="{{ t }}">{{ t }}</button>
+            {%- endfor -%}
+            {%- for t in normal_topics -%}
+            <button type="button" class="notes-chip notes-chip--extra" data-value="{{ t }}" hidden>{{ t }}</button>
+            {%- endfor -%}
+            {%- if normal_topics.size > 0 -%}
+            <button type="button" class="notes-chip notes-chip--toggle" id="notes-topic-more">More…</button>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+
+      <div class="notes-search-meta" id="notes-search-count"></div>
+      <div id="notes-no-result">No notes match your filters.</div>
+
+      <div id="notes-grid" class="note-groups">
+        {%- for topic in learning_topics -%}
+          {%- assign topic_notes = learning_notes | where: "topic", topic -%}
+          <div class="note-group" data-group-topic="{{ topic | escape }}">
+            <h3 class="note-group-title">{{ topic }}</h3>
+            <ul class="note-list">
+              {%- for note in topic_notes -%}
+                {%- assign pdf_name = note.pdf_name | default: "main.pdf" -%}
+                {%- assign dir_enc = note.dir | replace: "+", "%2B" | replace: " ", "%20" -%}
+                {%- capture pdf_url -%}https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/Xiao-daihua/{{ note.repo }}/main/{{ dir_enc }}/{{ pdf_name }}{%- endcapture -%}
+                {%- capture src_url -%}https://github.com/Xiao-daihua/{{ note.repo }}/tree/main/{{ note.dir }}{%- endcapture -%}
+                {%- assign lang = note.language | default: "EN" -%}
+                {%- assign status = note.status | default: "complete" -%}
+
+                <li class="note-row note-row--rich note-card"
+                    data-title="{{ note.title | escape }}"
+                    data-topic="{{ note.topic | escape }}"
+                    data-language="{{ lang | escape }}"
+                    data-status="{{ status }}"
+                    data-description="{{ note.description | default: '' | escape }}">
+                  <span class="note-row-tags">
+                    <span class="note-badge note-badge--lang">{{ lang }}</span>
+                    {%- if status != "complete" -%}
+                    <span class="note-status note-status--{{ status }}" title="{{ status }}"></span>
+                    {%- endif -%}
+                  </span>
+                  <span class="note-row-body">
+                    <a class="note-row-title note-card-title" href="{{ pdf_url }}" target="_blank" rel="noopener">{{ note.title }}</a>
+                    {%- if note.description -%}
+                    <span class="note-row-desc">{{ note.description }}</span>
+                    {%- endif -%}
+                  </span>
+                  <span class="note-row-actions">
+                    <a href="{{ pdf_url }}" target="_blank" rel="noopener" class="note-row-link">PDF</a>
+                    <span class="note-row-sep">·</span>
+                    <a href="{{ src_url }}" target="_blank" rel="noopener" class="note-row-link note-row-link--muted">Source</a>
+                  </span>
+                </li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endfor -%}
+      </div>
+    </section>
+  </div>
+</article>
+
+<script src="{{ '/assets/js/notes-search.js' | relative_url }}"></script>

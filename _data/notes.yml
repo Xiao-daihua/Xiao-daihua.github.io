@@ -1,0 +1,179 @@
+# ================================================================
+# Notes data file
+# ----------------------------------------------------------------
+# Each entry produces one card on /notes/.
+#
+# Required fields:
+#   title    : displayed name
+#   repo     : GitHub repo name under your account, e.g. "EPFL_course"
+#   dir      : subfolder containing main.pdf, e.g. "QFT_1_course"
+#   category : "Lecture" or "Learning"
+#   topic    : free-form topic tag, e.g. "QFT", "CFT", "Math"
+#               (used for filter chips — keep them consistent so
+#                they group nicely)
+#
+# Optional fields:
+#   language    : "EN" (default if omitted) or "ZH"
+#   status      : "complete" (default), "wip", or "draft"
+#   description : 1-3 sentence summary shown on the card
+#   pdf_name    : PDF file name (default "main.pdf")
+#   featured    : true/false. Featured topic chips are shown in the
+#                 collapsed filter bar; non-featured topics live
+#                 behind the "More" toggle. If you don't set this
+#                 anywhere, ALL topics show by default.
+# ================================================================
+
+# ── Lecture notes (EPFL master's courses) ─────────────────────────
+
+- title: "Quantum Field Theory 1"
+  category: Lecture
+  topic: QFT
+  language: ZH
+  repo: EPFL_course
+  dir: QFT_1_course
+  description: "Master's course notes from EPFL on QFT (part 1)."
+
+- title: "Quantum Field Theory 2"
+  category: Lecture
+  topic: QFT
+  language: EN
+  repo: EPFL_course
+  dir: QFT_2_course
+  description: "Master's course notes from EPFL on QFT (part 2)."
+
+- title: "General Relativity and Cosmology 1"
+  category: Lecture
+  topic: GR
+  language: ZH
+  repo: EPFL_course
+  dir: GR_1_course
+  description: "Master's course notes from EPFL on GR and cosmology (part 1)."
+
+- title: "General Relativity and Cosmology 2"
+  category: Lecture
+  topic: GR
+  language: EN
+  repo: EPFL_course
+  dir: GR_2_course
+  description: "Master's course notes from EPFL on GR and cosmology (part 2)."
+
+- title: "Quantum Mechanics 3"
+  category: Lecture
+  topic: QM
+  language: ZH
+  repo: EPFL_course
+  dir: QM_3_course
+  description: "Master's course notes from EPFL on advanced QM (part 1)."
+
+- title: "Quantum Mechanics 4"
+  category: Lecture
+  topic: QM
+  language: EN
+  repo: EPFL_course
+  dir: QM_4_course
+  description: "Master's course notes from EPFL on advanced QM (part 2)."
+
+- title: "Quantum Information Theory"
+  category: Lecture
+  topic: QI
+  language: ZH
+  repo: EPFL_course
+  dir: QI_course
+  description: "Master's course notes from EPFL on quantum information."
+
+# ── Learning notes (independent study) ────────────────────────────
+
+- title: "Modular Tensor Category"
+  category: Learning
+  topic: Math
+  language: EN
+  featured: true
+  repo: Phys_Learning
+  dir: MTC
+  description: "Modular Tensor Categories with applications to CFT and TQFT."
+
+- title: "Mathematical Aspects of Gauge Field Theory"
+  category: Learning
+  topic: Math
+  language: EN
+  featured: true
+  repo: Phys_Learning
+  dir: Math_field
+  description: "Foundations of gauge theory: homology, cohomology, fiber bundles, connections, the Index Theorem, and characteristic classes."
+
+- title: "Quantum Hall Effect"
+  category: Learning
+  topic: CMT
+  language: EN
+  featured: true
+  repo: Phys_Learning
+  dir: QHE
+  description: "Integer and fractional quantum Hall effect in one note."
+
+- title: "Core Concepts in QFT"
+  category: Learning
+  topic: QFT
+  language: EN
+  featured: true
+  repo: Phys_Learning
+  dir: QFT_core
+  description: "Fundamental and concise notes on important concepts in QFT."
+
+- title: "Basic CFT"
+  category: Learning
+  topic: 2D CFT
+  language: EN
+  featured: true
+  repo: Phys_Learning
+  dir: Minimal_CFT
+  description: "Concise introduction to 2D CFT following the Yellow Book. A starting point — the bootstrapping construction is more systematic."
+
+- title: "Basic BCFT"
+  category: Learning
+  topic: 2D CFT
+  language: EN
+  featured: true
+  repo: Phys_Learning
+  dir: Minimal_BCFT
+  description: "Boundary CFT by analogy with ordinary QFT. Useful for building intuition before turning to the bootstrap formulation."
+
+- title: "Crossing of RCFT Conformal Blocks"
+  category: Learning
+  topic: 2D CFT
+  language: EN
+  repo: Phys_Learning
+  dir: RCFT_MS
+  description: "Crossing symmetry of conformal blocks — one of the central features of 2D CFT."
+
+- title: "Bulk and Boundary Sewing Constraints"
+  category: Learning
+  topic: 2D CFT
+  language: EN
+  repo: Phys_Learning
+  dir: SewingConstraint
+  description: "Lewellen's sewing constraints in 2D CFT with boundary."
+
+- title: "Boundary States of Majorana CFT"
+  category: Learning
+  topic: 2D CFT
+  language: EN
+  repo: Phys_Learning
+  dir: MajoranaBCFT
+  description: "Boundary states of Majorana CFT — the simplest example of fermionic CFT with boundary."
+
+- title: "Fermionic Virasoro Minimal Models"
+  category: Learning
+  topic: 2D CFT
+  language: EN
+  repo: Phys_Learning
+  dir: Fermionminimal
+  description: "Fermionic Virasoro minimal models, with their boundary structure."
+
+- title: "2+1 Dimensional Gravity and Chern–Simons Theory"
+  category: Learning
+  topic: 2+1D Gravity
+  language: EN
+  featured: true
+  repo: Phys_Learning
+  dir: 2+1grav_CS
+  description: "2+1d gravity and its relation to Chern–Simons theory; a naive real-polarization quantization in the zero-cosmological-constant case."
