@@ -9,7 +9,7 @@ title: Willkommen, Bienvenue, Welcome!
 
 ## About
 
-Hi, I'm **Yu Liu** — a master's student in physics at EPFL, previously at Tsinghua University.
+Hi, I’m **Yu Liu**(刘宇) — a Master’s student in theoretical physics at EPFL, and I completed my undergraduate studies at Tsinghua University.
 
 My research interests center on conformal field theory and its applications — particularly in quantum gravity through the bottom-up approach to AdS/CFT, and in condensed matter physics through topological phases of matter. I'm recently more into the generalized symmetry community, and interested in how 1+1D properties may generalize to higher dimensions.
 
