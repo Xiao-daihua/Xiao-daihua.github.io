@@ -1,0 +1,66 @@
+---
+layout: default
+---
+
+<article class="post pieces-listing">
+
+  <header class="post-header">
+    <h1 class="post-title">{{ page.title | escape }}</h1>
+  </header>
+
+  <div class="post-content">
+    {{ content }}
+
+    {%- assign all_pieces = site.pieces | sort: "date" | reverse -%}
+    {%- assign all_topics = all_pieces | map: "topic" | uniq | sort -%}
+
+    <div class="notes-toolbar">
+      <input type="text" id="pieces-search-box" placeholder="Search pieces — title, topic, summary…" autocomplete="off" />
+
+      {%- if all_topics.size > 1 -%}
+      <div class="notes-filter-row">
+        <span class="notes-filter-label">Topic</span>
+        <div class="notes-chip-group" data-filter="topic">
+          <button type="button" class="notes-chip is-active" data-value="">All</button>
+          {%- for t in all_topics -%}
+          <button type="button" class="notes-chip" data-value="{{ t | escape }}">{{ t }}</button>
+          {%- endfor -%}
+        </div>
+      </div>
+      {%- endif -%}
+    </div>
+
+    <div class="notes-search-meta" id="pieces-search-count"></div>
+    <div id="pieces-no-result">No pieces match your filters.</div>
+
+    <ul class="note-list" id="pieces-grid">
+      {%- for piece in all_pieces -%}
+        <li class="note-row note-row--rich note-card"
+            data-title="{{ piece.title | escape }}"
+            data-topic="{{ piece.topic | escape }}"
+            data-summary="{{ piece.summary | default: '' | escape }}"
+            data-tags="{{ piece.tags | join: ', ' | escape }}">
+          <span class="note-row-tags">
+            {%- if piece.topic -%}
+            <span class="note-badge note-badge--topic">{{ piece.topic }}</span>
+            {%- endif -%}
+            {%- if piece.date -%}
+            <span class="note-badge note-badge--date">{{ piece.date | date: "%Y-%m" }}</span>
+            {%- endif -%}
+          </span>
+          <span class="note-row-body">
+            <a class="note-row-title note-card-title" href="{{ piece.url | relative_url }}">{{ piece.title }}</a>
+            {%- if piece.summary -%}
+            <span class="note-row-desc">{{ piece.summary }}</span>
+            {%- endif -%}
+          </span>
+          <span class="note-row-actions">
+            <a href="{{ piece.url | relative_url }}" class="note-row-link">Read →</a>
+          </span>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</article>
+
+<script src="{{ '/assets/js/pieces-search.js' | relative_url }}"></script>

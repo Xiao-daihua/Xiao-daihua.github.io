@@ -1,0 +1,38 @@
+---
+layout: default
+---
+
+<article class="post piece-article">
+
+  <header class="piece-header">
+    <div class="piece-meta">
+      {%- if page.topic -%}
+      <span class="piece-meta-topic">{{ page.topic }}</span>
+      {%- endif -%}
+      {%- if page.date -%}
+      <span class="piece-meta-sep">·</span>
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %Y" }}</time>
+      {%- endif -%}
+    </div>
+    <h1 class="piece-title">{{ page.title | escape }}</h1>
+    {%- if page.summary -%}
+    <p class="piece-summary">{{ page.summary }}</p>
+    {%- endif -%}
+    {%- if page.tags -%}
+    <div class="piece-tags">
+      {%- for tag in page.tags -%}
+      <span class="piece-tag">{{ tag }}</span>
+      {%- endfor -%}
+    </div>
+    {%- endif -%}
+  </header>
+
+  <div class="piece-body">
+    {{ content }}
+  </div>
+
+  <footer class="piece-footer">
+    <a href="{{ '/pieces.html' | relative_url }}" class="back-btn">⟵ All pieces</a>
+  </footer>
+
+</article>

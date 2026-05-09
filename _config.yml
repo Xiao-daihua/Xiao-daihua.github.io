@@ -31,6 +31,7 @@ header_pages:
   - data.markdown
   - papers.markdown
   - note.markdown
+  - pieces.markdown
   - musical.markdown
   - about.markdown
 
@@ -44,6 +45,10 @@ collections:
   papers:
     output: true
     permalink: /papers/:slug/
+
+  pieces:
+    output: true
+    permalink: /pieces/:slug/
 
 # Build settings
 theme: minima

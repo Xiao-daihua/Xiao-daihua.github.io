@@ -789,9 +789,9 @@ table, blockquote, pre, code,
    - No dividing lines between rows; just whitespace.
    - Lecture: flat single-column list.
    - Learning: grouped by topic, each group with its own subtitle.
+   Also reused by Pieces listing page below.
    ============================================================ */
 
-/* ── Section structure ── */
 .notes-section { margin: 2.4rem 0 0; }
 .notes-section:first-of-type { margin-top: 1.6rem; }
 .notes-section + .notes-section {
@@ -817,9 +817,6 @@ table, blockquote, pre, code,
   hyphens: manual;
 }
 
-/* ============================================================
-   Row list — no dividing lines, spacing only
-   ============================================================ */
 .note-list {
   list-style: none;
   padding: 0;
@@ -842,12 +839,8 @@ table, blockquote, pre, code,
 .note-row:hover {
   background: color-mix(in srgb, var(--accent) 5%, transparent);
 }
-
-/* Slightly more vertical breathing room for rich rows
-   (the ones with a description line). */
 .note-row--rich { padding: 9px 8px; }
 
-/* Column 1: tags */
 .note-row-tags {
   display: inline-flex;
   gap: 4px;
@@ -857,7 +850,6 @@ table, blockquote, pre, code,
   top: 1px;
 }
 
-/* Column 2: body (title + optional description) */
 .note-row-body {
   display: flex;
   flex-direction: column;
@@ -885,7 +877,6 @@ table, blockquote, pre, code,
   hyphens: manual;
 }
 
-/* Column 3: actions */
 .note-row-actions {
   display: inline-flex;
   align-items: center;
@@ -909,7 +900,6 @@ table, blockquote, pre, code,
 .note-row-link--muted:hover { color: var(--accent); }
 .note-row-sep { color: var(--text-light); user-select: none; }
 
-/* ── Badges ── */
 .note-badge {
   display: inline-block;
   font-family: var(--font-mono);
@@ -927,13 +917,13 @@ table, blockquote, pre, code,
   border-color: color-mix(in srgb, var(--accent) 28%, transparent);
   color: var(--accent);
 }
-.note-badge--lang {
+.note-badge--lang,
+.note-badge--date {
   background: var(--bg-secondary);
   color: var(--text-muted);
   border-color: var(--border);
 }
 
-/* Status dot (only for wip/draft) */
 .note-status {
   width: 6px;
   height: 6px;
@@ -943,9 +933,6 @@ table, blockquote, pre, code,
 .note-status--wip   { background: #f59e0b; }
 .note-status--draft { background: #94a3b8; }
 
-/* ============================================================
-   Topic groups (Learning section)
-   ============================================================ */
 .note-groups {
   display: flex;
   flex-direction: column;
@@ -964,9 +951,6 @@ table, blockquote, pre, code,
   border: none;
 }
 
-/* ============================================================
-   Learning toolbar (search + filter chips)
-   ============================================================ */
 .notes-toolbar {
   margin: 0 0 0.8rem;
   display: flex;
@@ -974,7 +958,8 @@ table, blockquote, pre, code,
   gap: 8px;
 }
 
-#notes-search-box {
+#notes-search-box,
+#pieces-search-box {
   width: 100%;
   box-sizing: border-box;
   padding: 9px 16px;
@@ -987,11 +972,13 @@ table, blockquote, pre, code,
   color: var(--text);
   transition: border-color 0.2s, box-shadow 0.2s;
 }
-#notes-search-box:focus {
+#notes-search-box:focus,
+#pieces-search-box:focus {
   border-color: var(--accent);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 15%, transparent);
 }
-#notes-search-box::placeholder { color: var(--text-light); }
+#notes-search-box::placeholder,
+#pieces-search-box::placeholder { color: var(--text-light); }
 
 .notes-filter-row {
   display: flex;
@@ -1044,14 +1031,14 @@ table, blockquote, pre, code,
   margin: 4px 0 4px;
   min-height: 1em;
 }
-#notes-no-result {
+#notes-no-result,
+#pieces-no-result {
   display: none;
   color: var(--text-muted);
   margin: 0.6rem 0 1.2rem;
   font-size: 0.9em;
 }
 
-/* ── Mobile ── */
 @media screen and (max-width: 600px) {
   .note-row {
     grid-template-columns: 1fr auto;
@@ -1071,4 +1058,178 @@ table, blockquote, pre, code,
     margin-top: 2rem;
     padding-top: 1.6rem;
   }
+}
+
+/* ============================================================
+   Piece detail page (/pieces/<slug>/)
+   Reading-optimized: serif body text, generous line-height,
+   well-styled KaTeX blocks, clean section headings.
+   ============================================================ */
+
+.piece-article {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.piece-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1.4rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.piece-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-bottom: 0.6rem;
+}
+.piece-meta-topic {
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
+  color: var(--accent);
+  padding: 1px 8px;
+  border-radius: 9px;
+  letter-spacing: 0.02em;
+}
+.piece-meta-sep { color: var(--text-light); }
+
+.piece-title {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1.85rem;
+  line-height: 1.25;
+  margin: 0 0 0.6rem;
+  letter-spacing: -0.01em;
+  color: var(--heading);
+  border: none;
+  padding: 0;
+}
+
+.piece-summary {
+  margin: 0 0 0.8rem;
+  font-size: 1.02rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  font-style: italic;
+  text-align: left;
+  hyphens: manual;
+}
+
+.piece-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 0.5rem;
+}
+.piece-tag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  padding: 1px 8px;
+  border-radius: 9px;
+  background: var(--bg-secondary);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+
+/* ── Body: reading-grade prose ── */
+.piece-body {
+  font-size: 1.02rem;
+  line-height: 1.75;
+  color: var(--text);
+}
+
+.piece-body h2 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin: 2rem 0 0.8rem;
+  padding: 0;
+  border: none;
+  color: var(--heading);
+}
+.piece-body h3 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1.08rem;
+  margin: 1.6rem 0 0.6rem;
+  color: var(--heading);
+}
+
+.piece-body p {
+  margin: 0 0 1.1rem;
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+
+.piece-body ul,
+.piece-body ol {
+  margin: 0 0 1.1rem;
+  padding-left: 1.4rem;
+}
+.piece-body li {
+  margin-bottom: 0.5rem;
+  line-height: 1.7;
+}
+.piece-body li > p { margin-bottom: 0.4rem; }
+
+.piece-body blockquote {
+  margin: 1.4rem 0;
+  padding: 0.5rem 1.2rem;
+  border-left: 3px solid var(--accent);
+  background: var(--bg-secondary);
+  border-radius: 0 6px 6px 0;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.piece-body code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1px 5px;
+  color: var(--accent);
+}
+.piece-body pre {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 18px;
+  overflow-x: auto;
+  font-size: 0.86em;
+  line-height: 1.6;
+  margin: 1.2rem 0;
+}
+.piece-body pre > code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--text);
+}
+
+.piece-body .katex-display {
+  margin: 1.2rem 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 4px 0;
+}
+.piece-body .katex {
+  font-size: 1.05em;
+}
+
+.piece-footer {
+  margin-top: 3rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--border);
+}
+
+@media screen and (max-width: 600px) {
+  .piece-title    { font-size: 1.55rem; }
+  .piece-body     { font-size: 1rem; line-height: 1.7; }
+  .piece-body p   { text-align: left; }
 }
