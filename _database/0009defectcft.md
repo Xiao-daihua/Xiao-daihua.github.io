@@ -15,4 +15,6 @@ The Defect Lines in RCFT have been studied in last centry.
 
 ## Modern Bootstrap of Defect Lines
 
+- [On Finite Symmetries and Their Gauging in Two Dimensions](/papers/2018-bhardwaj/)  
+
 - [Topological Defect Lines and Renormalization Group Flows in Two Dimensions](/papers/2019-chang/) bootstraps the data of topological defect lines in 2D CFTs.

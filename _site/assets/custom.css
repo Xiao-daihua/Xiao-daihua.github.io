@@ -1233,3 +1233,196 @@ table, blockquote, pre, code,
   .piece-body     { font-size: 1rem; line-height: 1.7; }
   .piece-body p   { text-align: left; }
 }
+
+/* ============================================================
+   Piece 排版增强 — 追加到 custom.css 末尾
+   功能：定理框 / Remark 框 / Definition 框 / 居中数学表格 / Diagram
+   ============================================================ */
+
+/* ── 通用框基础 ── */
+.math-box {
+  margin: 1.6rem 0;
+  padding: 0.9rem 1.2rem 0.9rem 1.4rem;
+  border-radius: 6px;
+  border-left: 3.5px solid;
+  position: relative;
+}
+.math-box-label {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+/* ── Theorem 框（蓝紫调） ── */
+.theorem-box {
+  background: #f5f4ff;
+  border-color: #7c6fcd;
+}
+.theorem-box .math-box-label { color: #5a4fb0; }
+
+/* ── Remark 框（灰绿调） ── */
+.remark-box {
+  background: #f3f7f4;
+  border-color: #5a9e7a;
+}
+.remark-box .math-box-label { color: #3d7a5b; }
+
+/* ── Definition 框（琥珀调） ── */
+.definition-box {
+  background: #fdf8f0;
+  border-color: #c8963e;
+}
+.definition-box .math-box-label { color: #9a6e20; }
+
+/* dark-mode 适配（如果站点有 prefers-color-scheme: dark） */
+@media (prefers-color-scheme: dark) {
+  .theorem-box   { background: rgba(124,111,205,0.12); border-color: #9d90e0; }
+  .remark-box    { background: rgba(90,158,122,0.10);  border-color: #7abf9b; }
+  .definition-box{ background: rgba(200,150,62,0.10);  border-color: #d4a860; }
+}
+
+/* ── 框内 KaTeX 公式间距 ── */
+.math-box .katex-display { margin: 0.8rem 0; }
+
+/* ── 居中数学表格 ── */
+.math-table-wrap {
+  overflow-x: auto;
+  margin: 1.6rem 0;
+}
+.math-table-wrap table {
+  margin: 0 auto;
+  border-collapse: collapse;
+  font-size: 0.93rem;
+  line-height: 1.55;
+}
+.math-table-wrap th {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-bottom: 2px solid var(--border, #ddd);
+  text-align: left;
+  color: var(--text-muted, #777);
+}
+.math-table-wrap td {
+  padding: 7px 16px;
+  border-bottom: 1px solid var(--border, #eee);
+  vertical-align: top;
+}
+.math-table-wrap tr:last-child td { border-bottom: none; }
+.math-table-wrap tr:hover td     { background: var(--bg-secondary, #f8f8f8); }
+
+/* ── Diagram 容器 ── */
+.piece-diagram {
+  margin: 1.8rem auto;
+  text-align: center;
+}
+.piece-diagram svg {
+  color: var(--text, #222);
+}
+.piece-diagram-caption {
+  margin-top: 0.6rem;
+  font-size: 0.84rem;
+  color: var(--text-muted, #777);
+  font-style: italic;
+  line-height: 1.5;
+  max-width: 440px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── 公式标签锚点（用于 \eqref 跳转） ── */
+.eq-label {
+  position: relative;
+}
+
+/* ============================================================
+   Piece 排版增强 v2 — 追加到 custom.css 末尾
+   ============================================================ */
+
+/* ── 数学框（Theorem / Remark / Definition） ── */
+.math-box {
+  margin: 1.6rem 0;
+  padding: 0.9rem 1.2rem 0.9rem 1.4rem;
+  border-radius: 6px;
+  border-left: 3.5px solid;
+}
+.math-box-label {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.math-box mjx-container[display="true"] { margin: 0.8rem 0; }
+
+.theorem-box    { background: #f5f4ff; border-color: #7c6fcd; }
+.theorem-box    .math-box-label { color: #5a4fb0; }
+.remark-box     { background: #f3f7f4; border-color: #5a9e7a; }
+.remark-box     .math-box-label { color: #3d7a5b; }
+.definition-box { background: #fdf8f0; border-color: #c8963e; }
+.definition-box .math-box-label { color: #9a6e20; }
+
+@media (prefers-color-scheme: dark) {
+  .theorem-box    { background: rgba(124,111,205,0.12); border-color: #9d90e0; }
+  .remark-box     { background: rgba(90,158,122,0.10);  border-color: #7abf9b; }
+  .definition-box { background: rgba(200,150,62,0.10);  border-color: #d4a860; }
+}
+
+/* ── 原生 md 表格居中 ── */
+.piece-body table {
+  display: table;
+  margin: 1.6rem auto;
+  border-collapse: collapse;
+  font-size: 0.93rem;
+  line-height: 1.55;
+  width: auto;
+  max-width: 100%;
+}
+.piece-body th {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  padding: 6px 18px;
+  border-bottom: 2px solid var(--border, #ddd);
+  text-align: left;
+  color: var(--text-muted, #777);
+  white-space: nowrap;
+}
+.piece-body td {
+  padding: 7px 18px;
+  border-bottom: 1px solid var(--border, #eee);
+  vertical-align: top;
+}
+.piece-body tr:last-child td { border-bottom: none; }
+.piece-body tbody tr:hover td { background: var(--bg-secondary, #f8f8f8); }
+
+/* ── 图片 ── */
+.piece-body img {
+  display: block;
+  margin: 1.8rem auto;
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+.piece-body figure {
+  margin: 1.8rem auto;
+  text-align: center;
+  max-width: 100%;
+}
+.piece-body figure img { margin: 0 auto; }
+.piece-body figcaption {
+  margin-top: 0.55rem;
+  font-size: 0.84rem;
+  color: var(--text-muted, #777);
+  font-style: italic;
+  line-height: 1.5;
+}

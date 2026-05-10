@@ -108,7 +108,7 @@
   featured: true
   repo: Phys_Learning
   dir: QHE
-  description: "Integer and fractional quantum Hall effect in one note."
+  description: "Integer and fractional quantum Hall effect in one note. Concise dictation of David Tong's lecture notes on the subject."
 
 - title: "Core Concepts in QFT"
   category: Learning
@@ -177,3 +177,12 @@
   repo: Phys_Learning
   dir: 2+1grav_CS
   description: "2+1d gravity and its relation to Chern–Simons theory; a naive real-polarization quantization in the zero-cosmological-constant case."
+
+- title: "Topological Phase of Matter"
+  category: Learning
+  topic: CMT
+  language: EN 
+  featured: true 
+  repo: Phys_Learning 
+  dir: Topologicalmatter
+  description: "Topological phases of matter, a lecture note taken from Prof. Qingrui Wang's course at Tsinghua University."

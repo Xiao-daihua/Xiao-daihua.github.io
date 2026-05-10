@@ -78,32 +78,39 @@
 </header>
 <main class="page-content" aria-label="Content">
       <div class="wrapper">
-        <article class="post pieces-listing">
+        <article class="post notes-listing pieces-listing">
 
   <header class="post-header">
     <h1 class="post-title">Pieces</h1>
   </header>
 
   <div class="post-content">
-    <p>Short pieces of understanding — small results, definitions, or perspectives that I’ve come across and want to keep within reach. Each piece is meant to be self-contained and readable in a few minutes. Some are textbook-standard; some are reframings I find clarifying.</p>
+    <p>Collections of short pieces of notes on various interesting small topics. These are prepared to NOT be systematic and just want to give the reader a quick taste on some interesting topics.</p>
 <div class="notes-toolbar">
-      <input type="text" id="pieces-search-box" placeholder="Search pieces — title, topic, summary…" autocomplete="off" /></div>
+      <input type="text" id="pieces-search-box"
+             placeholder="Search pieces — title, topic, summary…"
+             autocomplete="off" /></div>
 
-    <div class="notes-search-meta" id="pieces-search-count"></div>
-    <div id="pieces-no-result">No pieces match your filters.</div>
+    <div class="notes-search-meta">
+      <span id="pieces-search-count"></span>
+    </div>
+    <div id="pieces-no-result" style="display:none;">No pieces match your search.</div>
 
-    <ul class="note-list" id="pieces-grid"><li class="note-row note-row--rich note-card"
-            data-title="Why Symmetries can be Topological Defects"
+    <ul class="note-list" id="pieces-list"><li class="note-row note-row--rich"
             data-topic="Symmetry"
-            data-summary="A really short justification of what is symmetry as a topological defect."
-            data-tags="generalized symmetry, defects, TQFT">
-          <span class="note-row-tags"><span class="note-badge note-badge--topic">Symmetry</span><span class="note-badge note-badge--date">2026-04</span></span>
+            data-hay="A Symmetry Slogan: Defect vs Operators Symmetry Reframing global symmetry as the presence of a topological operator.">
+          <span class="note-row-tags">
+            <span class="note-badge note-badge--topic">Symmetry</span>
+          </span>
           <span class="note-row-body">
-            <a class="note-row-title note-card-title" href="/pieces/symmetry-as-defect/">Why Symmetries can be Topological Defects</a><span class="note-row-desc">A really short justification of what is symmetry as a topological defect.</span></span>
-          <span class="note-row-actions">
-            <a href="/pieces/symmetry-as-defect/" class="note-row-link">Read →</a>
+            <a class="note-row-title" href="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/Xiao-daihua/pieces/main/symmetry-defect/main.pdf" target="_blank" rel="noopener">A Symmetry Slogan: Defect vs Operators</a><span class="note-row-desc">Reframing global symmetry as the presence of a topological operator.</span></span>
+          <span class="note-row-actions"><span class="note-row-date">Apr 2026</span>
+            <span class="note-row-sep">·</span><a href="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/Xiao-daihua/pieces/main/symmetry-defect/main.pdf" target="_blank" rel="noopener" class="note-row-link">PDF</a>
+            <span class="note-row-sep">·</span>
+            <a href="https://github.com/Xiao-daihua/pieces/tree/main/symmetry-defect" target="_blank" rel="noopener" class="note-row-link note-row-link--muted">Source</a>
           </span>
         </li></ul>
+
   </div>
 </article>
 

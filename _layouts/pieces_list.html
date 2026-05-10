@@ -2,7 +2,7 @@
 layout: default
 ---
 
-<article class="post pieces-listing">
+<article class="post notes-listing pieces-listing">
 
   <header class="post-header">
     <h1 class="post-title">{{ page.title | escape }}</h1>
@@ -11,11 +11,13 @@ layout: default
   <div class="post-content">
     {{ content }}
 
-    {%- assign all_pieces = site.pieces | sort: "date" | reverse -%}
-    {%- assign all_topics = all_pieces | map: "topic" | uniq | sort -%}
+    {%- assign all_pieces = site.data.pieces | sort: "date" | reverse -%}
+    {%- assign all_topics  = site.data.pieces | map: "topic" | uniq | sort -%}
 
     <div class="notes-toolbar">
-      <input type="text" id="pieces-search-box" placeholder="Search pieces — title, topic, summary…" autocomplete="off" />
+      <input type="text" id="pieces-search-box"
+             placeholder="Search pieces — title, topic, summary…"
+             autocomplete="off" />
 
       {%- if all_topics.size > 1 -%}
       <div class="notes-filter-row">
@@ -30,36 +32,43 @@ layout: default
       {%- endif -%}
     </div>
 
-    <div class="notes-search-meta" id="pieces-search-count"></div>
-    <div id="pieces-no-result">No pieces match your filters.</div>
+    <div class="notes-search-meta">
+      <span id="pieces-search-count"></span>
+    </div>
+    <div id="pieces-no-result" style="display:none;">No pieces match your search.</div>
 
-    <ul class="note-list" id="pieces-grid">
+    <ul class="note-list" id="pieces-list">
       {%- for piece in all_pieces -%}
-        <li class="note-row note-row--rich note-card"
-            data-title="{{ piece.title | escape }}"
+        {%- assign pdf_name = piece.pdf_name | default: "main.pdf" -%}
+        {%- assign dir_enc  = piece.dir | replace: "+", "%2B" | replace: " ", "%20" -%}
+        {%- capture pdf_url -%}https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/Xiao-daihua/{{ piece.repo }}/main/{{ dir_enc }}/{{ pdf_name }}{%- endcapture -%}
+        {%- capture src_url -%}https://github.com/Xiao-daihua/{{ piece.repo }}/tree/main/{{ piece.dir }}{%- endcapture -%}
+
+        <li class="note-row note-row--rich"
             data-topic="{{ piece.topic | escape }}"
-            data-summary="{{ piece.summary | default: '' | escape }}"
-            data-tags="{{ piece.tags | join: ', ' | escape }}">
+            data-hay="{{ piece.title | escape }} {{ piece.topic | escape }} {{ piece.summary | escape }}">
           <span class="note-row-tags">
-            {%- if piece.topic -%}
             <span class="note-badge note-badge--topic">{{ piece.topic }}</span>
-            {%- endif -%}
-            {%- if piece.date -%}
-            <span class="note-badge note-badge--date">{{ piece.date | date: "%Y-%m" }}</span>
-            {%- endif -%}
           </span>
           <span class="note-row-body">
-            <a class="note-row-title note-card-title" href="{{ piece.url | relative_url }}">{{ piece.title }}</a>
+            <a class="note-row-title" href="{{ pdf_url }}" target="_blank" rel="noopener">{{ piece.title }}</a>
             {%- if piece.summary -%}
             <span class="note-row-desc">{{ piece.summary }}</span>
             {%- endif -%}
           </span>
           <span class="note-row-actions">
-            <a href="{{ piece.url | relative_url }}" class="note-row-link">Read →</a>
+            {%- if piece.date -%}
+            <span class="note-row-date">{{ piece.date | date: "%b %Y" }}</span>
+            <span class="note-row-sep">·</span>
+            {%- endif -%}
+            <a href="{{ pdf_url }}" target="_blank" rel="noopener" class="note-row-link">PDF</a>
+            <span class="note-row-sep">·</span>
+            <a href="{{ src_url }}" target="_blank" rel="noopener" class="note-row-link note-row-link--muted">Source</a>
           </span>
         </li>
       {%- endfor -%}
     </ul>
+
   </div>
 </article>
 

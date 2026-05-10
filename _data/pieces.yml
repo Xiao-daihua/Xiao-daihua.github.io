@@ -1,0 +1,16 @@
+# ================================================================
+# Pieces data file  —  _data/pieces.yml
+# ----------------------------------------------------------------
+# 每条 piece 是一个用 Typst 写的短文，编译成 PDF 推到 GitHub。
+# 建议统一放在同一个 repo（如 "pieces"），每个 piece 一个子目录。
+#
+# 必填：title / topic / repo / dir
+# 选填：date ("YYYY-MM-DD") / summary / pdf_name (默认 main.pdf)
+# ================================================================
+
+- title: "A Symmetry Slogan: Defect vs Operators"
+  topic: Symmetry
+  date: "2026-04-18"
+  repo: pieces
+  dir: symmetry-defect
+  summary: "Reframing global symmetry as the presence of a topological operator."
