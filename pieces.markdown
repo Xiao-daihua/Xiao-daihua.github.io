@@ -2,5 +2,5 @@
 layout: pieces_list
 title: Pieces
 ---
-
-Collections of short pieces of notes on various interesting small topics. These are prepared to NOT be systematic and just want to give the reader a quick taste on some interesting topics.
+This is a collection of pieces of knowledge that I have found interesting and useful.
+I believe that advanced knowledge is often built on top of a large number of small pieces of knowledge, and that by collecting and organizing these pieces, I can create a more comprehensive understanding of the physics world. These notes pieces are never meant to be complete, self-contained or systematic. But they should perform a useful role in reaching towards a complete and comprehensive picture.

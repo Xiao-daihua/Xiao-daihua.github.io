@@ -83,14 +83,6 @@
 
 # ── Learning notes (independent study) ────────────────────────────
 
-- title: "Modular Tensor Category"
-  category: Learning
-  topic: Math
-  language: EN
-  featured: true
-  repo: Phys_Learning
-  dir: MTC
-  description: "Modular Tensor Categories with applications to CFT and TQFT."
 
 - title: "Mathematical Aspects of Gauge Field Theory"
   category: Learning
@@ -144,14 +136,6 @@
   repo: Phys_Learning
   dir: RCFT_MS
   description: "Crossing symmetry of conformal blocks — one of the central features of 2D CFT."
-
-- title: "Bulk and Boundary Sewing Constraints"
-  category: Learning
-  topic: 2D CFT
-  language: EN
-  repo: Phys_Learning
-  dir: SewingConstraint
-  description: "Lewellen's sewing constraints in 2D CFT with boundary."
 
 - title: "Boundary States of Majorana CFT"
   category: Learning
