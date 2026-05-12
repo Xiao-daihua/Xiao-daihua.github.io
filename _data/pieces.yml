@@ -10,7 +10,7 @@
 
 - title: "How does Locality and Unitary Constrain 2D CFTs with Boundary?"
   category: Learning
-  topic: 2D CFT
+  topic: CFT
   date: "2026-01-08"
   repo: Phys_Learning
   dir: SewingConstraint
@@ -18,9 +18,17 @@
 
 - title: "Modular Tensor Categorys and How They Appear in CFT and TQFT?"
   category: Learning
-  topic: Math
+  topic: CFT
+  date: "2026-04-12"
   repo: Phys_Learning
   dir: MTC
   summary: "Modular Tensor Categories with applications to CFT and TQFT."
 
+- title: "How to Gauge a Descrete Symmetry?"
+  category: Learning
+  topic: Symmetry
+  date: "2026-05-12"
+  repo: Phys_Learning
+  dir: Discrete_gauge
+  summary: "Gauging a discrete symmetry?????"
 

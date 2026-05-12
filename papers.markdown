@@ -1,6 +1,6 @@
 ---
 layout: papers_list
-title: Papers
+title: Library
 ---
 
-Welcome to my collection of papers listed in the database.
+Welcome to my library of papers listed in the database.
