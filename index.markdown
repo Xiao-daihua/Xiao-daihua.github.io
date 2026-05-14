@@ -9,7 +9,7 @@ title: Willkommen, Bienvenue, Welcome!
 
 ## About
 
-Hi, I’m **Yu Liu**(刘宇) — a Master’s student in theoretical physics at EPFL, and I completed my undergraduate studies at Tsinghua University.
+Hi, I’m **Yu Liu** (刘宇) — a Master’s student in theoretical physics at EPFL, and I completed my undergraduate studies at Tsinghua University.
 
 My research interests center on conformal field theory and its applications — particularly in quantum gravity through the bottom-up approach to AdS/CFT, and in condensed matter physics through topological phases of matter. I'm recently more into the generalized symmetry community, and interested in how 1+1D properties may generalize to higher dimensions.
 
@@ -18,7 +18,8 @@ My research interests center on conformal field theory and its applications — 
 This site is where I collect what I read, write, and think about in physics.
 
 - **[Notes]({{ "/note.html" | relative_url }})** — lecture notes from my master's at EPFL, plus independent learning notes on topics I'm currently working through.
-- **[Papers]({{ "/papers.html" | relative_url }})** — a running list of papers I've read or am reading, sorted by year.
+- **[Pieces]({{ "/pieces.html" | relative_url }})**  — Pieces of notes.
+- **[Library]({{ "/papers.html" | relative_url }})** — a running list of papers I've read or am reading, sorted by year.
 - **[Database]({{ "/data.html" | relative_url }})** — the same papers organized by topic, so each subject becomes its own reading path.
 
 ## Beyond Physics
