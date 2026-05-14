@@ -1,6 +1,6 @@
 ---
 layout: papers_list
-title: Library
+title: Paper List
 ---
 
-Welcome to my library of papers listed in the database.
+A flat, year-sorted list of every paper referenced in the [Library]({{ "/library.html" | relative_url }}). Use the Library page to browse them organized by topic.

@@ -1,6 +1,6 @@
 ---
 layout: topic
-title: Categorical Symmetry
+title: Non-Invertible Symmetry
 tags: [Generalized Symmetry]
 ---
 

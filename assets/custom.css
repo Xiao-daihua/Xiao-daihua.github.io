@@ -402,10 +402,83 @@ hr { border: none; border-top: 1px solid var(--border); margin: 2em 0; }
   font-size: 0.9em;
 }
 #topic-list h2 {
-  font-size: 1.5rem;
-  margin-top: 1.8rem;
+  font-size: 1.25rem;
+  margin-top: 2rem;
+  margin-bottom: 0.4rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--heading);
+  letter-spacing: 0.01em;
 }
+#topic-list h2:first-of-type { margin-top: 1.2rem; }
 #topic-list ul { margin-top: 0.4rem; }
+
+/* ── Topic cards (Library page) ──
+   Each tag section renders its topics as a vertical list of clickable
+   "cards" — no border, hover-highlighted background, rounded corners.
+   The topic title sits on the left, tag badges align to the right.
+   ============================================================ */
+.topic-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0.4rem 0 0.2rem;
+}
+
+.topic-card {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  column-gap: 16px;
+  row-gap: 4px;
+  padding: 9px 8px;
+  border-radius: 6px;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.12s ease;
+}
+.topic-card:hover {
+  background: color-mix(in srgb, var(--accent) 5%, transparent);
+  text-decoration: none;
+}
+.topic-card:hover .topic-card-title { color: var(--accent); }
+
+.topic-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.topic-card-title {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--heading);
+  line-height: 1.4;
+  transition: color 0.12s ease;
+}
+
+.topic-card-tags {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  justify-self: end;
+  position: relative;
+  top: 1px;
+}
+
+@media screen and (max-width: 600px) {
+  .topic-card {
+    grid-template-columns: 1fr;
+    row-gap: 6px;
+  }
+  .topic-card-tags { justify-self: start; }
+}
 
 /* ── Topic-page tags + back button ── */
 .topic-tags { margin-bottom: 1rem; }

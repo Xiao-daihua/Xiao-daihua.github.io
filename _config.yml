@@ -28,10 +28,8 @@ url: "" # the base hostname & protocol for your site, e.g. http://example.com
 enable_math: true        
 enable_darkmode: true    
 header_pages:
-  - data.markdown
-  - papers.markdown
+  - library.markdown
   - note.markdown
-  - pieces.markdown
   - musical.markdown
   - about.markdown
 

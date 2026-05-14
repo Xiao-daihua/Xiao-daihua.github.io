@@ -26,13 +26,25 @@ layout: default
             {%- assign tag_clean = tag | strip -%}
             {%- if tag_clean != "" -%}
             <h2 data-tag="{{ tag_clean }}">{{ tag_clean }}</h2>
-            <ul>
+            <div class="topic-grid">
               {%- for topic in all_topics -%}
                 {%- if topic.tags contains tag_clean -%}
-                  <li><a href="{{ topic.url | relative_url }}">{{ topic.title }}</a></li>
+                  <a class="topic-card" href="{{ topic.url | relative_url }}">
+                    <span class="topic-card-body">
+                      <span class="topic-card-title">{{ topic.title }}</span>
+                    </span>
+                    <span class="topic-card-tags">
+                      {%- for t in topic.tags -%}
+                        {%- assign t_clean = t | strip -%}
+                        {%- if t_clean != "" -%}
+                        <span class="note-badge">{{ t_clean }}</span>
+                        {%- endif -%}
+                      {%- endfor -%}
+                    </span>
+                  </a>
                 {%- endif -%}
               {%- endfor -%}
-            </ul>
+            </div>
             {%- endif -%}
           {%- endfor -%}
         </div>

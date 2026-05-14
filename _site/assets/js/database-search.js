@@ -59,11 +59,13 @@
       noRes.style.display = 'none';
       countEl.textContent = '';
       mainList.querySelectorAll('h2').forEach(function (h) { h.style.display = ''; });
-      mainList.querySelectorAll('ul').forEach(function (u) { u.style.display = ''; });
-      mainList.querySelectorAll('li').forEach(function (li) {
-        li.style.display = '';
-        var a = li.querySelector('a');
-        if (a && a.dataset.origText) { a.innerHTML = escapeHtml(a.dataset.origText); }
+      mainList.querySelectorAll('.topic-grid').forEach(function (g) { g.style.display = ''; });
+      mainList.querySelectorAll('.topic-card').forEach(function (card) {
+        card.style.display = '';
+        var titleEl = card.querySelector('.topic-card-title');
+        if (titleEl && titleEl.dataset.origText) {
+          titleEl.innerHTML = escapeHtml(titleEl.dataset.origText);
+        }
       });
       return;
     }
@@ -86,29 +88,31 @@
     /* Filter the rendered #topic-list in place */
     var sections = mainList.querySelectorAll('h2');
     sections.forEach(function (h2) {
-      var ul = h2.nextElementSibling;
-      if (!ul) return;
+      var grid = h2.nextElementSibling;
+      if (!grid) return;
       var visible = 0;
-      ul.querySelectorAll('li').forEach(function (li) {
-        var a = li.querySelector('a');
-        if (!a) return;
-        var href = normUrl(a.getAttribute('href'));
+      grid.querySelectorAll('.topic-card').forEach(function (card) {
+        var href = normUrl(card.getAttribute('href'));
+        var titleEl = card.querySelector('.topic-card-title');
         if (matched.has(href)) {
-          li.style.display = '';
-          if (!a.dataset.origText) a.dataset.origText = a.textContent;
-          a.innerHTML = fuzzyMatch(a.dataset.origText, q)
-            ? fuzzyHL(a.dataset.origText, q)
-            : escapeHtml(a.dataset.origText);
+          card.style.display = '';
+          if (titleEl) {
+            if (!titleEl.dataset.origText) titleEl.dataset.origText = titleEl.textContent;
+            titleEl.innerHTML = fuzzyMatch(titleEl.dataset.origText, q)
+              ? fuzzyHL(titleEl.dataset.origText, q)
+              : escapeHtml(titleEl.dataset.origText);
+          }
           visible++;
         } else {
-          li.style.display = 'none';
-          var orig = a.dataset.origText;
-          if (orig) a.innerHTML = escapeHtml(orig);
+          card.style.display = 'none';
+          if (titleEl && titleEl.dataset.origText) {
+            titleEl.innerHTML = escapeHtml(titleEl.dataset.origText);
+          }
         }
       });
       var empty = visible === 0;
       h2.style.display = empty ? 'none' : '';
-      ul.style.display = empty ? 'none' : '';
+      grid.style.display = empty ? 'none' : '';
     });
 
     if (total === 0) {

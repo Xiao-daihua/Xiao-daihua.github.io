@@ -17,10 +17,8 @@ My research interests center on conformal field theory and its applications — 
 
 This site is where I collect what I read, write, and think about in physics.
 
-- **[Notes]({{ "/note.html" | relative_url }})** — lecture notes from my master's at EPFL, plus independent learning notes on topics I'm currently working through.
-- **[Pieces]({{ "/pieces.html" | relative_url }})**  — Pieces of notes.
-- **[Library]({{ "/papers.html" | relative_url }})** — a running list of papers I've read or am reading, sorted by year.
-- **[Database]({{ "/data.html" | relative_url }})** — the same papers organized by topic, so each subject becomes its own reading path.
+- **[Notes]({{ "/note.html" | relative_url }})** — lecture notes from my master's at EPFL, independent learning notes on topics I'm currently working through, plus a collection of smaller pieces of knowledge.
+- **[Library]({{ "/library.html" | relative_url }})** — research papers I've read or am reading, organized by topic. Each subject becomes its own reading path; a flat year-sorted [paper list]({{ "/papers.html" | relative_url }}) is linked from there too.
 
 ## Beyond Physics
 

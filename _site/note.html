@@ -49,7 +49,7 @@
           </span>
         </label>
 
-        <div class="trigger"><a class="page-link" href="/data.html">Database</a><a class="page-link" href="/papers.html">Library</a><a class="page-link" href="/note.html">Notes</a><a class="page-link" href="/pieces.html">Pieces</a><a class="page-link" href="/musical.html">Musicals</a><a class="page-link" href="/about/">About</a><button id="theme-toggle" type="button" aria-label="Toggle dark/light mode" title="Toggle theme">
+        <div class="trigger"><a class="page-link" href="/library.html">Library</a><a class="page-link" href="/note.html">Notes</a><a class="page-link" href="/musical.html">Musicals</a><a class="page-link" href="/about/">About</a><button id="theme-toggle" type="button" aria-label="Toggle dark/light mode" title="Toggle theme">
             <span id="theme-icon">☀︎</span> <span id="theme-label">Light</span>
           </button>
         </div>
@@ -373,10 +373,109 @@
                 </li></ul>
           </div></div>
     </section>
+
+    <!-- ── Pieces section (merged from former Pieces page) ── --><section class="notes-section notes-section--pieces pieces-listing">
+      <div class="notes-section-header">
+        <h2 class="notes-section-title">Pieces</h2>
+        <p class="notes-section-sub">
+          A collection of small pieces of knowledge that I have found interesting and useful.
+          Advanced knowledge is often built on top of many small pieces; by collecting and
+          organizing them I try to grow towards a more comprehensive picture of physics.
+          These pieces are never meant to be complete, self-contained or systematic.
+        </p>
+      </div>
+
+      <div class="notes-toolbar">
+        <input type="text"
+               id="pieces-search-box"
+               placeholder="Search pieces — title, topic, summary…"
+               autocomplete="off" />
+
+        <div class="notes-filter-row">
+          <span class="notes-filter-label">Topic</span>
+          <div class="notes-chip-group" data-filter="topic">
+            <button type="button" class="notes-chip is-active" data-value="">All</button><button type="button" class="notes-chip" data-value="CFT">CFT</button><button type="button" class="notes-chip" data-value="Symmetry">Symmetry</button></div>
+        </div>
+      </div>
+
+      <div class="notes-search-meta">
+        <span id="pieces-count"></span>
+      </div>
+      <p id="pieces-no-result" style="display:none;color:var(--text-muted);font-size:0.9rem;">
+        No pieces match your search.
+      </p><div class="note-group piece-group"
+             data-topic="CFT">
+          <h3 class="note-group-title">CFT</h3>
+
+          <ul class="note-list"><li class="note-row note-row--rich"
+                  data-topic="CFT"
+                  data-hay="Modular Tensor Categorys and How They Appear in CFT and TQFT? CFT Modular Tensor Categories with applications to CFT and TQFT.">
+                <span class="note-row-tags">
+                  <span class="note-badge note-badge--topic">CFT</span>
+                </span>
+                <span class="note-row-body">
+                  <a class="note-row-title"
+                     href="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/Xiao-daihua/Phys_Learning/main/MTC/main.pdf"
+                     target="_blank" rel="noopener">Modular Tensor Categorys and How They Appear in CFT and TQFT?</a><span class="note-row-desc">Modular Tensor Categories with applications to CFT and TQFT.</span></span>
+                <span class="note-row-actions"><span class="note-row-date">Apr 2026</span>
+                  <span class="note-row-sep">·</span><a href="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/Xiao-daihua/Phys_Learning/main/MTC/main.pdf"
+                     target="_blank" rel="noopener"
+                     class="note-row-link">PDF</a>
+                  <span class="note-row-sep">·</span>
+                  <a href="https://github.com/Xiao-daihua/Phys_Learning/tree/main/MTC"
+                     target="_blank" rel="noopener"
+                     class="note-row-link note-row-link--muted">Source</a>
+                </span>
+              </li><li class="note-row note-row--rich"
+                  data-topic="CFT"
+                  data-hay="How does Locality and Unitary Constrain 2D CFTs with Boundary? CFT Cardy/Lewellen&#39;s sewing constraints in 2D CFT with boundary.">
+                <span class="note-row-tags">
+                  <span class="note-badge note-badge--topic">CFT</span>
+                </span>
+                <span class="note-row-body">
+                  <a class="note-row-title"
+                     href="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/Xiao-daihua/Phys_Learning/main/SewingConstraint/main.pdf"
+                     target="_blank" rel="noopener">How does Locality and Unitary Constrain 2D CFTs with Boundary?</a><span class="note-row-desc">Cardy/Lewellen's sewing constraints in 2D CFT with boundary.</span></span>
+                <span class="note-row-actions"><span class="note-row-date">Jan 2026</span>
+                  <span class="note-row-sep">·</span><a href="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/Xiao-daihua/Phys_Learning/main/SewingConstraint/main.pdf"
+                     target="_blank" rel="noopener"
+                     class="note-row-link">PDF</a>
+                  <span class="note-row-sep">·</span>
+                  <a href="https://github.com/Xiao-daihua/Phys_Learning/tree/main/SewingConstraint"
+                     target="_blank" rel="noopener"
+                     class="note-row-link note-row-link--muted">Source</a>
+                </span>
+              </li></ul>
+        </div><div class="note-group piece-group"
+             data-topic="Symmetry">
+          <h3 class="note-group-title">Symmetry</h3>
+
+          <ul class="note-list"><li class="note-row note-row--rich"
+                  data-topic="Symmetry"
+                  data-hay="How to Gauge a Descrete Symmetry? Symmetry What is a discrete gauge theory and how to use it to gauge a discrete symmetry?">
+                <span class="note-row-tags">
+                  <span class="note-badge note-badge--topic">Symmetry</span>
+                </span>
+                <span class="note-row-body">
+                  <a class="note-row-title"
+                     href="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/Xiao-daihua/Phys_Learning/main/Discrete_gauge/main.pdf"
+                     target="_blank" rel="noopener">How to Gauge a Descrete Symmetry?</a><span class="note-row-desc">What is a discrete gauge theory and how to use it to gauge a discrete symmetry?</span></span>
+                <span class="note-row-actions"><span class="note-row-date">May 2026</span>
+                  <span class="note-row-sep">·</span><a href="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/Xiao-daihua/Phys_Learning/main/Discrete_gauge/main.pdf"
+                     target="_blank" rel="noopener"
+                     class="note-row-link">PDF</a>
+                  <span class="note-row-sep">·</span>
+                  <a href="https://github.com/Xiao-daihua/Phys_Learning/tree/main/Discrete_gauge"
+                     target="_blank" rel="noopener"
+                     class="note-row-link note-row-link--muted">Source</a>
+                </span>
+              </li></ul>
+        </div></section>
   </div>
 </article>
 
 <script src="/assets/js/notes-search.js"></script>
+<script src="/assets/js/pieces-search.js"></script>
 
       </div>
     </main><footer class="site-footer">
