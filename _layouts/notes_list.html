@@ -186,6 +186,7 @@ layout: default
         No pieces match your search.
       </p>
 
+      <div class="note-groups">
       {%- for topic in all_piece_topics -%}
         {%- assign topic_pieces = site.data.pieces
               | where: "topic", topic
@@ -234,6 +235,7 @@ layout: default
           </ul>
         </div>
       {%- endfor -%}
+      </div>
     </section>
   </div>
 </article>
