@@ -11,7 +11,8 @@ title: Willkommen, Bienvenue, Welcome!
 
 Hi, I’m **Yu Liu** (刘宇) — a Master’s student in theoretical physics at EPFL, and I completed my undergraduate studies at Tsinghua University.
 
-My research interests center on conformal field theory and its applications — particularly in quantum gravity through the bottom-up approach to AdS/CFT, and in condensed matter physics through topological phases of matter. I'm recently more into the generalized symmetry community, and interested in how 1+1D properties may generalize to higher dimensions.
+My research interests center on conformal field theory and its applications, both in high-energy physics, quantum gravity and condensed matter physics. Recently, I'm also interested to explore the generalized notion of symmetry in quantum field theory, and how properties in 2D QFT can be generalized to higher dimension.
+
 
 ## Around the Site
 

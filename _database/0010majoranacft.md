@@ -14,3 +14,6 @@ Most structure of Majorana CFT can be found in the standart textbook:
 - [Applied Conformal Field Theory](/papers/0000-ginsparg/)
 
 
+## Bosonization Relation
+
+It is traditionally misunderstood (and this misunderstanding is still stated in many textbooks) that Majorana CFT is 
