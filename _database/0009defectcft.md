@@ -1,21 +1,28 @@
 ---
 layout: topic
-title: Defects CFT
+title: Defect CFT
 tags: [2D CFT]
 ---
+## General Reviews
 
-## Original Discussion in RCFT
+There are some general references that reviews different aspects of topological defects.
 
-The Defect Lines in RCFT have been studied in last centry. 
+- [Young Researchers School 2024 Maynooth: Lectures on CFT, BCFT and DCFT](/papers/2024-northe/) is a good lecture note that covers basics of defect CFT.
 
-- [Fusion Rules and Modular Transformations in 2D Conformal Field Theory](/papers/1988-verlinde/) Verlinde Lines in RCFT.
+- [Topological Defects](/papers/2025-carqueville/) is a note covering more stuff and more mathematical approaches. 
 
-- [Generalised Twisted Partition Functions](/papers/2001-petkova/) This paper studied defect lines commute with extended algebra for RCFT.
+
+## Original Discussion
+
+- [Generalised Twisted Partition Functions](/papers/2001-petkova/) This paper initially discussed what is modernly called a topological defect in 2D CFT and the consistency conditions it should satisfy. Sometimes known as the Petkova-Zuber constraints.
+
+- [Fusion Rules and Modular Transformations in 2D Conformal Field Theory](/papers/1988-verlinde/) Verlinde Lines in RCFTs are the most simple examples of solutions to the Petkova-Zuber constraints. Though it was discovered much earlier.
 
 
 ## Defect and Symmetry
 
-In 2 Dimensional Theory, topological defects are strongly related to the symmetry of the theory.
+In 2 Dimensional Theory, topological defects are strongly related to the symmetry of the theory. One can analogue inserting a defect as coupling to a background gauge field of a symmetry.
+
 ### Defect with Duality
 
 
