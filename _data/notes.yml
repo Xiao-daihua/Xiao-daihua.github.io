@@ -104,7 +104,7 @@
 
 - title: "Core Concepts in QFT"
   category: Learning
-  topic: QFT
+  topic: Basic
   language: EN
   featured: true
   repo: Phys_Learning
@@ -170,3 +170,28 @@
   repo: Phys_Learning 
   dir: Topologicalmatter
   description: "Topological phases of matter, a lecture note taken from Prof. Qingrui Wang's course at Tsinghua University."
+
+
+- title: "Cardy Lewellen Sewing Constraints in BCFT"
+  category: Learning
+  topic: 2D CFT
+  language: EN
+  repo: Phys_Learning
+  dir: SewingConstraint
+  description: "Cardy/Lewellen's sewing constraints in 2D CFT with boundary."
+
+- title: "Modular Tensor Categorys and How They Appear in CFT and TQFT?"
+  category: Learning
+  topic: Math
+  language: EN
+  repo: Phys_Learning
+  dir: MTC
+  description: "Modular Tensor Categories with applications to CFT and TQFT."
+
+- title: "How to Gauge a Descrete Symmetry?"
+  category: Learning
+  topic: Symmetry
+  language: EN
+  repo: Phys_Learning
+  dir: Discrete_gauge
+  description: "What is a discrete gauge theory and how to use it to gauge a discrete symmetry?"

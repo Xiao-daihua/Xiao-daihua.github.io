@@ -910,7 +910,7 @@ table, blockquote, pre, code,
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 1px;
 }
 
 .note-row {
@@ -919,14 +919,14 @@ table, blockquote, pre, code,
   align-items: baseline;
   column-gap: 16px;
   row-gap: 4px;
-  padding: 8px 8px;
+  padding: 5px 8px;
   border-radius: 6px;
   transition: background 0.12s ease;
 }
 .note-row:hover {
   background: color-mix(in srgb, var(--accent) 5%, transparent);
 }
-.note-row--rich { padding: 9px 8px; }
+.note-row--rich { padding: 6px 8px; }
 
 .note-row-tags {
   display: inline-flex;
