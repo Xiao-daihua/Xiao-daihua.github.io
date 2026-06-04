@@ -15,6 +15,18 @@ layout: default
       <div class="post-content">
         {{ content }}
 
+        {%- comment -%} ── Connection graph (added above the original list) ── {%- endcomment -%}
+        <div class="graph-toolbar">
+          <input type="text" id="graph-search" placeholder="Find a topic in the graph…" autocomplete="off" />
+          <div id="graph-tag-filters" class="graph-tag-filters"></div>
+        </div>
+        <div id="graph-wrap">
+          <svg id="library-graph" xmlns="http://www.w3.org/2000/svg"></svg>
+        </div>
+        <p class="graph-empty" id="graph-empty">No topics to display yet.</p>
+
+        <h2 class="db-list-heading">Topics List</h2>
+
         <input type="text" id="search-box" placeholder="Search topics, tags, or content…" autocomplete="off" />
         <div class="search-header" id="search-count"></div>
         <div id="search-no-result">No results found.</div>
@@ -69,3 +81,5 @@ window.ALL_TOPICS = [
 </script>
 <script src="{{ '/assets/js/sidebar.js' | relative_url }}"></script>
 <script src="{{ '/assets/js/database-search.js' | relative_url }}"></script>
+{%- include graph-data.html -%}
+<script src="{{ '/assets/js/library-graph.js' | relative_url }}"></script>

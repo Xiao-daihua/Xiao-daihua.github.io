@@ -1513,3 +1513,131 @@ table, blockquote, pre, code,
   font-style: italic;
   line-height: 1.5;
 }
+
+/* ============================================================
+   LIBRARY — Zettelkasten graph view + wikilinks + backlinks
+   (appended block; nodes coloured by primary tag)
+   ============================================================ */
+
+/* --- graph toolbar --- */
+.graph-toolbar { margin: 1.5rem 0 0.75rem; }
+#graph-search {
+  width: 100%;
+  max-width: 360px;
+  padding: 8px 12px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  outline: none;
+}
+#graph-search:focus { border-color: var(--accent); }
+
+.graph-tag-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 0.6rem;
+}
+.graph-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+.graph-chip:hover { color: var(--text); }
+.graph-chip.on { color: var(--text); border-color: var(--accent); background: var(--bg-secondary); }
+.graph-chip-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+
+/* --- graph canvas --- */
+#graph-wrap {
+  width: 100%;
+  margin: 0.5rem 0 1rem;
+  touch-action: none;
+}
+#library-graph {
+  display: block;
+  width: 100%;
+  height: auto;
+  cursor: grab;
+}
+.graph-empty { color: var(--text-muted); font-style: italic; display: none; }
+
+.graph-edge {
+  stroke: var(--border);
+  stroke-width: 1.2;
+  transition: stroke 0.15s, stroke-opacity 0.15s;
+}
+.graph-edge.active { stroke: var(--accent); stroke-width: 1.8; }
+.graph-edge.dim { stroke-opacity: 0.15; }
+
+.graph-node { cursor: pointer; transition: opacity 0.18s; }
+.graph-node circle {
+  stroke: var(--bg);
+  stroke-width: 2;
+  transition: r 0.15s;
+}
+.graph-node:hover circle,
+.graph-node.focus circle { stroke: var(--accent); }
+.graph-node.dim { opacity: 0.2; }
+
+.graph-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  fill: var(--text-muted);
+  text-anchor: middle;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.graph-node:hover .graph-label,
+.graph-node.focus .graph-label { opacity: 1; fill: var(--text); }
+
+/* --- inline wikilinks inside topic body --- */
+.wikilink {
+  color: var(--accent);
+  border-bottom: 1px solid transparent;
+  text-decoration: none;
+}
+.wikilink:hover { border-bottom-color: var(--accent); text-decoration: none; }
+.wikilink::before { content: "↗"; font-size: 0.8em; opacity: 0.6; margin-right: 1px; }
+.wikilink-broken { color: var(--text-light); cursor: help; border-bottom: 1px dotted var(--text-light); }
+
+/* --- backlinks panel (bottom of each topic) --- */
+.backlinks {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+.backlinks-title {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  border: none;
+  margin: 0 0 0.6rem;
+  padding: 0;
+}
+.backlinks ul { list-style: none; padding: 0; margin: 0; }
+.backlinks li { margin: 0.25rem 0; }
+.backlinks li::before { content: "← "; color: var(--text-light); }
+
+/* Library: "All topics" heading above the card list (no lines) */
+.db-list-heading {
+  margin-top: 2.5rem;
+  border-top: none;
+  border-bottom: none;
+  padding-bottom: 0;
+}

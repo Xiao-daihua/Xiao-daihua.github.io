@@ -7,7 +7,7 @@ layout: default
 <div class="page-wrapper">
   {%- include sidebar.html -%}
 
-  <div class="topic-content" id="pageContent">
+  <div class="topic-content" id="pageContent" data-topic-url="{{ page.url | relative_url }}">
     <h1>{{ page.title }}</h1>
     {%- if page.tags -%}
     <div class="topic-tags">
@@ -17,10 +17,19 @@ layout: default
     </div>
     {%- endif -%}
 
-    {{ content }}
+    <div class="topic-body">
+      {{ content }}
+    </div>
+
+    <div id="backlinks" class="backlinks" hidden>
+      <h2 class="backlinks-title">Linked from</h2>
+      <ul id="backlinks-list"></ul>
+    </div>
 
     <a href="javascript:history.back()" class="back-btn">⟵ Back</a>
   </div>
 </div>
 
+{%- include graph-data.html -%}
 <script src="{{ '/assets/js/sidebar.js' | relative_url }}"></script>
+<script src="{{ '/assets/js/topic-links.js' | relative_url }}"></script>

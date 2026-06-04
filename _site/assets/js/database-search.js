@@ -58,11 +58,11 @@
     if (!q) {
       noRes.style.display = 'none';
       countEl.textContent = '';
-      mainList.querySelectorAll('h2').forEach(function (h) { h.style.display = ''; });
-      mainList.querySelectorAll('.topic-grid').forEach(function (g) { g.style.display = ''; });
-      mainList.querySelectorAll('.topic-card').forEach(function (card) {
+      mainList.querySelectorAll('h3.note-group-title').forEach(function (h) { h.style.display = ''; });
+      mainList.querySelectorAll('.note-list').forEach(function (g) { g.style.display = ''; });
+      mainList.querySelectorAll('.note-row').forEach(function (card) {
         card.style.display = '';
-        var titleEl = card.querySelector('.topic-card-title');
+        var titleEl = card.querySelector('.note-row-title');
         if (titleEl && titleEl.dataset.origText) {
           titleEl.innerHTML = escapeHtml(titleEl.dataset.origText);
         }
@@ -86,14 +86,14 @@
     var total = matched.size;
 
     /* Filter the rendered #topic-list in place */
-    var sections = mainList.querySelectorAll('h2');
+    var sections = mainList.querySelectorAll('h3.note-group-title');
     sections.forEach(function (h2) {
       var grid = h2.nextElementSibling;
       if (!grid) return;
       var visible = 0;
-      grid.querySelectorAll('.topic-card').forEach(function (card) {
-        var href = normUrl(card.getAttribute('href'));
-        var titleEl = card.querySelector('.topic-card-title');
+      grid.querySelectorAll('.note-row').forEach(function (card) {
+        var titleEl = card.querySelector('.note-row-title');
+        var href = normUrl(titleEl ? titleEl.getAttribute('href') : '');
         if (matched.has(href)) {
           card.style.display = '';
           if (titleEl) {
