@@ -29,7 +29,7 @@ In 2000s people discovered that topological defects are closely related to duali
 
 ## Defect and Symmetry
 
-Modern understanding of symmetries are generalized and one can use defect lines in Euclidean field theory to characterize these symmetries. For more information please see the topic [Non-Invertible Symmetry](/database/0005noninvsymmetry/).
+Modern understanding of symmetries are generalized and one can use defect lines in Euclidean field theory to characterize these symmetries. For more information please see the topic [[Non-Invertible Symmetry]]. 
 
 ## Bootstrapping Defect Data
 
