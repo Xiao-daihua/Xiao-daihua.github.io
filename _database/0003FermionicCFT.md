@@ -21,3 +21,5 @@ There are also two additional fermionic minimal model found beyond the above pap
 
 
 ## Boundary Conditions
+
+The boundary conditions of the fermionic minimal model are studied in recent papers. For a detailed discussion of boundary CFT see [[Boundary CFT]]. 

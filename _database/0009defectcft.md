@@ -19,6 +19,11 @@ There are some general references that reviews different aspects of topological 
 - [Fusion Rules and Modular Transformations in 2D Conformal Field Theory](/papers/1988-verlinde/) Verlinde Lines in RCFTs are the most simple examples of solutions to the Petkova-Zuber constraints. Though it was discovered much earlier.
 
 
+## Mathematical Characterization
+
+A mathematical characterization of defect data for RCFT is given in the FRS construction, see [[FRS Reconstruction]].
+
+
 ## Defect and Duality
 
 In 2000s people discovered that topological defects are closely related to duality of theories. The most important example is that the Kramers-Wannier duality of the Ising model can be implemented as a topological defect line in the Ising CFT, which is called the duality defect line.
@@ -38,6 +43,7 @@ Modernly, we can use some basic assumptions to characterize defect lines in 2D Q
 - [Topological Defect Lines and Renormalization Group Flows in Two Dimensions](/papers/2019-chang/) bootstraps the data of topological defect lines in 2D CFTs.
 
 - [On Finite Symmetries and Their Gauging in Two Dimensions](/papers/2018-bhardwaj/)  A related paper to this topic 
+
 
 
 ## Lattice Construction
