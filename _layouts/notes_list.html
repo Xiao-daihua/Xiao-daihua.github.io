@@ -115,7 +115,7 @@ layout: default
                 {%- capture pdf_url -%}https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/Xiao-daihua/{{ note.repo }}/main/{{ dir_enc }}/{{ pdf_name }}{%- endcapture -%}
                 {%- capture src_url -%}https://github.com/Xiao-daihua/{{ note.repo }}/tree/main/{{ note.dir }}{%- endcapture -%}
                 {%- assign lang = note.language | default: "EN" -%}
-                {%- assign status = note.status | default: "complete" -%}
+                {%- assign status = note.status | default: "seed" -%}
 
                 <li class="note-row note-row--rich note-card"
                     data-title="{{ note.title | escape }}"
@@ -125,12 +125,12 @@ layout: default
                     data-description="{{ note.description | default: '' | escape }}">
                   <span class="note-row-tags">
                     <span class="note-badge note-badge--lang">{{ lang }}</span>
-                    {%- if status != "complete" -%}
-                    <span class="note-status note-status--{{ status }}" title="{{ status }}"></span>
-                    {%- endif -%}
                   </span>
                   <span class="note-row-body">
-                    <a class="note-row-title note-card-title" href="{{ pdf_url }}" target="_blank" rel="noopener">{{ note.title }}</a>
+                    <span class="note-title-line">
+                      <a class="note-row-title note-card-title" href="{{ pdf_url }}" target="_blank" rel="noopener">{{ note.title }}</a>
+                      <span class="note-status note-status--{{ status }}">{{ status }}</span>
+                    </span>
                     {%- if note.description -%}
                     <span class="note-row-desc">{{ note.description }}</span>
                     {%- endif -%}

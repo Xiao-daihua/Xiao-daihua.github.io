@@ -14,7 +14,11 @@
 #
 # Optional fields:
 #   language    : "EN" (default if omitted) or "ZH"
-#   status      : "complete" (default), "wip", or "draft"
+#   status      : maturity of the note. One of:
+#                   "seed"      — early/sketchy, just started (DEFAULT)
+#                   "growing"   — taking shape, still being filled in
+#                   "evergreen" — stable, you trust it
+#                 Omit it and the note is treated as "seed".
 #   description : 1-3 sentence summary shown on the card
 #   pdf_name    : PDF file name (default "main.pdf")
 #   featured    : true/false. Featured topic chips are shown in the
@@ -83,40 +87,13 @@
 
 # ── Learning notes (independent study) ────────────────────────────
 
-
-- title: "Mathematical Aspects of Gauge Field Theory"
-  category: Learning
-  topic: Math
-  language: EN
-  featured: true
-  repo: Phys_Learning
-  dir: Math_field
-  description: "Foundations of gauge theory: homology, cohomology, fiber bundles, connections, the Index Theorem, and characteristic classes."
-
-- title: "Quantum Hall Effect"
-  category: Learning
-  topic: CMT
-  language: EN
-  featured: true
-  repo: Phys_Learning
-  dir: QHE
-  description: "Integer and fractional quantum Hall effect in one note. Concise dictation of David Tong's lecture notes on the subject."
-
-- title: "Core Concepts in QFT"
-  category: Learning
-  topic: Basic
-  language: EN
-  featured: true
-  repo: Phys_Learning
-  dir: QFT_core
-  description: "Fundamental and concise notes on important concepts in QFT."
-
 - title: "Basic CFT"
   category: Learning
   topic: 2D CFT
   language: EN
   featured: true
   repo: Phys_Learning
+  status: evergreen
   dir: Minimal_CFT
   description: "Concise introduction to 2D CFT following the Yellow Book. A starting point — the bootstrapping construction is more systematic."
 
@@ -126,32 +103,19 @@
   language: EN
   featured: true
   repo: Phys_Learning
+  status: evergreen
   dir: Minimal_BCFT
   description: "Boundary CFT by analogy with ordinary QFT. Useful for building intuition before turning to the bootstrap formulation."
-
-- title: "Crossing of RCFT Conformal Blocks"
-  category: Learning
-  topic: 2D CFT
-  language: EN
-  repo: Phys_Learning
-  dir: RCFT_MS
-  description: "Crossing symmetry of conformal blocks — one of the central features of 2D CFT."
 
 - title: "Boundary States of Majorana CFT"
   category: Learning
   topic: 2D CFT
   language: EN
   repo: Phys_Learning
+  status: evergreen
   dir: MajoranaBCFT
   description: "Boundary states of Majorana CFT — the simplest example of fermionic CFT with boundary."
 
-- title: "Fermionic Virasoro Minimal Models"
-  category: Learning
-  topic: 2D CFT
-  language: EN
-  repo: Phys_Learning
-  dir: Fermionminimal
-  description: "Fermionic Virasoro minimal models, with their boundary structure."
 
 - title: "2+1 Dimensional Gravity and Chern–Simons Theory"
   category: Learning
@@ -159,17 +123,9 @@
   language: EN
   featured: true
   repo: Phys_Learning
+  status: evergreen
   dir: 2+1grav_CS
   description: "2+1d gravity and its relation to Chern–Simons theory; a naive real-polarization quantization in the zero-cosmological-constant case."
-
-# - title: "Topological Phase of Matter"
-#   category: Learning
-#   topic: CMT
-#   language: EN 
-#   featured: true 
-#   repo: Phys_Learning 
-#   dir: Topologicalmatter
-#   description: "Topological phases of matter, a lecture note taken from Prof. Qingrui Wang's course at Tsinghua University."
 
 
 - title: "Cardy Lewellen Sewing Constraints in BCFT"
@@ -177,16 +133,10 @@
   topic: 2D CFT
   language: EN
   repo: Phys_Learning
+  status: evergreen
   dir: SewingConstraint
   description: "Cardy/Lewellen's sewing constraints in 2D CFT with boundary."
 
-- title: "Modular Tensor Categorys and How They Appear in CFT and TQFT"
-  category: Learning
-  topic: Math
-  language: EN
-  repo: Phys_Learning
-  dir: MTC
-  description: "Modular Tensor Categories with applications to CFT and TQFT."
 
 - title: "Gauging of a Discrete Symmetry"
   category: Learning
@@ -194,4 +144,5 @@
   language: EN
   repo: Phys_Learning
   dir: Discrete_gauge
+  status: growing
   description: "What is a discrete gauge theory and how to use it to gauge a discrete symmetry?"

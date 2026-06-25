@@ -1011,14 +1011,24 @@ table, blockquote, pre, code,
   border-color: var(--border);
 }
 
-.note-status {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  flex-shrink: 0;
+.note-title-line {
+  display: inline;
 }
-.note-status--wip   { background: #f59e0b; }
-.note-status--draft { background: #94a3b8; }
+.note-status {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-left: 0.5em;
+  vertical-align: 0.08em;
+  white-space: nowrap;
+}
+.note-status--seed::before      { content: "·· "; }
+.note-status--growing::before   { content: "··· "; }
+.note-status--evergreen::before { content: "•·• "; }
+.note-status--evergreen { color: var(--accent); }
 
 .note-groups {
   display: flex;
