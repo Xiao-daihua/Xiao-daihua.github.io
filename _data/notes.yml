@@ -146,3 +146,12 @@
   dir: Discrete_gauge
   status: growing
   description: "What is a discrete gauge theory and how to use it to gauge a discrete symmetry?"
+
+- title: "Core Concepts in QFT"
+  category: Learning
+  topic: QFT
+  language: EN 
+  repo: Phys_Learning 
+  status: growing 
+  dir: QFT_core 
+  description: "Core concepts in QFT, including renormalization, anomalies, instantons and solitons."
